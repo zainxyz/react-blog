@@ -1,0 +1,38 @@
+{
+  "name": "react-blog",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
+    "react-scripts": "1.0.11"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "description": "A small react blog built using react js, react router, and redux.",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zainxyz/react-blog.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "react",
+    "router",
+    "react",
+    "blog",
+    "blog"
+  ],
+  "author": "Zain Abidi <hello@zainabidi.com> (http://zainabidi.com)",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/zainxyz/react-blog/issues"
+  },
+  "homepage": "https://github.com/zainxyz/react-blog#readme"
+}
