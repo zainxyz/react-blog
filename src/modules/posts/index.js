@@ -1,3 +1,12 @@
+import * as actions from './postsActions';
+import reducer, * as selectors from './postsReducer';
+
+export {
+  actions,
+  reducer,
+  selectors,
+};
+
 /**
  * The authoritative Post entity shape
  * @typedef  {Object}  Post

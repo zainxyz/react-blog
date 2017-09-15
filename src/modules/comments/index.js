@@ -1,3 +1,12 @@
+import * as actions from './commentsActions';
+import reducer, * as selectors from './commentsReducer';
+
+export {
+  actions,
+  reducer,
+  selectors,
+};
+
 /**
  * The authoritative Comment entity shape
  * @typedef  {Object}  Comment
