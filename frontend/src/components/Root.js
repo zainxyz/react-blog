@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import App from 'components/App';
 
-const Root = ({ store, }) => (
+const Root = ({ store }) => (
   <Provider store={store}>
     <BrowserRouter>
       <Route path="/" component={App} />
@@ -14,7 +14,7 @@ const Root = ({ store, }) => (
 );
 
 Root.propTypes = {
-  store: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired
 };
 
 export default Root;

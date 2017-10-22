@@ -1,11 +1,7 @@
-import * as actions from './commentsActions';
-import reducer, * as selectors from './commentsReducer';
+import * as actions from './actions';
+import reducer, * as selectors from './reducer';
 
-export {
-  actions,
-  reducer,
-  selectors,
-};
+export { actions, reducer, selectors };
 
 /**
  * The authoritative Comment entity shape
