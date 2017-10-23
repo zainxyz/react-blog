@@ -1,5 +1,7 @@
 import mapKeys from 'lodash/mapKeys';
 import omit from 'lodash/omit';
+import filter from 'lodash/filter';
+import { createSelector } from 'reselect';
 
 import { POSTS_ACTIONS } from './actions';
 
@@ -43,3 +45,8 @@ const posts = (state = {}, action) => {
 
 // By default we'll be exporting out the reducer
 export default posts;
+
+export const getPosts = state => state.posts;
+
+export const getPostById = postId =>
+  createSelector([getPosts], posts => filter(posts, ['id', postId]));

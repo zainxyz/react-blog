@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectors } from 'modules/categories';
 import { PageTitle } from 'components/common';
+import { generateCategoryTitlePrefixes } from 'utils';
 
 class Categories extends Component {
   isCategoryIDAvailable = () =>
@@ -12,22 +13,28 @@ class Categories extends Component {
 
   renderSubtitle = () => {
     if (this.isCategoryIDAvailable() && this.props.categories) {
-      return this.props.categories[this.props.match.params.categoryId].subtitle;
+      const subtitle = this.props.categories[this.props.match.params.categoryId].subtitle;
+      return subtitle;
     }
     return null;
   };
 
   renderTitle = () => {
-    if (this.isCategoryIDAvailable()) {
-      return `Welcome to Category: '${this.props.match.params.categoryId}'`;
+    if (this.isCategoryIDAvailable() && this.props.categories) {
+      const title = this.props.categories[this.props.match.params.categoryId].title;
+      return `${title}...`;
     }
-    return 'Welcome to Categories...';
+    return 'Category...';
   };
 
   render() {
     return (
       <div>
-        <PageTitle title={this.renderTitle()} subtitle={this.renderSubtitle()} />
+        <PageTitle
+          subtitle={this.renderSubtitle()}
+          title={this.renderTitle()}
+          titlePrefix={generateCategoryTitlePrefixes()}
+        />
       </div>
     );
   }

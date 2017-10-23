@@ -10,10 +10,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { CategoryCard, PageTitle, SectionTitle } from 'components/common';
 import { actions as categoryActions, selectors as categorySelectors } from 'modules/categories';
-import { actions as postsActions } from 'modules/posts';
+import { actions as postsActions, selectors as postsSelectors } from 'modules/posts';
 import { generateKey, generateTagline } from 'utils';
 
-import './Home.css';
+// import './Home.css';
 
 class Home extends Component {
   componentDidMount() {
@@ -33,15 +33,45 @@ class Home extends Component {
     return null;
   };
 
+  renderPosts = () => {
+    const { posts } = this.props;
+
+    if (!isEmpty(posts)) {
+      console.log('renderPosts : ', posts);
+      return map(posts, post => (
+        <Col key={generateKey()}>
+          <h3>
+            {post.title} ({post.voteScore})
+          </h3>
+          <Row>
+            <Col md="6" className="text-left">
+              <small>written by: {post.author}</small>
+            </Col>
+            <Col md="6" className="text-right">
+              <small>({post.commentCount}) comments</small>
+            </Col>
+          </Row>
+          <p>{post.body}</p>
+        </Col>
+      ));
+    }
+
+    return null;
+  };
+
   render() {
-    const { title } = this.props;
+    const { title, titlePrefix } = this.props;
 
     return (
       <div>
-        <PageTitle title={title} subtitle={generateTagline()} />
-        <Container fluid>
+        <PageTitle titlePrefix={titlePrefix} title={title} subtitle={generateTagline()} />
+        <Container fluid className="bg-light">
           <SectionTitle title="Available Categories" />
           <Row>{this.renderCategories()}</Row>
+        </Container>
+        <Container fluid className="bg-dark">
+          <SectionTitle title="Listing All Posts" />
+          <Row>{this.renderPosts()}</Row>
         </Container>
       </div>
     );
@@ -52,16 +82,20 @@ Home.propTypes = {
   categories        : PropTypes.object.isRequired,
   fetchAllCategories: PropTypes.func.isRequired,
   fetchAllPosts     : PropTypes.func.isRequired,
-  title             : PropTypes.string
+  posts             : PropTypes.object.isRequired,
+  title             : PropTypes.string,
+  titlePrefix       : PropTypes.string
 };
 
 Home.defaultProps = {
-  title: 'Welcome Home...'
+  title      : 'React Blog...',
+  titlePrefix: 'This is'
 };
 
 export default connect(
   createStructuredSelector({
-    categories: categorySelectors.getCategories
+    categories: categorySelectors.getCategories,
+    posts     : postsSelectors.getPosts
   }),
   {
     fetchAllCategories: categoryActions.fetchAllCategories,

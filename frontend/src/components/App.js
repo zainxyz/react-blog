@@ -3,10 +3,12 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
+import './App.css';
+
 import { Categories, Home } from './views';
 import { AppNav } from './common';
 
-const Root = ({ brand, store }) => (
+const App = ({ brand, store }) => (
   <Provider store={store}>
     <BrowserRouter>
       <div>
@@ -19,9 +21,9 @@ const Root = ({ brand, store }) => (
   </Provider>
 );
 
-Root.propTypes = {
+App.propTypes = {
   brand: PropTypes.string.isRequired,
   store: PropTypes.object.isRequired
 };
 
-export default Root;
+export default App;

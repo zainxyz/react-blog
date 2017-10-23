@@ -1,7 +1,7 @@
 import uuidV4 from 'uuid/v4';
 import sample from 'lodash/sample';
 
-import { TAGLINES } from './constants';
+import { TAGLINES, CATEGORY_TITLE_PREFIXES } from './constants';
 
 /**
  * Generate a unique ID
@@ -30,3 +30,11 @@ export const generateKey = () => {
  * @return {string}        The randomly generated tagline
  */
 export const generateTagline = () => sample(TAGLINES);
+
+/**
+ * Generate a random category title prefix...
+ *
+ * @method generateCategoryTitlePrefixes
+ * @return {string}                      The randomly generated prefix for a category title
+ */
+export const generateCategoryTitlePrefixes = () => sample(CATEGORY_TITLE_PREFIXES);

@@ -84,3 +84,21 @@ export const TAGLINES = [
   `With a name like React blog, it has to be good.`,
   `You wish you had a React blog.`
 ];
+
+/**
+ * Bunch o' category title prefixes
+ *
+ * @type {Array}
+ */
+export const CATEGORY_TITLE_PREFIXES = [
+  `Change one's mine about`,
+  `Check this one out:`,
+  `Consider again ...`,
+  `I'm cuckoo for`,
+  `Keep an eagle eye on`,
+  `Let's take a look @`,
+  `Saved by`,
+  `Scaning ...`,
+  `See in a new light`,
+  `You don't want to miss reading about`
+];

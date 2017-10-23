@@ -1,3 +1,5 @@
+import forEach from 'lodash/forEach';
+
 /**
  * Import multiple files with the same context
  *
@@ -14,7 +16,7 @@
  */
 export const importAll = r => {
   let images = {};
-  r.keys().map((item, index) => {
+  forEach(r.keys(), item => {
     images[item.replace('./', '')] = r(item);
   });
   return images;
