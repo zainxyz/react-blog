@@ -26,6 +26,10 @@ export const APP_NAVBAR = [
   {
     href: '/categories',
     name: 'Categories'
+  },
+  {
+    href: '/posts',
+    name: 'Posts'
   }
 ];
 
@@ -91,7 +95,7 @@ export const TAGLINES = [
  * @type {Array}
  */
 export const CATEGORY_TITLE_PREFIXES = [
-  `Change one's mine about`,
+  `Change one's mind about`,
   `Check this one out:`,
   `Consider again ...`,
   `I'm cuckoo for`,

@@ -16,7 +16,7 @@ const CategoryCard = ({ buttonText, id, thumbURL, subtitle, title }) => (
       <CardBody>
         <CardTitle>{title}</CardTitle>
         <CardText>{subtitle}</CardText>
-        <Button color="info" tag={NavLink} to={`/categories/${id}`}>
+        <Button color="info" tag={NavLink} to={`/${id}`}>
           {buttonText}
         </Button>
       </CardBody>

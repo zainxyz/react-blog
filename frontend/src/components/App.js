@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import './App.css';
 
-import { Categories, Home } from './views';
+import { Categories, Home, Posts } from './views';
 import { AppNav } from './common';
 
 const App = ({ brand, store }) => (
@@ -14,8 +14,8 @@ const App = ({ brand, store }) => (
       <div>
         <AppNav brand={brand} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/categories" component={Categories} />
-        <Route path="/categories/:categoryId" component={Categories} />
+        <Route exact path="/:categoryId" component={Categories} />
+        <Route exact path="/:categoryId/:postId" component={Posts} />
       </div>
     </BrowserRouter>
   </Provider>

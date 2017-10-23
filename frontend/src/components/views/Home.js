@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
+import { Badge, Button, Col, Row, Container } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Col, Row, Container } from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -37,11 +38,11 @@ class Home extends Component {
     const { posts } = this.props;
 
     if (!isEmpty(posts)) {
-      console.log('renderPosts : ', posts);
+      console.log('posts : ', posts);
       return map(posts, post => (
         <Col key={generateKey()}>
           <h3>
-            {post.title} ({post.voteScore})
+            {post.title} <Badge color="info">{post.voteScore}</Badge>
           </h3>
           <Row>
             <Col md="6" className="text-left">
@@ -52,6 +53,9 @@ class Home extends Component {
             </Col>
           </Row>
           <p>{post.body}</p>
+          <Button color="info" tag={NavLink} to={`/${post.category}/${post.id}`}>
+            View Post
+          </Button>
         </Col>
       ));
     }

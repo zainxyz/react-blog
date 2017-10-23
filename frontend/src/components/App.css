@@ -1,12 +1,14 @@
 /* NOTE: !important is used to overwrite bootstrap imported styles */
 
 /* Making the container match the jumbotron in spacing */
-.container-fluid {
+.container-fluid,
+.container {
   padding: 3rem 2rem !important;
 }
 
 /* Overwriting the 'bg-dark' for container background purposes */
-.container-fluid.bg-dark {
+.container-fluid.bg-dark,
+.container.bg-dark {
   background-color: #e9ecef !important;
 }
 

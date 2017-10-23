@@ -13,7 +13,10 @@ class Categories extends Component {
 
   renderSubtitle = () => {
     if (this.isCategoryIDAvailable() && this.props.categories) {
-      const subtitle = this.props.categories[this.props.match.params.categoryId].subtitle;
+      console.log('this.props', this.props);
+      const subtitle = this.props.categories[this.props.match.params.categoryId]
+        ? this.props.categories[this.props.match.params.categoryId].subtitle
+        : '';
       return subtitle;
     }
     return null;
@@ -21,7 +24,9 @@ class Categories extends Component {
 
   renderTitle = () => {
     if (this.isCategoryIDAvailable() && this.props.categories) {
-      const title = this.props.categories[this.props.match.params.categoryId].title;
+      const title = this.props.categories[this.props.match.params.categoryId]
+        ? this.props.categories[this.props.match.params.categoryId].title
+        : '';
       return `${title}...`;
     }
     return 'Category...';
