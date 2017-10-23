@@ -14,6 +14,22 @@ export const APP_NAMESPACE = `8a675a23-087c-4031-ba54-20c56da119a2`;
 export const API_BASE_URL = 'http://localhost:3001';
 
 /**
+ * The Application Navbar
+ *
+ * @type {Array}
+ */
+export const APP_NAVBAR = [
+  {
+    href: '/',
+    name: 'Home'
+  },
+  {
+    href: '/categories',
+    name: 'Categories'
+  }
+];
+
+/**
  * Success Suffix for the Axios Redux Actions
  *
  * @type {string}
@@ -47,3 +63,24 @@ export const CATEGORY_URL = '/categories';
  * @type {String}
  */
 export const COMMENT_URL = '/comments';
+
+/**
+ * Bunch o' taglines...
+ *
+ * @type {Array}
+ */
+export const TAGLINES = [
+  `8 out of 10 owners who expressed a preference, said their cats preferred React blog.`,
+  `Don't mess with react blog.`,
+  `I trust React blog.`,
+  `Lipsmackin' Thirstquenchin' Acetastin' Motivatin' Goodbuzzin' Cooltalkin' Highwalkin' Fastlivin' Evergivin' Coolfizzin' React Bloggin'`,
+  `Obey your React blog.`,
+  `Once blogging, forever a React blogger.`,
+  `Ooh la la, React blog.`,
+  `React blog - Think different.`,
+  `React blog ... forget the rest.`,
+  `The Gods made React blog.`,
+  `The Incredible, Editable React blog.`,
+  `With a name like React blog, it has to be good.`,
+  `You wish you had a React blog.`
+];

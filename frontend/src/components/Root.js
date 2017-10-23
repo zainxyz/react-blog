@@ -3,17 +3,24 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import App from 'components/App';
+import { Categories, Home } from './views';
+import { AppNav } from './common';
 
-const Root = ({ store }) => (
+const Root = ({ brand, store }) => (
   <Provider store={store}>
     <BrowserRouter>
-      <Route path="/" component={App} />
+      <div>
+        <AppNav brand={brand} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/categories" component={Categories} />
+        <Route path="/categories/:categoryId" component={Categories} />
+      </div>
     </BrowserRouter>
   </Provider>
 );
 
 Root.propTypes = {
+  brand: PropTypes.string.isRequired,
   store: PropTypes.object.isRequired
 };
 
