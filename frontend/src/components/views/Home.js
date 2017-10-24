@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { CategoryCard, PageTitle, SectionTitle } from 'components/common';
 import { selectors as categorySelectors } from 'modules/categories';
 import { actions as postsActions, selectors as postsSelectors } from 'modules/posts';
-import { generateKey, generateTagline } from 'utils';
+import { generateKey, generateTagline, getCommentCount } from 'utils';
 
 // import './Home.css';
 
@@ -56,7 +56,7 @@ class Home extends Component {
               <small>written by: {post.author}</small>
             </Col>
             <Col md="6" className="text-right">
-              <small>({post.commentCount}) comments</small>
+              <small>{getCommentCount(post.commentCount)}</small>
             </Col>
           </Row>
           <p>{post.body}</p>

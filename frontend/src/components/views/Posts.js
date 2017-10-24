@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Col, Container } from 'reactstrap';
+import map from 'lodash/map';
+import { Col, Container, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import { PostTitle } from 'components/common';
 import { selectors as postsSelectors } from 'modules/posts';
-import { actions as commentsActions } from 'modules/comments';
+import { actions as commentsActions, selectors as commentsSelectors } from 'modules/comments';
+import { formatDateWithTime, generateKey, getCommentCount } from 'utils';
 
 class Posts extends Component {
   componentDidMount() {
@@ -20,24 +22,46 @@ class Posts extends Component {
     title       : this.props.post.title
   });
 
-  renderSubtitle = () => (this.props.post.subtitle ? this.props.post.subtitle : null);
+  getBodyText = () => (this.props.post.body ? this.props.post.body : null);
 
-  renderTitle = () => (this.props.post.title ? this.props.post.title : null);
-
-  renderBody = () => (this.props.post.body ? this.props.post.body : null);
+  renderComments = () => {
+    return map(this.props.comments, comment => (
+      <div key={generateKey()}>
+        <p className="font-weight-bold">{comment.author}</p>
+        <small>{formatDateWithTime(comment.timestamp)}</small>
+        <p className="lead">{comment.body}</p>
+      </div>
+    ));
+  };
 
   render() {
     return (
       <div>
         <PostTitle {...this.getPostTitleProps()} />
-        <Container>
+        <Container className="post-body">
           <Col>
-            <p>{this.renderBody()}</p>
+            <p>{this.getBodyText()}</p>
           </Col>
         </Container>
-        <Container fluid className="border border-secondary border-bottom-0 border-left-0 border-right-0">
+        <Container className="post-comments-container">
+          <Row>
+            <Col>
+              <h5 className="text-center font-italic font-weight-light">Join the discussion</h5>
+              <h2 className="display-4 text-center font-weight-bold">
+                {getCommentCount(this.props.post.commentCount)}
+              </h2>
+            </Col>
+          </Row>
+          <Row>
+            <Col>{this.renderComments()}</Col>
+          </Row>
+        </Container>
+        <Container
+          fluid
+          className="post-replies border border-secondary border-bottom-0 border-left-0 border-right-0"
+        >
           <Col>
-            <h3 className="display-4 text-center">Leave A Reply</h3>
+            <h3 className="display-5 text-center">Leave A Reply</h3>
           </Col>
         </Container>
       </div>
@@ -46,13 +70,17 @@ class Posts extends Component {
 }
 
 Posts.propTypes = {
-  post: PropTypes.object.isRequired
+  post    : PropTypes.object.isRequired,
+  comments: PropTypes.object
 };
 
-Posts.defaultProps = {};
+Posts.defaultProps = {
+  comments: {}
+};
 
 const mapStateToProps = (state, props) => ({
-  post: postsSelectors.getPostById(state, props.match.params.postId)
+  post    : postsSelectors.getPostById(state, props.match.params.postId),
+  comments: commentsSelectors.getCommentsForPostId(state, props.match.params.postId)
 });
 
 export default connect(mapStateToProps, {

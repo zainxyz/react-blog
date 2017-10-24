@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import { Button, Jumbotron } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
-import { formatDate } from 'utils';
+import { formatDate, getCommentCount } from 'utils';
 
 /**
  * Class for building the post title
@@ -25,12 +25,9 @@ class PostTitle extends Component {
       <span className="px-2 border-secondary">{formatDate(this.props.timestamp)}</span>
     ) : null;
 
-  getCommentCount = () =>
-    this.props.commentCount ? (
-      <span className="px-2 border-secondary">{this.props.commentCount} Comment(s)</span>
-    ) : (
-      <span className="px-2 border-secondary">0 Comments</span>
-    );
+  getCommentCount = () => (
+    <span className="px-2 border-secondary">{getCommentCount(this.props.commentCount)}</span>
+  );
 
   renderCategoryButtons = () =>
     this.props.category ? (

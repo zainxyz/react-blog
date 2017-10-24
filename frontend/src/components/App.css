@@ -1,5 +1,12 @@
 /* NOTE: !important is used to overwrite bootstrap imported styles */
 
+/* Adding .display-5 to the Bootstrap display line-up */
+.display-5 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
 /* Making the container match the jumbotron in spacing */
 .container-fluid,
 .container {

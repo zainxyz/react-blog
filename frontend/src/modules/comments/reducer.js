@@ -1,5 +1,6 @@
 import mapKeys from 'lodash/mapKeys';
 import omit from 'lodash/omit';
+import pickBy from 'lodash/pickBy';
 
 import { COMMENTS_ACTIONS } from './actions';
 
@@ -42,3 +43,8 @@ const comments = (state = {}, action) => {
 
 // By default we'll be exporting out the reducer
 export default comments;
+
+export const getAllComments = state => state.comments;
+
+export const getCommentsForPostId = (state, postId) =>
+  pickBy(state.comments, item => item.parentId === postId);
