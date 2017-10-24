@@ -106,3 +106,12 @@ export const CATEGORY_TITLE_PREFIXES = [
   `See in a new light`,
   `You don't want to miss reading about`
 ];
+
+/**
+ * Date format... i.e. Monday, October 23, 2017
+ *
+ * @type {String}
+ */
+export const DATE_FORMAT = 'dddd, MMMM DD, YYYY';
+
+export const TIME_FORMAT = 'h:mm a';

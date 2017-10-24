@@ -10,18 +10,13 @@ import { createStructuredSelector } from 'reselect';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { CategoryCard, PageTitle, SectionTitle } from 'components/common';
-import { actions as categoryActions, selectors as categorySelectors } from 'modules/categories';
+import { selectors as categorySelectors } from 'modules/categories';
 import { actions as postsActions, selectors as postsSelectors } from 'modules/posts';
 import { generateKey, generateTagline } from 'utils';
 
 // import './Home.css';
 
 class Home extends Component {
-  componentDidMount() {
-    this.props.fetchAllPosts();
-    this.props.fetchAllCategories();
-  }
-
   renderCategories = () => {
     const { categories } = this.props;
     if (!isEmpty(categories)) {
@@ -38,11 +33,23 @@ class Home extends Component {
     const { posts } = this.props;
 
     if (!isEmpty(posts)) {
-      console.log('posts : ', posts);
       return map(posts, post => (
         <Col key={generateKey()}>
           <h3>
-            {post.title} <Badge color="info">{post.voteScore}</Badge>
+            {post.title} <Badge color="info">{post.voteScore}</Badge>{' '}
+            <a
+              onClick={() => this.props.voteOnPost({ id: post.id, option: 'upVote' })}
+              role="button"
+            >
+              <small>upVote</small>
+            </a>{' '}
+            |{' '}
+            <a
+              onClick={() => this.props.voteOnPost({ id: post.id, option: 'downVote' })}
+              role="button"
+            >
+              <small>downVote</small>
+            </a>
           </h3>
           <Row>
             <Col md="6" className="text-left">
@@ -83,12 +90,11 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  categories        : PropTypes.object.isRequired,
-  fetchAllCategories: PropTypes.func.isRequired,
-  fetchAllPosts     : PropTypes.func.isRequired,
-  posts             : PropTypes.object.isRequired,
-  title             : PropTypes.string,
-  titlePrefix       : PropTypes.string
+  categories : PropTypes.object.isRequired,
+  posts      : PropTypes.object.isRequired,
+  title      : PropTypes.string,
+  titlePrefix: PropTypes.string,
+  voteOnPost : PropTypes.func.isRequired
 };
 
 Home.defaultProps = {
@@ -102,7 +108,6 @@ export default connect(
     posts     : postsSelectors.getPosts
   }),
   {
-    fetchAllCategories: categoryActions.fetchAllCategories,
-    fetchAllPosts     : postsActions.fetchAllPosts
+    voteOnPost: postsActions.voteOnPost
   }
 )(Home);

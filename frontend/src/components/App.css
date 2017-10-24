@@ -13,11 +13,23 @@
 }
 
 /* Styles for the page title */
-.page-title {
+.page-title,
+.posts-title {
   margin-bottom: 0 !important;
 }
 .page-title .blockquote-footer.lead {
   font-size: 1.25rem;
+}
+
+/* Styles for the posts title */
+.posts-title p {
+  font-weight: 600;
+}
+.posts-title p span {
+  border-left: 1px solid transparent;
+}
+.posts-title p span:first-of-type {
+  border-left-color: transparent !important;
 }
 
 /* Styles for the section title */

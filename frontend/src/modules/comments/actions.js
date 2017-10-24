@@ -28,7 +28,7 @@ export const fetchCommentsByPost = postId => ({
   payload: {
     request: {
       method: 'get',
-      url   : `${POST_URL}/${postId}/${COMMENT_URL}`
+      url   : `${POST_URL}/${postId}${COMMENT_URL}`
     }
   }
 });

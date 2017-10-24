@@ -13,7 +13,7 @@ class PageTitle extends Component {
     const { subtitle } = this.props;
 
     if (!isEmpty(subtitle)) {
-      return <footer className="blockquote-footer lead">{subtitle}</footer>;
+      return <footer className="blockquote-footer lead text-center">{subtitle}</footer>;
     }
 
     return null;
@@ -44,7 +44,7 @@ class PageTitle extends Component {
   render() {
     return (
       <Jumbotron className="page-title">
-        <h1 className="display-4">
+        <h1 className="display-4 text-center">
           {this.renderTitlePrefix()}
           {this.renderTitle()}
         </h1>

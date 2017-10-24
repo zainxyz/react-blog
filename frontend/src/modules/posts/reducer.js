@@ -1,7 +1,5 @@
 import mapKeys from 'lodash/mapKeys';
 import omit from 'lodash/omit';
-import filter from 'lodash/filter';
-import { createSelector } from 'reselect';
 
 import { POSTS_ACTIONS } from './actions';
 
@@ -48,5 +46,4 @@ export default posts;
 
 export const getPosts = state => state.posts;
 
-export const getPostById = postId =>
-  createSelector([getPosts], posts => filter(posts, ['id', postId]));
+export const getPostById = (state, postId) => state.posts && state.posts[postId];

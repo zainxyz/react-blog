@@ -2,53 +2,42 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Col, Container } from 'reactstrap';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
-import { PageTitle } from 'components/common';
-import { selectors } from 'modules/posts';
+import { PostTitle } from 'components/common';
+import { selectors as postsSelectors } from 'modules/posts';
+import { actions as commentsActions } from 'modules/comments';
 
 class Posts extends Component {
-  isPostIDAvailable = () =>
-    this.props.match && this.props.match.params && this.props.match.params.postId;
+  componentDidMount() {
+    this.props.fetchAllComments(this.props.post.id);
+  }
 
-  renderSubtitle = () => {
-    if (this.isPostIDAvailable() && this.props.posts) {
-      console.log('this.props', this.props);
-      const subtitle = this.props.posts[this.props.match.params.postId]
-        ? this.props.posts[this.props.match.params.postId].subtitle
-        : '';
-      return subtitle;
-    }
-    return null;
-  };
+  getPostTitleProps = () => ({
+    author      : this.props.post.author,
+    category    : this.props.post.category,
+    commentCount: this.props.post.commentCount,
+    timestamp   : this.props.post.timestamp,
+    title       : this.props.post.title
+  });
 
-  renderTitle = () => {
-    if (this.isPostIDAvailable() && this.props.posts) {
-      const title = this.props.posts[this.props.match.params.postId]
-        ? this.props.posts[this.props.match.params.postId].title
-        : '';
-      return `${title}...`;
-    }
-    return 'Post...';
-  };
+  renderSubtitle = () => (this.props.post.subtitle ? this.props.post.subtitle : null);
 
-  renderBody = () => {
-    if (this.isPostIDAvailable() && this.props.posts) {
-      const body = this.props.posts[this.props.match.params.postId]
-        ? this.props.posts[this.props.match.params.postId].body
-        : '';
-      return body;
-    }
-    return null;
-  };
+  renderTitle = () => (this.props.post.title ? this.props.post.title : null);
+
+  renderBody = () => (this.props.post.body ? this.props.post.body : null);
 
   render() {
     return (
       <div>
-        <PageTitle subtitle={this.renderSubtitle()} title={this.renderTitle()} />
+        <PostTitle {...this.getPostTitleProps()} />
         <Container>
           <Col>
             <p>{this.renderBody()}</p>
+          </Col>
+        </Container>
+        <Container fluid className="border border-secondary border-bottom-0 border-left-0 border-right-0">
+          <Col>
+            <h3 className="display-4 text-center">Leave A Reply</h3>
           </Col>
         </Container>
       </div>
@@ -57,14 +46,15 @@ class Posts extends Component {
 }
 
 Posts.propTypes = {
-  posts: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired
 };
 
 Posts.defaultProps = {};
 
-export default connect(
-  createStructuredSelector({
-    posts: selectors.getPosts
-  })
-)(Posts);
+const mapStateToProps = (state, props) => ({
+  post: postsSelectors.getPostById(state, props.match.params.postId)
+});
+
+export default connect(mapStateToProps, {
+  fetchAllComments: commentsActions.fetchCommentsByPost
+})(Posts);
