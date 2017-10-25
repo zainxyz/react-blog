@@ -114,4 +114,16 @@ export const CATEGORY_TITLE_PREFIXES = [
  */
 export const DATE_FORMAT = 'dddd, MMMM DD, YYYY';
 
+/**
+ * Time format... i.e. 3:32 am
+ *
+ * @type {String}
+ */
 export const TIME_FORMAT = 'h:mm a';
+
+/**
+ * Deault DOM-Purify Config...
+ *
+ * @type {Object}
+ */
+export const DOM_PURIFY_DEFAULT_CONFIG = {};

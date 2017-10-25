@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { PostTitle } from 'components/common';
 import { selectors as postsSelectors } from 'modules/posts';
 import { actions as commentsActions, selectors as commentsSelectors } from 'modules/comments';
-import { formatDateWithTime, generateKey, getCommentCount } from 'utils';
+import { formatDateWithTime, generateKey, getCommentCount, sanitizeMarkup } from 'utils';
 
 class Posts extends Component {
   componentDidMount() {
@@ -40,7 +40,7 @@ class Posts extends Component {
         <PostTitle {...this.getPostTitleProps()} />
         <Container className="post-body">
           <Col>
-            <p>{this.getBodyText()}</p>
+            <div dangerouslySetInnerHTML={sanitizeMarkup(this.getBodyText())} />
           </Col>
         </Container>
         <Container className="post-comments-container">
