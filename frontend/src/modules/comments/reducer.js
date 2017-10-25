@@ -1,6 +1,7 @@
 import mapKeys from 'lodash/mapKeys';
 import omit from 'lodash/omit';
 import pickBy from 'lodash/pickBy';
+import { createSelector } from 'reselect';
 
 import { COMMENTS_ACTIONS } from './actions';
 
@@ -48,3 +49,8 @@ export const getAllComments = state => state.comments;
 
 export const getCommentsForPostId = (state, postId) =>
   pickBy(state.comments, item => item.parentId === postId);
+
+export const getCommentCountForPostId = createSelector(
+  [getCommentsForPostId],
+  comments => Object.keys(comments).length
+);

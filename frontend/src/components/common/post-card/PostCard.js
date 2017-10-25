@@ -18,6 +18,7 @@ import {
 
 import { actions as postsActions } from 'modules/posts';
 import { getCommentCount } from 'utils';
+import { selectors as commentsSelectors } from 'modules/comments';
 
 const renderPostExcerpt = excerpt => (
   <Truncate lines={2} ellipsis={<span>...</span>}>
@@ -27,6 +28,7 @@ const renderPostExcerpt = excerpt => (
 
 const PostCard = ({
   author,
+  activeCommentCount,
   category,
   commentCount,
   excerpt,
@@ -54,13 +56,11 @@ const PostCard = ({
             <small>written by: {author}</small>
           </Col>
           <Col md="6" className="text-right">
-            <small>{getCommentCount(commentCount)}</small>
+            <small>{getCommentCount(activeCommentCount)}</small>
           </Col>
         </Row>
       </CardSubtitle>
-      <CardText>
-        <div>{renderPostExcerpt(excerpt)}</div>
-      </CardText>
+      <CardText>{renderPostExcerpt(excerpt)}</CardText>
       <Button color="info" tag={NavLink} to={`/${category}/${id}`}>
         View Post
       </Button>
@@ -69,20 +69,25 @@ const PostCard = ({
 );
 
 PostCard.propTypes = {
-  author      : PropTypes.string.isRequired,
-  category    : PropTypes.string.isRequired,
-  commentCount: PropTypes.number.isRequired,
-  excerpt     : PropTypes.string,
-  id          : PropTypes.string.isRequired,
-  title       : PropTypes.string.isRequired,
-  voteOnPost  : PropTypes.func.isRequired,
-  voteScore   : PropTypes.number.isRequired
+  author            : PropTypes.string.isRequired,
+  activeCommentCount: PropTypes.number.isRequired,
+  category          : PropTypes.string.isRequired,
+  commentCount      : PropTypes.number.isRequired,
+  excerpt           : PropTypes.string,
+  id                : PropTypes.string.isRequired,
+  title             : PropTypes.string.isRequired,
+  voteOnPost        : PropTypes.func.isRequired,
+  voteScore         : PropTypes.number.isRequired
 };
 
 PostCard.defaultProps = {
   excerpt: ''
 };
 
-export default connect(null, {
+const mapStateToProps = (state, props) => ({
+  activeCommentCount: commentsSelectors.getCommentCountForPostId(state, props.id)
+});
+
+export default connect(mapStateToProps, {
   voteOnPost: postsActions.voteOnPost
 })(PostCard);

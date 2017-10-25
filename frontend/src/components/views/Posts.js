@@ -4,7 +4,7 @@ import map from 'lodash/map';
 import { Col, Container, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import { PostTitle } from 'components/common';
+import { CommentReplyForm, PostTitle } from 'components/common';
 import { selectors as postsSelectors } from 'modules/posts';
 import { actions as commentsActions, selectors as commentsSelectors } from 'modules/comments';
 import { formatDateWithTime, generateKey, getCommentCount, sanitizeMarkup } from 'utils';
@@ -14,15 +14,23 @@ class Posts extends Component {
     this.props.fetchAllComments(this.props.post.id);
   }
 
+  onSubmit = ({ author, body }) => {
+    this.props.addComment({
+      author,
+      body,
+      parentId: this.props.post.id
+    });
+  };
+
+  getBodyText = () => (this.props.post.body ? this.props.post.body : null);
+
   getPostTitleProps = () => ({
     author      : this.props.post.author,
     category    : this.props.post.category,
-    commentCount: this.props.post.commentCount,
+    commentCount: this.props.commentCount,
     timestamp   : this.props.post.timestamp,
     title       : this.props.post.title
   });
-
-  getBodyText = () => (this.props.post.body ? this.props.post.body : null);
 
   renderComments = () => {
     return map(this.props.comments, comment => (
@@ -48,7 +56,7 @@ class Posts extends Component {
             <Col>
               <h5 className="text-center font-italic font-weight-light">Join the discussion</h5>
               <h2 className="display-4 text-center font-weight-bold">
-                {getCommentCount(this.props.post.commentCount)}
+                {getCommentCount(this.props.commentCount)}
               </h2>
             </Col>
           </Row>
@@ -62,6 +70,7 @@ class Posts extends Component {
         >
           <Col>
             <h3 className="display-5 text-center">Leave A Reply</h3>
+            <CommentReplyForm onSubmit={this.onSubmit} />
           </Col>
         </Container>
       </div>
@@ -70,8 +79,11 @@ class Posts extends Component {
 }
 
 Posts.propTypes = {
-  post    : PropTypes.object.isRequired,
-  comments: PropTypes.object
+  addComment      : PropTypes.func.isRequired,
+  commentCount    : PropTypes.number.isRequired,
+  comments        : PropTypes.object,
+  fetchAllComments: PropTypes.func.isRequired,
+  post            : PropTypes.object.isRequired
 };
 
 Posts.defaultProps = {
@@ -79,10 +91,12 @@ Posts.defaultProps = {
 };
 
 const mapStateToProps = (state, props) => ({
-  post    : postsSelectors.getPostById(state, props.match.params.postId),
-  comments: commentsSelectors.getCommentsForPostId(state, props.match.params.postId)
+  post        : postsSelectors.getPostById(state, props.match.params.postId),
+  comments    : commentsSelectors.getCommentsForPostId(state, props.match.params.postId),
+  commentCount: commentsSelectors.getCommentCountForPostId(state, props.match.params.postId)
 });
 
 export default connect(mapStateToProps, {
-  fetchAllComments: commentsActions.fetchCommentsByPost
+  fetchAllComments: commentsActions.fetchCommentsByPost,
+  addComment      : commentsActions.addComment
 })(Posts);

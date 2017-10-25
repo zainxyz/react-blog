@@ -127,3 +127,13 @@ export const TIME_FORMAT = 'h:mm a';
  * @type {Object}
  */
 export const DOM_PURIFY_DEFAULT_CONFIG = {};
+
+/**
+ * RegEx Patterns
+ *
+ * @type {Object}
+ */
+export const REGEX_PATTERNS = {
+  // Matches any character that is not one of the 26 alphabets
+  LETTERS: /[^a-zA-Z]+/g
+};

@@ -3,6 +3,7 @@ export * from './axios';
 export * from './comments';
 export * from './constants';
 export * from './date';
+export * from './form';
 export * from './generate';
 export * from './import';
 export * from './sanitize';
