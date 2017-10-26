@@ -4,8 +4,8 @@
   "description": "A small react blog built using react js, react router, and redux.",
   "main": "frontend/src/index.js",
   "scripts": {
-    "run-server": "cd api-server & npm start",
-    "run-app": "cd frontend & npm start",
+    "run-server": "cd api-server && npm start",
+    "run-app": "cd frontend && npm start",
     "start": "run-p run-server run-app"
   },
   "repository": {
