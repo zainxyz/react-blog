@@ -1,5 +1,7 @@
+import isEmpty from 'lodash/isEmpty';
 import mapKeys from 'lodash/mapKeys';
 import omit from 'lodash/omit';
+import pickBy from 'lodash/pickBy';
 
 import { POSTS_ACTIONS } from './actions';
 
@@ -28,6 +30,7 @@ const posts = (state = {}, action) => {
     // our newly created state. 'mapKeys' to the rescue
     return mapKeys(action.payload.data, 'id');
   case POSTS_ACTIONS.FETCH_POSTS_BY_CATEGORY_SUCCESS:
+  case POSTS_ACTIONS.FETCH_POST:
     return {
       ...state,
       ...mapKeys(action.payload.data, 'id')
@@ -47,3 +50,10 @@ export default posts;
 export const getPosts = state => state.posts;
 
 export const getPostById = (state, postId) => state.posts && state.posts[postId];
+
+export const getPostsByCategoryId = (state, categoryId) =>
+  state.posts &&
+  pickBy(
+    state.posts,
+    post => (!isEmpty(categoryId) ? post.category === categoryId.toLowerCase() : {})
+  );

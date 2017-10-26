@@ -4,25 +4,47 @@ import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 import { Col, Container, Row } from 'reactstrap';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
 import { PostCard, SectionTitle } from 'components/common';
 import { generateKey } from 'utils';
-import { selectors as postsSelectors } from 'modules/posts';
+import { actions as postsActions, selectors as postsSelectors } from 'modules/posts';
 
 class PostsList extends Component {
-  renderPosts = () => {
-    const { posts } = this.props;
+  componentDidMount() {
+    const { showPostsForCategory } = this.props;
 
-    if (!isEmpty(posts)) {
-      return map(posts, post => (
+    if (isEmpty(showPostsForCategory)) {
+      this.props.fetchAllPosts();
+    } else {
+      this.props.fetchPostsByCategory(showPostsForCategory.toLowerCase());
+    }
+  }
+
+  getSectionTitle = () =>
+    !isEmpty(this.props.showPostsForCategory)
+      ? `Listing all posts for ${this.props.showPostsForCategory}`
+      : 'Listing All Posts';
+
+  renderPosts = () => {
+    const { posts, postsByCategory, showPostsForCategory } = this.props;
+
+    const postsList = !isEmpty(showPostsForCategory) ? postsByCategory : posts;
+
+    if (!isEmpty(postsList)) {
+      return map(postsList, post => (
         <Col sm="2" key={generateKey()}>
           <PostCard {...post} buttonText="View Post" />
         </Col>
       ));
     }
 
-    return null;
+    return (
+      <Col>
+        <p className="lead">
+          Sorry, <span className="font-weight-bold">{showPostsForCategory}</span> does not have any posts associated with it.
+        </p>
+      </Col>
+    );
   };
 
   render() {
@@ -30,7 +52,7 @@ class PostsList extends Component {
 
     return (
       <Container fluid className={className}>
-        <SectionTitle title="Listing All Posts" />
+        <SectionTitle title={this.getSectionTitle()} />
         <Row>{this.renderPosts()}</Row>
       </Container>
     );
@@ -38,16 +60,26 @@ class PostsList extends Component {
 }
 
 PostsList.propTypes = {
-  className: PropTypes.string,
-  posts    : PropTypes.object.isRequired
+  className           : PropTypes.string,
+  fetchAllPosts       : PropTypes.func.isRequired,
+  fetchPostsByCategory: PropTypes.func.isRequired,
+  posts               : PropTypes.object.isRequired,
+  postsByCategory     : PropTypes.object,
+  showPostsForCategory: PropTypes.string
 };
 
 PostsList.defaultProps = {
-  className: 'bg-light'
+  className           : 'bg-light',
+  postsByCategory     : {},
+  showPostsForCategory: ''
 };
 
-export default connect(
-  createStructuredSelector({
-    posts: postsSelectors.getPosts
-  })
-)(PostsList);
+const mapStateToProps = (state, props) => ({
+  posts          : postsSelectors.getPosts(state),
+  postsByCategory: postsSelectors.getPostsByCategoryId(state, props.showPostsForCategory)
+});
+
+export default connect(mapStateToProps, {
+  fetchAllPosts       : postsActions.fetchAllPosts,
+  fetchPostsByCategory: postsActions.fetchPostsByCategory
+})(PostsList);

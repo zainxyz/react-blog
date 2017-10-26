@@ -18,7 +18,6 @@ import {
 
 import { actions as postsActions } from 'modules/posts';
 import { getCommentCount } from 'utils';
-import { selectors as commentsSelectors } from 'modules/comments';
 
 const renderPostExcerpt = excerpt => (
   <Truncate lines={2} ellipsis={<span>...</span>}>
@@ -28,7 +27,6 @@ const renderPostExcerpt = excerpt => (
 
 const PostCard = ({
   author,
-  activeCommentCount,
   category,
   commentCount,
   excerpt,
@@ -56,7 +54,7 @@ const PostCard = ({
             <small>written by: {author}</small>
           </Col>
           <Col md="6" className="text-right">
-            <small>{getCommentCount(activeCommentCount)}</small>
+            <small>{getCommentCount(commentCount)}</small>
           </Col>
         </Row>
       </CardSubtitle>
@@ -69,25 +67,20 @@ const PostCard = ({
 );
 
 PostCard.propTypes = {
-  author            : PropTypes.string.isRequired,
-  activeCommentCount: PropTypes.number.isRequired,
-  category          : PropTypes.string.isRequired,
-  commentCount      : PropTypes.number.isRequired,
-  excerpt           : PropTypes.string,
-  id                : PropTypes.string.isRequired,
-  title             : PropTypes.string.isRequired,
-  voteOnPost        : PropTypes.func.isRequired,
-  voteScore         : PropTypes.number.isRequired
+  author      : PropTypes.string.isRequired,
+  category    : PropTypes.string.isRequired,
+  commentCount: PropTypes.number.isRequired,
+  excerpt     : PropTypes.string,
+  id          : PropTypes.string.isRequired,
+  title       : PropTypes.string.isRequired,
+  voteOnPost  : PropTypes.func.isRequired,
+  voteScore   : PropTypes.number.isRequired
 };
 
 PostCard.defaultProps = {
   excerpt: ''
 };
 
-const mapStateToProps = (state, props) => ({
-  activeCommentCount: commentsSelectors.getCommentCountForPostId(state, props.id)
-});
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   voteOnPost: postsActions.voteOnPost
 })(PostCard);

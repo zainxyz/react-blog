@@ -8,9 +8,13 @@ import { createStructuredSelector } from 'reselect';
 
 import { CategoryCard, SectionTitle } from 'components/common';
 import { generateKey } from 'utils';
-import { selectors as categorySelectors } from 'modules/categories';
+import { actions as categoryActions, selectors as categorySelectors } from 'modules/categories';
 
 class CategoriesList extends Component {
+  componentDidMount() {
+    this.props.fetchAllCategories();
+  }
+
   renderCategories = () => {
     const { categoriesList } = this.props;
     if (!isEmpty(categoriesList)) {
@@ -36,8 +40,9 @@ class CategoriesList extends Component {
 }
 
 CategoriesList.propTypes = {
-  className     : PropTypes.string,
-  categoriesList: PropTypes.object.isRequired
+  categoriesList    : PropTypes.object.isRequired,
+  className         : PropTypes.string,
+  fetchAllCategories: PropTypes.func.isRequired
 };
 
 CategoriesList.defaultProps = {
@@ -47,5 +52,8 @@ CategoriesList.defaultProps = {
 export default connect(
   createStructuredSelector({
     categoriesList: categorySelectors.getCategories
-  })
+  }),
+  {
+    fetchAllCategories: categoryActions.fetchAllCategories
+  }
 )(CategoriesList);

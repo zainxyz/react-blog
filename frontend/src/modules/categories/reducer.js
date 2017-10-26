@@ -1,6 +1,4 @@
 import mapKeys from 'lodash/mapKeys';
-import filter from 'lodash/filter';
-import { createSelector } from 'reselect';
 
 import { CATEGORIES_ACTIONS } from './actions';
 
@@ -29,5 +27,5 @@ export default categories;
 
 export const getCategories = state => state.categories;
 
-export const getCategoryById = categoryId =>
-  createSelector([getCategories], categories => filter(categories, ['id', categoryId]));
+export const getCategoryById = (state, categoryId) =>
+  state.categories && state.categories[categoryId];

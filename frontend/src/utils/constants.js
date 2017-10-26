@@ -52,21 +52,21 @@ export const AXIOS_ERROR_SUFFIX = '_FAILURE';
  *
  * @type {String}
  */
-export const POST_URL = '/posts';
+export const POST_URL = 'posts';
 
 /**
  * The API url for the Categories route
  *
  * @type {String}
  */
-export const CATEGORY_URL = '/categories';
+export const CATEGORY_URL = 'categories';
 
 /**
  * The API url for the Comments route
  *
  * @type {String}
  */
-export const COMMENT_URL = '/comments';
+export const COMMENT_URL = 'comments';
 
 /**
  * Bunch o' taglines...

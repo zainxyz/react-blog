@@ -1,59 +1,38 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
-import { selectors } from 'modules/categories';
-import { PageTitle } from 'components/common';
+import { selectors as categorySelectors } from 'modules/categories';
+import { PageTitle, PostsList } from 'components/common';
 import { generateCategoryTitlePrefixes } from 'utils';
 
 class Categories extends Component {
-  isCategoryIDAvailable = () =>
-    this.props.match && this.props.match.params && this.props.match.params.categoryId;
-
-  renderSubtitle = () => {
-    if (this.isCategoryIDAvailable() && this.props.categories) {
-      console.log('this.props', this.props);
-      const subtitle = this.props.categories[this.props.match.params.categoryId]
-        ? this.props.categories[this.props.match.params.categoryId].subtitle
-        : '';
-      return subtitle;
-    }
-    return null;
-  };
-
-  renderTitle = () => {
-    if (this.isCategoryIDAvailable() && this.props.categories) {
-      const title = this.props.categories[this.props.match.params.categoryId]
-        ? this.props.categories[this.props.match.params.categoryId].title
-        : '';
-      return `${title}...`;
-    }
-    return 'Category...';
-  };
+  getPageTitleProps = () => ({
+    title      : this.props.category.title,
+    subtitle   : this.props.category.subtitle,
+    titlePrefix: generateCategoryTitlePrefixes()
+  });
 
   render() {
     return (
       <div>
-        <PageTitle
-          subtitle={this.renderSubtitle()}
-          title={this.renderTitle()}
-          titlePrefix={generateCategoryTitlePrefixes()}
-        />
+        <PageTitle {...this.getPageTitleProps()} />
+        <PostsList showPostsForCategory={this.props.category.title} />
       </div>
     );
   }
 }
 
 Categories.propTypes = {
-  categories: PropTypes.object.isRequired,
-  match     : PropTypes.object.isRequired
+  category: PropTypes.object
 };
 
-Categories.defaultProps = {};
+Categories.defaultProps = {
+  category: {}
+};
 
-export default connect(
-  createStructuredSelector({
-    categories: selectors.getCategories
-  })
-)(Categories);
+const mapStateToProps = (state, props) => ({
+  category: categorySelectors.getCategoryById(state, props.match.params.categoryId)
+});
+
+export default connect(mapStateToProps)(Categories);
