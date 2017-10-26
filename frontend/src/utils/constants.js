@@ -1,3 +1,5 @@
+import constants from 'namespace-constants';
+
 /**
  * A unique Application Namespace generated via node-uuid via command-line
  * Universally Unique IDentifier (UUID)
@@ -22,14 +24,6 @@ export const APP_NAVBAR = [
   {
     href: '/',
     name: 'Home'
-  },
-  {
-    href: '/categories',
-    name: 'Categories'
-  },
-  {
-    href: '/posts',
-    name: 'Posts'
   }
 ];
 
@@ -137,3 +131,10 @@ export const REGEX_PATTERNS = {
   // Matches any character that is not one of the 26 alphabets
   LETTERS: /[^a-zA-Z]+/g
 };
+
+/**
+ * Namespaced Constants for different modals
+ *
+ * @type {[type]}
+ */
+export const MODAL_NAMES = constants('modal', ['NEW_POST_MODAL']);

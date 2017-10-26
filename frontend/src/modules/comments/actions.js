@@ -3,7 +3,7 @@ import getTime from 'date-fns/get_time';
 import { POST_URL, COMMENT_URL, createActionsFor, generateID } from 'utils';
 
 /**
- * Define the different actions for the Categories module
+ * Define the different actions for the Comments module
  *
  * @type {Object}
  */

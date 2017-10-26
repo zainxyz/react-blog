@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { reducer as categories } from 'modules/categories';
 import { reducer as comments, actions as commentsActions } from 'modules/comments';
 import { reducer as formReducer } from 'redux-form';
+import { reducer as modals } from 'modules/modals';
 import { reducer as posts } from 'modules/posts';
 
 export default combineReducers({
@@ -18,5 +19,6 @@ export default combineReducers({
       }
     }
   }),
+  modals,
   posts
 });

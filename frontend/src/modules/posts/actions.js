@@ -58,9 +58,10 @@ export const fetchAllPosts = () => ({
  * @param  {string} body     The body of the post
  * @param  {string} author   The author of the post
  * @param  {string} category The category of the post
+ * @param  {string} excerpt  The excerpt of the post
  * @return {Action}
  */
-export const addPost = ({ title, body, author, category }) => ({
+export const addPost = ({ title, body, author, category, excerpt }) => ({
   type   : POSTS_ACTIONS.ADD_POST,
   payload: {
     request: {
@@ -72,7 +73,8 @@ export const addPost = ({ title, body, author, category }) => ({
         title,
         body,
         author,
-        category
+        category : category.toLowerCase(),
+        excerpt
       }
     }
   }

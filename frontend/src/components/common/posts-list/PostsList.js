@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
+import orderBy from 'lodash/orderBy';
 import { Col, Container, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 
@@ -30,8 +31,10 @@ class PostsList extends Component {
 
     const postsList = !isEmpty(showPostsForCategory) ? postsByCategory : posts;
 
-    if (!isEmpty(postsList)) {
-      return map(postsList, post => (
+    const sortedPostsList = orderBy(postsList, ['voteScore'], ['desc']);
+
+    if (!isEmpty(sortedPostsList)) {
+      return map(sortedPostsList, post => (
         <Col sm="2" key={generateKey()}>
           <PostCard {...post} buttonText="View Post" />
         </Col>
@@ -41,7 +44,8 @@ class PostsList extends Component {
     return (
       <Col>
         <p className="lead">
-          Sorry, <span className="font-weight-bold">{showPostsForCategory}</span> does not have any posts associated with it.
+          Sorry, <span className="font-weight-bold">{showPostsForCategory}</span> does not have any
+          posts associated with it.
         </p>
       </Col>
     );

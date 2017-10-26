@@ -1,28 +1,44 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { connect, Provider } from 'react-redux';
+
+import { actions as modalsActions } from 'modules/modals';
+import { MODAL_NAMES } from 'utils';
 
 import './App.css';
-import { AppNav } from './common';
+import { AppNav, NewPostModal } from './common';
 import { Categories, Home, Posts } from './views';
 
-const App = ({ brand, store }) => (
-  <Provider store={store}>
-    <BrowserRouter>
-      <div>
-        <AppNav brand={brand} />
-        <Route exact path="/" component={Home} />
-        <Route exact path="/:categoryId" component={Categories} />
-        <Route exact path="/:categoryId/:postId" component={Posts} />
-      </div>
-    </BrowserRouter>
-  </Provider>
-);
+class App extends Component {
+  componentDidMount() {
+    this.props.addModal(MODAL_NAMES.NEW_POST_MODAL);
+  }
+
+  render() {
+    const { brand, store } = this.props;
+    return (
+      <Provider store={store}>
+        <BrowserRouter>
+          <div>
+            <AppNav brand={brand} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/:categoryId" component={Categories} />
+            <Route exact path="/:categoryId/:postId" component={Posts} />
+            <NewPostModal />
+          </div>
+        </BrowserRouter>
+      </Provider>
+    );
+  }
+}
 
 App.propTypes = {
-  brand: PropTypes.string.isRequired,
-  store: PropTypes.object.isRequired
+  addModal: PropTypes.func.isRequired,
+  brand   : PropTypes.string.isRequired,
+  store   : PropTypes.object.isRequired
 };
 
-export default App;
+export default connect(null, {
+  addModal: modalsActions.addModalById
+})(App);

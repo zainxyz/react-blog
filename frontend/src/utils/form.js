@@ -47,3 +47,7 @@ export const warnReplyForm = values => {
 
   return warnings;
 };
+
+export const validatePostForm = () => {};
+
+export const warnPostForm = () => {};

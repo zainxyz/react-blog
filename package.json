@@ -1,0 +1,25 @@
+{
+  "name": "react-blog",
+  "version": "1.0.0",
+  "description": "A small react blog built using react js, react router, and redux.",
+  "main": "frontend/src/index.js",
+  "scripts": {
+    "run-server": "cd api-server & npm start",
+    "run-app": "cd frontend & npm start",
+    "start": "run-p run-server run-app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zainxyz/react-blog.git"
+  },
+  "author": "Zain Abidi",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/zainxyz/react-blog/issues"
+  },
+  "homepage": "https://github.com/zainxyz/react-blog#readme",
+  "devDependencies": {
+    "cross-env": "^5.1.0",
+    "npm-run-all": "^4.1.1"
+  }
+}

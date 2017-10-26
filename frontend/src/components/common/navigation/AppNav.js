@@ -2,8 +2,10 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { NavLink as RouterNavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import { APP_NAVBAR, generateKey } from 'utils';
+import { actions as modalsActions } from 'modules/modals';
+import { APP_NAVBAR, generateKey, MODAL_NAMES } from 'utils';
 
 class AppNav extends Component {
   constructor(props) {
@@ -16,6 +18,8 @@ class AppNav extends Component {
 
   navToggle = () => this.setState({ navIsOpen: !this.state.navIsOpen });
 
+  addNewPost = () => this.props.toggleModal(MODAL_NAMES.NEW_POST_MODAL);
+
   renderNavItems = () => {
     return APP_NAVBAR.map(item => (
       <NavItem key={generateKey()}>
@@ -24,6 +28,14 @@ class AppNav extends Component {
         </NavLink>
       </NavItem>
     ));
+  };
+
+  renderNewPostNavItem = () => {
+    return (
+      <NavItem>
+        <NavLink onClick={this.addNewPost}>Add New Post</NavLink>
+      </NavItem>
+    );
   };
 
   render() {
@@ -40,6 +52,7 @@ class AppNav extends Component {
           <Collapse isOpen={navIsOpen} navbar>
             <Nav className="ml-auto" navbar>
               {this.renderNavItems()}
+              {this.renderNewPostNavItem()}
             </Nav>
           </Collapse>
         </Navbar>
@@ -49,7 +62,10 @@ class AppNav extends Component {
 }
 
 AppNav.propTypes = {
-  brand: PropTypes.string.isRequired
+  brand      : PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired
 };
 
-export default AppNav;
+export default connect(null, {
+  toggleModal: modalsActions.toggleModalById
+})(AppNav);
