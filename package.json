@@ -5,8 +5,11 @@
   "main": "frontend/src/index.js",
   "scripts": {
     "run-server": "cd api-server && npm start",
+    "install-server": "cd api-server && npm i",
     "run-app": "cd frontend && npm start",
-    "start": "run-p run-server run-app"
+    "install-app": "cd frontend && npm i",
+    "start": "run-p run-server run-app",
+    "postinstall": "run-p install-server install-app"
   },
   "repository": {
     "type": "git",
