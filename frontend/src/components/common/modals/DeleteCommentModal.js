@@ -6,19 +6,22 @@ import { connect } from 'react-redux';
 
 import { MODAL_NAMES } from 'utils';
 import { actions as modalsActions, selectors as modalSelectors } from 'modules/modals';
-import { actions as postsActions } from 'modules/posts';
+import { actions as commentsActions } from 'modules/comments';
 
-class DeletePostModal extends Component {
-  deletePost = ({ id }) => {
-    console.log('this.props :', this.props);
+class DeleteCommentModal extends Component {
+  deleteComment = ({ title, body, author, category, excerpt }) => {
     this.props
-      .deletePost({
-        id
+      .deleteComment({
+        title,
+        body,
+        author,
+        category,
+        excerpt
       })
       .then(resp => (!isEmpty(resp.error) ? this.toggle() : this.props.onDelete()));
   };
 
-  toggle = () => this.props.toggleModal(MODAL_NAMES.DELETE_POST_MODAL);
+  toggle = () => this.props.toggleModal(MODAL_NAMES.DELETE_COMMENT_MODAL);
 
   render() {
     const { author, modal, title } = this.props;
@@ -30,11 +33,11 @@ class DeletePostModal extends Component {
         autoFocus
         backdrop="static"
         isOpen={isOpen}
-        modalClassName="delete-post-modal"
+        modalClassName="delete-comment-modal"
         toggle={this.toggle}
       >
         <ModalHeader toggle={this.toggle}>
-          {`Are you sure you would like to delete this post?`}
+          {`Are you sure you would like to delete this comment?`}
         </ModalHeader>
         <ModalBody>
           <p className="lead">
@@ -42,8 +45,8 @@ class DeletePostModal extends Component {
           </p>
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={this.deletePost}>
-            Delete Post
+          <Button color="danger" onClick={this.deleteComment}>
+            Delete Comment
           </Button>
           <Button color="link" onClick={this.toggle}>
             Cancel
@@ -54,26 +57,26 @@ class DeletePostModal extends Component {
   }
 }
 
-DeletePostModal.propTypes = {
-  author     : PropTypes.string,
-  deletePost : PropTypes.func.isRequired,
-  modal      : PropTypes.object,
-  onDelete   : PropTypes.func.isRequired,
-  title      : PropTypes.string,
-  toggleModal: PropTypes.func.isRequired
+DeleteCommentModal.propTypes = {
+  author       : PropTypes.string,
+  deleteComment: PropTypes.func.isRequired,
+  modal        : PropTypes.object,
+  onDelete     : PropTypes.func.isRequired,
+  title        : PropTypes.string,
+  toggleModal  : PropTypes.func.isRequired
 };
 
-DeletePostModal.defaultProps = {
+DeleteCommentModal.defaultProps = {
   author: 'unknown',
   modal : {},
-  title : 'Unknown Post Name'
+  title : 'Unknown Comment Name'
 };
 
 const mapStateToProps = state => ({
-  modal: modalSelectors.getModalById(state, MODAL_NAMES.DELETE_POST_MODAL)
+  modal: modalSelectors.getModalById(state, MODAL_NAMES.DELETE_COMMENT_MODAL)
 });
 
 export default connect(mapStateToProps, {
-  toggleModal: modalsActions.toggleModalById,
-  deletePost : postsActions.deletePost
-})(DeletePostModal);
+  toggleModal  : modalsActions.toggleModalById,
+  deleteComment: commentsActions.deleteComment
+})(DeleteCommentModal);

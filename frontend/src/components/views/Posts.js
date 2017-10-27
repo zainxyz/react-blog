@@ -4,7 +4,13 @@ import map from 'lodash/map';
 import { Button, Col, Container, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import { CommentCard, CommentReplyForm, DeletePostModal, PostTitle } from 'components/common';
+import {
+  CommentCard,
+  AddCommentForm,
+  DeletePostModal,
+  EditPostModal,
+  PostTitle
+} from 'components/common';
 import { actions as commentsActions, selectors as commentsSelectors } from 'modules/comments';
 import { actions as modalsActions } from 'modules/modals';
 import { generateKey, getCommentCount, MODAL_NAMES, sanitizeMarkup } from 'utils';
@@ -14,9 +20,10 @@ class Posts extends Component {
   componentDidMount() {
     this.props.fetchAllComments(this.props.post.id);
     this.props.addModal(MODAL_NAMES.DELETE_POST_MODAL);
+    this.props.addModal(MODAL_NAMES.EDIT_POST_MODAL);
   }
 
-  onSubmit = ({ author, body }) => {
+  onAddCommentSubmit = ({ author, body }) => {
     this.props.addComment({
       author,
       body,
@@ -36,7 +43,7 @@ class Posts extends Component {
 
   deletePost = () => this.props.toggleModal(MODAL_NAMES.DELETE_POST_MODAL);
 
-  editPost = () => {};
+  editPost = () => this.props.toggleModal(MODAL_NAMES.EDIT_POST_MODAL);
 
   backToCategory = () => {
     this.props.history.replace(`/${this.props.match.params.categoryId}`);
@@ -47,7 +54,6 @@ class Posts extends Component {
   };
 
   render() {
-    console.log('this.props Posts : ', this.props);
     return (
       <div className="post-view">
         <PostTitle {...this.getPostTitleProps()} />
@@ -84,7 +90,7 @@ class Posts extends Component {
         <Container fluid className="post-leave-a-reply">
           <Col>
             <h3 className="display-5 text-center">Leave A Reply</h3>
-            <CommentReplyForm onSubmit={this.onSubmit} />
+            <AddCommentForm onSubmit={this.onAddCommentSubmit} />
           </Col>
         </Container>
         <DeletePostModal
@@ -92,6 +98,7 @@ class Posts extends Component {
           onDelete={this.backToCategory}
           title={this.props.post.title}
         />
+        <EditPostModal post={this.props.post} />
       </div>
     );
   }

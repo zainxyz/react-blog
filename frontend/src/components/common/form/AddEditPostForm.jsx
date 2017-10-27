@@ -1,29 +1,36 @@
 import PropTypes from 'prop-types';
-import map from 'lodash/map';
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import isEmpty from 'lodash/isEmpty';
+import map from 'lodash/map';
 import { Button, Col, Container, FormGroup, Label, Row } from 'reactstrap';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
-import { generateKey, validatePostForm, warnPostForm } from 'utils';
+import { validatePostForm, warnPostForm } from 'utils';
+import { selectors as categorySelectors } from 'modules/categories';
+
 import InputField from './fields/InputField';
 import SelectField from './fields/SelectField';
 import TextAreaField from './fields/TextAreaField';
 
-class AddPostForm extends Component {
+class AddEditPostForm extends Component {
+  getButtonText = () => (!isEmpty(this.props.post) ? 'Save Post' : 'Add Post');
+
+  getCategoriesForSelectList = () =>
+    !isEmpty(this.props.categories) ? map(this.props.categories, category => category.id) : [];
+
   submitFormData = data => {
     const { createRecord, reset } = this.props;
     return createRecord(data).then(() => reset());
   };
 
-  renderCategoriesSelectOptions = () =>
-    map(this.props.categories, category => <option key={generateKey()}>{category.title}</option>);
-
   render() {
-    const { categories, handleSubmit } = this.props;
+    const { handleSubmit, onCancel } = this.props;
+
     return (
       <Container className="add-post-form">
         <form onSubmit={handleSubmit}>
-          <Row className="row-title">
+          <Row className="form-title">
             <Col className="input-title">
               <FormGroup>
                 <Label for="title">{`My post's title is...`}</Label>
@@ -31,15 +38,20 @@ class AddPostForm extends Component {
               </FormGroup>
             </Col>
           </Row>
-          <Row className="row-category">
+          <Row className="form-category">
             <Col className="input-category">
               <FormGroup>
                 <Label for="category">{`My post's category is...`}</Label>
-                <Field name="category" data={categories} component={SelectField} />
+                <Field
+                  name="category"
+                  data={this.getCategoriesForSelectList()}
+                  component={SelectField}
+                  defaultValue="Please select a Category"
+                />
               </FormGroup>
             </Col>
           </Row>
-          <Row className="row-author">
+          <Row className="form-author">
             <Col md="6" className="input-author">
               <FormGroup>
                 <Label for="author">Name</Label>
@@ -53,7 +65,7 @@ class AddPostForm extends Component {
               </FormGroup>
             </Col>
           </Row>
-          <Row className="row-body">
+          <Row className="form-body">
             <Col className="input-body">
               <FormGroup>
                 <Label for="body">Post Body</Label>
@@ -61,7 +73,7 @@ class AddPostForm extends Component {
               </FormGroup>
             </Col>
           </Row>
-          <Row className="row-excerpt">
+          <Row className="form-excerpt">
             <Col className="input-excerpt">
               <FormGroup>
                 <Label for="excerpt">Excerpt for Post</Label>
@@ -69,28 +81,48 @@ class AddPostForm extends Component {
               </FormGroup>
             </Col>
           </Row>
-          <Button type="submit" color="info">
-            Add Post
-          </Button>
+          <Row className="form-actions">
+            <Col className="d-flex justify-content-end">
+              <Button color="link" onClick={this.props.onCancel}>
+                Cancel
+              </Button>
+              <Button type="submit" color="info">
+                {this.getButtonText()}
+              </Button>
+            </Col>
+          </Row>
         </form>
       </Container>
     );
   }
 }
 
-AddPostForm.propTypes = {
+AddEditPostForm.propTypes = {
   categories  : PropTypes.object.isRequired,
   createRecord: PropTypes.func,
   handleSubmit: PropTypes.func.isRequired,
+  onCancel    : PropTypes.func,
+  post        : PropTypes.object,
   reset       : PropTypes.func.isRequired
 };
 
-AddPostForm.defaultProps = {
-  createRecord: () => {}
+AddEditPostForm.defaultProps = {
+  createRecord: () => {},
+  onCancel    : () => {},
+  post        : {}
 };
 
-export default reduxForm({
-  form    : 'add-post-form',
-  validate: validatePostForm,
-  warn    : warnPostForm
-})(AddPostForm);
+export default connect((state, props) => {
+  const initialValues = !isEmpty(props.post) ? props.post : {};
+  console.log('post form : initialValues :', initialValues);
+  return {
+    categories: categorySelectors.getCategories(state),
+    initialValues
+  };
+})(
+  reduxForm({
+    form    : 'add-edit-post-form',
+    validate: validatePostForm,
+    warn    : warnPostForm
+  })(AddEditPostForm)
+);

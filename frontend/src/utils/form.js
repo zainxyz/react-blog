@@ -3,11 +3,11 @@ import { COMMENT_BODY_MIN_LENGTH, REGEX_PATTERNS } from './constants';
 /**
  * Validate a given 'Reply' form
  *
- * @method validateCommentReplyForm
- * @param  {Object}                 values The current form field values
- * @return {Object}                        The object of all of the errors.
+ * @method validateCommentForm
+ * @param  {Object}            values The current form field values
+ * @return {Object}                   The object of all of the errors.
  */
-export const validateCommentReplyForm = values => {
+export const validateCommentForm = values => {
   const errors = {};
 
   if (!values.author) {
@@ -36,11 +36,11 @@ export const validateCommentReplyForm = values => {
 /**
  * Warn the user about their current form inputs for the 'Reply' form
  *
- * @method warnCommentReplyForm
- * @param  {Object}             values The current form field values
- * @return {Object}                    The object of al of the warnings.
+ * @method warnCommentForm
+ * @param  {Object}        values The current form field values
+ * @return {Object}               The object of al of the warnings.
  */
-export const warnCommentReplyForm = values => {
+export const warnCommentForm = values => {
   const warnings = {};
 
   return warnings;

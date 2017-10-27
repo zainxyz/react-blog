@@ -10,13 +10,11 @@ export default combineReducers({
   categories,
   comments,
   form: formReducer.plugin({
-    'comment-reply-form': (state, action) => {
-      switch (action.type) {
-      case commentsActions.COMMENTS_ACTIONS.ADD_COMMENT:
+    'add-comment-form': (state, action) => {
+      if (action.type === commentsActions.COMMENTS_ACTIONS.ADD_COMMENT) {
         return undefined;
-      default:
-        return state;
       }
+      return state;
     }
   }),
   modals,

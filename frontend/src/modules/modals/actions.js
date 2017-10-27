@@ -18,10 +18,11 @@ export const MODALS_ACTIONS = createActionsFor('modals', [
  * @param  {string}        modalId The modal to toggle
  * @return {Action}
  */
-export const toggleModalById = modalId => ({
+export const toggleModalById = (modalId, data) => ({
   type   : MODALS_ACTIONS.TOGGLE_MODAL_BY_ID,
   payload: {
-    modalId
+    modalId,
+    data
   }
 });
 

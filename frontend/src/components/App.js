@@ -7,12 +7,13 @@ import { actions as modalsActions } from 'modules/modals';
 import { MODAL_NAMES } from 'utils';
 
 import './App.css';
-import { AppNav, NewPostModal } from './common';
+import { AppNav, NewPostModal, EditCommentModal } from './common';
 import { Categories, Home, Posts } from './views';
 
 class App extends Component {
   componentDidMount() {
     this.props.addModal(MODAL_NAMES.NEW_POST_MODAL);
+    this.props.addModal(MODAL_NAMES.EDIT_COMMENT_MODAL);
   }
 
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
             <Route exact path="/:categoryId" component={Categories} />
             <Route exact path="/:categoryId/:postId" component={Posts} />
             <NewPostModal />
+            <EditCommentModal />
           </div>
         </BrowserRouter>
       </Provider>

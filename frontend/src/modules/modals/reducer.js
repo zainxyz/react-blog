@@ -1,4 +1,6 @@
+import isEmpty from 'lodash/isEmpty';
 import omit from 'lodash/omit';
+import { createSelector } from 'reselect';
 
 import { MODALS_ACTIONS } from './actions';
 
@@ -25,7 +27,8 @@ const modals = (state = {}, action) => {
     return {
       ...state,
       [action.payload.modalId]: {
-        isOpen: !state[action.payload.modalId].isOpen
+        isOpen: !state[action.payload.modalId].isOpen,
+        data  : action.payload.data ? action.payload.data : undefined
       }
     };
   default:
@@ -36,3 +39,8 @@ const modals = (state = {}, action) => {
 export default modals;
 
 export const getModalById = (state, modalId) => state.modals && state.modals[modalId];
+
+export const getModalDataById = createSelector(
+  [getModalById],
+  modal => (!isEmpty(modal) && !isEmpty(modal.data) ? modal.data : {})
+);

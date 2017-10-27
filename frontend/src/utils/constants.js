@@ -151,4 +151,10 @@ export const REGEX_PATTERNS = {
  *
  * @type {[type]}
  */
-export const MODAL_NAMES = constants('modal', ['NEW_POST_MODAL', 'DELETE_POST_MODAL']);
+export const MODAL_NAMES = constants('modal', [
+  'DELETE_COMMENT_MODAL',
+  'DELETE_POST_MODAL',
+  'EDIT_COMMENT_MODAL',
+  'EDIT_POST_MODAL',
+  'NEW_POST_MODAL'
+]);

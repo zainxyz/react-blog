@@ -124,9 +124,14 @@
 }
 
 /* Overwriting global form-control (inputs) */
-.form-control {
+.form-control:not(select) {
   border-radius: 0 !important;
   padding: 0.7rem 1rem !important;
+}
+
+.select-field select,
+.select-field option {
+  text-transform: capitalize;
 }
 
 /* Styles for the modals */
