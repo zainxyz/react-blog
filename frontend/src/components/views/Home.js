@@ -9,7 +9,7 @@ import { generateTagline } from 'utils';
 // import './Home.css';
 
 const Home = ({ title, titlePrefix }) => (
-  <div>
+  <div className="home-view">
     <PageTitle titlePrefix={titlePrefix} title={title} subtitle={generateTagline()} />
     <CategoriesList />
     <PostsList className="bg-dark" />

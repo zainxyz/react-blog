@@ -102,6 +102,20 @@ export const CATEGORY_TITLE_PREFIXES = [
 ];
 
 /**
+ * Min length for submitting a Comment's body
+ *
+ * @type {Number}
+ */
+export const COMMENT_BODY_MIN_LENGTH = 100;
+
+/**
+ * Min length for submitting a Post's body
+ *
+ * @type {Number}
+ */
+export const POST_BODY_MIN_LENGTH = 250;
+
+/**
  * Date format... i.e. Monday, October 23, 2017
  *
  * @type {String}
@@ -137,4 +151,4 @@ export const REGEX_PATTERNS = {
  *
  * @type {[type]}
  */
-export const MODAL_NAMES = constants('modal', ['NEW_POST_MODAL']);
+export const MODAL_NAMES = constants('modal', ['NEW_POST_MODAL', 'DELETE_POST_MODAL']);

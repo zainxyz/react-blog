@@ -35,10 +35,7 @@ class AddPostForm extends Component {
             <Col className="input-category">
               <FormGroup>
                 <Label for="category">{`My post's category is...`}</Label>
-                <Field name="category" data={categories} component={SelectField}>
-                  {/* <option disabled>Select a Category</option>
-                  {this.renderCategoriesSelectOptions()} */}
-                </Field>
+                <Field name="category" data={categories} component={SelectField} />
               </FormGroup>
             </Col>
           </Row>
@@ -60,7 +57,7 @@ class AddPostForm extends Component {
             <Col className="input-body">
               <FormGroup>
                 <Label for="body">Post Body</Label>
-                <Field name="body" component={TextAreaField} type="text" />
+                <Field name="body" component={TextAreaField} type="text" rows="8" />
               </FormGroup>
             </Col>
           </Row>
@@ -68,7 +65,7 @@ class AddPostForm extends Component {
             <Col className="input-excerpt">
               <FormGroup>
                 <Label for="excerpt">Excerpt for Post</Label>
-                <Field name="excerpt" component={TextAreaField} type="text" />
+                <Field name="excerpt" component={TextAreaField} type="text" rows="2" />
               </FormGroup>
             </Col>
           </Row>

@@ -15,7 +15,7 @@ class Categories extends Component {
 
   render() {
     return (
-      <div>
+      <div className="categories-view">
         <PageTitle {...this.getPageTitleProps()} />
         <PostsList showPostsForCategory={this.props.category.title} />
       </div>

@@ -38,7 +38,7 @@ class PostTitle extends Component {
 
   render() {
     return (
-      <Jumbotron className="posts-title">
+      <Jumbotron className="post-title">
         <h1 className="display-3 text-center pb-4">{this.getTitle()}</h1>
         <p className="text-center pb-2">
           {this.getAuthor()}

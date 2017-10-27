@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Button, Col, Container, FormGroup, Label, Row } from 'reactstrap';
 
-import { validateReplyForm, warnReplyForm } from 'utils';
+import { validateCommentReplyForm, warnCommentReplyForm } from 'utils';
 import InputField from './fields/InputField';
 import TextAreaField from './fields/TextAreaField';
 
@@ -16,17 +16,17 @@ class CommentReplyForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <Container className="reply-form">
+      <Container className="comment-reply-form">
         <form onSubmit={handleSubmit}>
-          <Row className="row-body">
+          <Row className="form-body">
             <Col className="input-body">
               <FormGroup>
                 <Label for="body">My comment is...</Label>
-                <Field name="body" component={TextAreaField} type="text" />
+                <Field name="body" component={TextAreaField} type="text" rows="8" />
               </FormGroup>
             </Col>
           </Row>
-          <Row className="row-author">
+          <Row className="form-author">
             <Col md="6" className="input-author">
               <FormGroup>
                 <Label for="author">Name</Label>
@@ -40,9 +40,13 @@ class CommentReplyForm extends Component {
               </FormGroup>
             </Col>
           </Row>
-          <Button type="submit" color="info">
-            Submit Comment
-          </Button>
+          <Row className="form-actions">
+            <Col className="d-flex justify-content-center">
+              <Button type="submit" color="info">
+                Submit Comment
+              </Button>
+            </Col>
+          </Row>
         </form>
       </Container>
     );
@@ -61,6 +65,6 @@ CommentReplyForm.defaultProps = {
 
 export default reduxForm({
   form    : 'comment-reply-form',
-  validate: validateReplyForm,
-  warn    : warnReplyForm
+  validate: validateCommentReplyForm,
+  warn    : warnCommentReplyForm
 })(CommentReplyForm);

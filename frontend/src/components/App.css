@@ -7,6 +7,7 @@
   line-height: 1.2;
 }
 
+/* Overwriting the cursor type for buttons and nav-link */
 .nav-link,
 .btn {
   cursor: pointer;
@@ -26,21 +27,21 @@
 
 /* Styles for the page title */
 .page-title,
-.posts-title {
+.post-title {
   margin-bottom: 0 !important;
 }
 .page-title .blockquote-footer.lead {
   font-size: 1.25rem;
 }
 
-/* Styles for the posts title */
-.posts-title p {
+/* Styles for the post title */
+.post-title p {
   font-weight: 600;
 }
-.posts-title p span {
+.post-title p span {
   border-left: 1px solid transparent;
 }
-.posts-title p span:first-of-type {
+.post-title p span:first-of-type {
   border-left-color: transparent !important;
 }
 
@@ -51,4 +52,91 @@
   line-height: 1.5;
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+/* Styles for the post-body and comment-body */
+.post-body,
+.comment-card {
+  line-height: 2;
+}
+
+/* Styles for the post-actions */
+.post-actions {
+  align-items: center;
+  border-bottom: 1px solid #ced4da;
+  border-top: 1px solid #ced4da;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 !important;
+}
+.post-actions > .col {
+  align-items: center;
+  border-right: 1px solid #ced4da;
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: center;
+  padding: 3rem 2rem !important;
+}
+.post-actions > .col:last-of-type {
+  border-right: 0;
+}
+
+/* Styles for the post-leave-a-reply */
+.post-leave-a-reply {
+  border-top: 1px solid #ced4da;
+}
+
+/* Styles for the comment-card */
+.comment-card.card {
+  border: 0;
+  border-bottom: 1px solid #ced4da;
+  border-radius: 0;
+}
+.comment-card.card:last-of-type {
+  border-bottom: 0;
+}
+.comment-card .card-body {
+  padding: 2rem 1.25rem;
+}
+.comment-card .comment-author,
+.comment-card .list-inline {
+  margin: 0;
+}
+.comment-card .comment-body {
+  margin-top: 10px;
+}
+.comment-card .comment-meta {
+  color: #888;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.comment-card .comment-meta .comment-actions button {
+  padding: 0;
+  background: ;
+}
+
+/* Styles for the comment-reply-form */
+.comment-reply-form .form-actions,
+.comment-reply-form .form-author {
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Overwriting global form-control (inputs) */
+.form-control {
+  border-radius: 0 !important;
+  padding: 0.7rem 1rem !important;
+}
+
+/* Styles for the modals */
+.delete-post-modal .modal-title {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+.delete-post-modal .modal-body p {
+  margin-bottom: 0;
+}
+.delete-post-modal .modal-body p span {
+  font-weight: 600;
 }

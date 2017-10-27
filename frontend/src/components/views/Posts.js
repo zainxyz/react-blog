@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import map from 'lodash/map';
-import { Col, Container, Row } from 'reactstrap';
+import { Button, Col, Container, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import { CommentReplyForm, PostTitle } from 'components/common';
-import { selectors as postsSelectors } from 'modules/posts';
+import { CommentCard, CommentReplyForm, DeletePostModal, PostTitle } from 'components/common';
 import { actions as commentsActions, selectors as commentsSelectors } from 'modules/comments';
-import { formatDateWithTime, generateKey, getCommentCount, sanitizeMarkup } from 'utils';
+import { actions as modalsActions } from 'modules/modals';
+import { generateKey, getCommentCount, MODAL_NAMES, sanitizeMarkup } from 'utils';
+import { selectors as postsSelectors } from 'modules/posts';
 
 class Posts extends Component {
   componentDidMount() {
     this.props.fetchAllComments(this.props.post.id);
+    this.props.addModal(MODAL_NAMES.DELETE_POST_MODAL);
   }
 
   onSubmit = ({ author, body }) => {
@@ -32,26 +34,41 @@ class Posts extends Component {
     title       : this.props.post.title
   });
 
+  deletePost = () => this.props.toggleModal(MODAL_NAMES.DELETE_POST_MODAL);
+
+  editPost = () => {};
+
+  backToCategory = () => {
+    this.props.history.replace(`/${this.props.match.params.categoryId}`);
+  };
+
   renderComments = () => {
-    return map(this.props.comments, comment => (
-      <div key={generateKey()}>
-        <p className="font-weight-bold">{comment.author}</p>
-        <small>{formatDateWithTime(comment.timestamp)}</small>
-        <p className="lead">{comment.body}</p>
-      </div>
-    ));
+    return map(this.props.comments, comment => <CommentCard key={generateKey()} {...comment} />);
   };
 
   render() {
+    console.log('this.props Posts : ', this.props);
     return (
-      <div>
+      <div className="post-view">
         <PostTitle {...this.getPostTitleProps()} />
         <Container className="post-body">
           <Col>
             <div dangerouslySetInnerHTML={sanitizeMarkup(this.getBodyText())} />
           </Col>
         </Container>
-        <Container className="post-comments-container">
+        <Container fluid className="post-actions">
+          <Col>
+            <Button color="link" onClick={this.editPost}>
+              Edit Post
+            </Button>
+          </Col>
+          <Col>
+            <Button color="link" onClick={this.deletePost}>
+              Delete Post
+            </Button>
+          </Col>
+        </Container>
+        <Container className="post-comments">
           <Row>
             <Col>
               <h5 className="text-center font-italic font-weight-light">Join the discussion</h5>
@@ -64,15 +81,17 @@ class Posts extends Component {
             <Col>{this.renderComments()}</Col>
           </Row>
         </Container>
-        <Container
-          fluid
-          className="post-replies border border-secondary border-bottom-0 border-left-0 border-right-0"
-        >
+        <Container fluid className="post-leave-a-reply">
           <Col>
             <h3 className="display-5 text-center">Leave A Reply</h3>
             <CommentReplyForm onSubmit={this.onSubmit} />
           </Col>
         </Container>
+        <DeletePostModal
+          author={this.props.post.author}
+          onDelete={this.backToCategory}
+          title={this.props.post.title}
+        />
       </div>
     );
   }
@@ -80,10 +99,14 @@ class Posts extends Component {
 
 Posts.propTypes = {
   addComment      : PropTypes.func.isRequired,
+  addModal        : PropTypes.func.isRequired,
   commentCount    : PropTypes.number.isRequired,
   comments        : PropTypes.object,
   fetchAllComments: PropTypes.func.isRequired,
-  post            : PropTypes.object.isRequired
+  history         : PropTypes.object.isRequired,
+  match           : PropTypes.object.isRequired,
+  post            : PropTypes.object.isRequired,
+  toggleModal     : PropTypes.func.isRequired
 };
 
 Posts.defaultProps = {
@@ -97,6 +120,8 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default connect(mapStateToProps, {
+  addComment      : commentsActions.addComment,
+  addModal        : modalsActions.addModalById,
   fetchAllComments: commentsActions.fetchCommentsByPost,
-  addComment      : commentsActions.addComment
+  toggleModal     : modalsActions.toggleModalById
 })(Posts);
