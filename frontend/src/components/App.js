@@ -14,6 +14,7 @@ class App extends Component {
   componentDidMount() {
     this.props.addModal(MODAL_NAMES.NEW_POST_MODAL);
     this.props.addModal(MODAL_NAMES.EDIT_COMMENT_MODAL);
+    this.props.addModal(MODAL_NAMES.DELETE_COMMENT_MODAL);
   }
 
   render() {

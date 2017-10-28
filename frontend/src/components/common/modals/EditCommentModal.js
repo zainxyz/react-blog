@@ -8,16 +8,14 @@ import { MODAL_NAMES } from 'utils';
 import { actions as modalsActions, selectors as modalSelectors } from 'modules/modals';
 import { actions as commentActions } from 'modules/comments';
 
-class EditPostModal extends Component {
-  editComment = ({ title, body, author, category, excerpt }) => {
+class EditCommentModal extends Component {
+  editComment = ({ body, email }) => {
+    console.log('...editComment : ', this.props);
     this.props
       .editComment({
-        id: this.props.comment.id,
-        title,
+        id: this.props.modal.data.id,
         body,
-        author,
-        category,
-        excerpt
+        email
       })
       .then(() => this.toggle());
   };
@@ -40,14 +38,14 @@ class EditPostModal extends Component {
   }
 }
 
-EditPostModal.propTypes = {
+EditCommentModal.propTypes = {
   editComment: PropTypes.func.isRequired,
   modal      : PropTypes.object,
   comment    : PropTypes.object,
   toggleModal: PropTypes.func.isRequired
 };
 
-EditPostModal.defaultProps = {
+EditCommentModal.defaultProps = {
   comment: {},
   modal  : {}
 };
@@ -59,4 +57,4 @@ const mapStateToProps = (state, props) => ({
 export default connect(mapStateToProps, {
   toggleModal: modalsActions.toggleModalById,
   editComment: commentActions.editComment
-})(EditPostModal);
+})(EditCommentModal);

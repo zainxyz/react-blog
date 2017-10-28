@@ -9,14 +9,10 @@ import { actions as modalsActions, selectors as modalSelectors } from 'modules/m
 import { actions as commentsActions } from 'modules/comments';
 
 class DeleteCommentModal extends Component {
-  deleteComment = ({ title, body, author, category, excerpt }) => {
+  deleteComment = () => {
     this.props
       .deleteComment({
-        title,
-        body,
-        author,
-        category,
-        excerpt
+        id: this.props.modal.data.id
       })
       .then(resp => (!isEmpty(resp.error) ? this.toggle() : this.props.onDelete()));
   };

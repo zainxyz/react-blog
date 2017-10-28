@@ -42,18 +42,19 @@ export const fetchCommentsByPost = postId => ({
  * @param  {string} parentId The parent (postId) of the comment
  * @return {Action}
  */
-export const addComment = ({ body, author, parentId }) => ({
+export const addComment = ({ body, author, email, parentId }) => ({
   type   : COMMENTS_ACTIONS.ADD_COMMENT,
   payload: {
     request: {
       method: 'post',
       url   : COMMENT_URL,
       data  : {
-        id       : generateID(),
-        timestamp: getTime(new Date()),
-        body,
         author,
-        parentId
+        body,
+        id       : generateID(),
+        email,
+        parentId,
+        timestamp: getTime(new Date())
       }
     }
   }
@@ -105,14 +106,16 @@ export const voteOnComment = ({ id, option }) => ({
  * @param  {string} body     The body of the comment
  * @return {Action}
  */
-export const editComment = ({ id, body }) => ({
+export const editComment = ({ id, author, body, email }) => ({
   type   : COMMENTS_ACTIONS.EDIT_COMMENT,
   payload: {
     request: {
       method: 'put',
       url   : `${COMMENT_URL}/${id}`,
       data  : {
+        author,
         body,
+        email,
         timestamp: getTime(new Date())
       }
     }

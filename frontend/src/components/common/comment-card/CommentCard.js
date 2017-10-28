@@ -1,24 +1,35 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Card, CardText, CardBody } from 'reactstrap';
+import { Badge, Card, CardBody, CardLink, CardText } from 'reactstrap';
 import { connect } from 'react-redux';
 
+import { actions as commentsActions } from 'modules/comments';
 import { actions as modalsActions } from 'modules/modals';
 import { formatDateWithTime, MODAL_NAMES, sanitizeMarkup } from 'utils';
 
 class CommentCard extends Component {
   editComment = () =>
     this.props.toggleModal(MODAL_NAMES.EDIT_COMMENT_MODAL, {
+      author: this.props.author,
       body  : this.props.body,
-      author: this.props.author
+      id    : this.props.id,
+      email : this.props.email
+    });
+
+  deleteComment = () =>
+    this.props.toggleModal(MODAL_NAMES.DELETE_COMMENT_MODAL, {
+      id: this.props.id
     });
 
   render() {
-    const { author, timestamp, body } = this.props;
+    const { author, id, timestamp, body, voteOnComment, voteScore } = this.props;
+
     return (
       <Card className="comment-card">
         <CardBody>
-          <h5 className="card-title comment-author">{author}</h5>
+          <h5 className="card-title comment-author">
+            {author} <Badge color="secondary">{voteScore}</Badge>
+          </h5>
           <div className="card-text comment-meta">
             <div className="comment-timestamp">
               <small>{formatDateWithTime(timestamp)}</small>
@@ -26,17 +37,35 @@ class CommentCard extends Component {
             <div className="comment-actions">
               <ul className="list-inline">
                 <li className="list-inline-item">
-                  <button className="btn btn-link" onClick={this.editComment}>
+                  <CardLink tag="button" className="btn btn-link" onClick={this.editComment}>
                     Edit
-                  </button>
+                  </CardLink>
                 </li>
                 <li className="list-inline-item">
-                  <button className="btn btn-link">Delete</button>
+                  <CardLink tag="button" className="btn btn-link" onClick={this.deleteComment}>
+                    Delete
+                  </CardLink>
                 </li>
               </ul>
             </div>
           </div>
           <CardText className="comment-body" dangerouslySetInnerHTML={sanitizeMarkup(body)} />
+        </CardBody>
+        <CardBody>
+          <CardLink
+            tag="button"
+            className="btn btn-link"
+            onClick={() => voteOnComment({ id: id, option: 'upVote' })}
+          >
+            Up Vote
+          </CardLink>
+          <CardLink
+            tag="button"
+            className="btn btn-link"
+            onClick={() => voteOnComment({ id: id, option: 'downVote' })}
+          >
+            Down Vote
+          </CardLink>
         </CardBody>
       </Card>
     );
@@ -44,12 +73,15 @@ class CommentCard extends Component {
 }
 
 CommentCard.propTypes = {
-  author     : PropTypes.string.isRequired,
-  body       : PropTypes.string.isRequired,
-  id         : PropTypes.string.isRequired,
-  voteScore  : PropTypes.number,
-  timestamp  : PropTypes.number.isRequired,
-  toggleModal: PropTypes.func.isRequired
+  author       : PropTypes.string.isRequired,
+  body         : PropTypes.string.isRequired,
+  deleteComment: PropTypes.func.isRequired,
+  email        : PropTypes.string.isRequired,
+  id           : PropTypes.string.isRequired,
+  timestamp    : PropTypes.number.isRequired,
+  toggleModal  : PropTypes.func.isRequired,
+  voteOnComment: PropTypes.func.isRequired,
+  voteScore    : PropTypes.number
 };
 
 CommentCard.defaultProps = {
@@ -57,5 +89,7 @@ CommentCard.defaultProps = {
 };
 
 export default connect(null, {
-  toggleModal: modalsActions.toggleModalById
+  toggleModal  : modalsActions.toggleModalById,
+  voteOnComment: commentsActions.voteOnComment,
+  deleteComment: commentsActions.deleteComment
 })(CommentCard);

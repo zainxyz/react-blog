@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/zainxyz/react-blog#readme",
   "devDependencies": {
-    "cross-env": "^5.1.0",
     "npm-run-all": "^4.1.1"
   }
 }

@@ -10,6 +10,7 @@ const defaultData = {
     category: 'nature',
     commentCount: 2,
     deleted: false,
+    email: 'thingtwo@react.com',
     excerpt:
       'Pellentesque ac enim et orci elementum porttitor. Duis auctor malesuada diam. Nulla ultrices et ante ut sagittis. Nunc efficitur tincidunt gravida. Sed porta luctus scelerisque. Morbi in nisl vel nisl viverra dignissim.',
     id: '8xf0y6ziyjabvozdd253nd',
@@ -24,6 +25,7 @@ const defaultData = {
     category: 'food',
     commentCount: 0,
     deleted: false,
+    email: 'thingone@react.com',
     excerpt:
       'Mauris bibendum metus ac hendrerit ullamcorper. Duis efficitur odio ut sem iaculis condimentum. Sed egestas, nisi lobortis porttitor condimentum, arcu lacus convallis felis, rhoncus tincidunt purus quam eu lacus. Donec facilisis est vitae ultrices dictum.',
     id: '6ni6ok3ym7mf1p33lnez',
@@ -71,16 +73,17 @@ function add(token, post) {
     let posts = getData(token);
 
     posts[post.id] = {
+      author: post.author,
+      body: post.body,
+      category: post.category,
+      commentCount: 0,
+      deleted: false,
+      email: post.email,
+      excerpt: post.excerpt,
       id: post.id,
       timestamp: post.timestamp,
       title: post.title,
-      body: post.body,
-      author: post.author,
-      category: post.category,
-      excerpt: post.excerpt,
-      voteScore: 1,
-      deleted: false,
-      commentCount: 0
+      voteScore: 1
     };
 
     res(posts[post.id]);
