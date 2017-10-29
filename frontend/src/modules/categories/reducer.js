@@ -25,7 +25,22 @@ const categories = (state = {}, action) => {
 // By default we'll be exporting out the reducer
 export default categories;
 
+/**
+ * Get all of the categories
+ *
+ * @method getAllCategories
+ * @param  {Object}         state The passed in state
+ * @return {Object}
+ */
 export const getAllCategories = state => state.categories;
 
+/**
+ * Get a single category via categoryId
+ *
+ * @method getCategoryById
+ * @param  {Object}        state      The passed in state
+ * @param  {string}        categoryId The id of the category to fetch
+ * @return {Object}
+ */
 export const getCategoryById = (state, categoryId) =>
   state.categories && state.categories[categoryId];

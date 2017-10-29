@@ -16,6 +16,7 @@ export const MODALS_ACTIONS = createActionsFor('modals', [
  *
  * @method toggleModalById
  * @param  {string}        modalId The modal to toggle
+ * @param  {Object}        data    The data to add to the modal
  * @return {Action}
  */
 export const toggleModalById = (modalId, data) => ({

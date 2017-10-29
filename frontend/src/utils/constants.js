@@ -70,6 +70,21 @@ export const CATEGORY_URL = 'categories';
 export const COMMENT_URL = 'comments';
 
 /**
+ * Config for the Web Font Loader
+ *
+ * @type {Object}
+ */
+export const WEB_FONT_LOADER_CONFIG = {
+  google: {
+    families: [
+      'Roboto:100,300,400,500,700',
+      'Raleway:300,400,500,600,700',
+      'Nunito:300,400,600,700'
+    ]
+  }
+};
+
+/**
  * Bunch o' taglines...
  *
  * @type {Array}

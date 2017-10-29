@@ -5,6 +5,7 @@ import { reducer as comments, actions as commentsActions } from 'modules/comment
 import { reducer as formReducer } from 'redux-form';
 import { reducer as modals } from 'modules/modals';
 import { reducer as posts } from 'modules/posts';
+import { reducer as webfonts } from 'modules/webfonts';
 
 export default combineReducers({
   categories,
@@ -18,5 +19,6 @@ export default combineReducers({
     }
   }),
   modals,
-  posts
+  posts,
+  webfonts
 });

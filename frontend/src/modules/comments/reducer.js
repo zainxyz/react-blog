@@ -45,11 +45,29 @@ const comments = (state = {}, action) => {
 // By default we'll be exporting out the reducer
 export default comments;
 
+/**
+ * Get all of the comments from the given state
+ *
+ * @method getAllComments
+ * @param  {Object}       state The passed in state
+ * @return {Object}
+ */
 export const getAllComments = state => state.comments;
 
+/**
+ * Get all of the comments for a single post via post id
+ *
+ * @method getCommentsForPostId
+ * @param  {Object}             state  The passed in state
+ * @param  {string}             postId The id of the post to fetch comments for
+ * @return {Object}
+ */
 export const getCommentsForPostId = (state, postId) =>
   pickBy(state.comments, item => item.parentId === postId);
 
+/**
+ * Get the comment count for the given post id
+ */
 export const getCommentCountForPostId = createSelector(
   [getCommentsForPostId],
   comments => Object.keys(comments).length

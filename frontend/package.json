@@ -11,6 +11,7 @@
   "homepage": "https://github.com/zainxyz/react-blog#readme",
   "main": "index.js",
   "dependencies": {
+    "@dr-kobros/react-webfont-loader": "^8.0.0",
     "axios": "^0.17.0",
     "bootstrap": "^4.0.0-beta",
     "date-fns": "^1.29.0",

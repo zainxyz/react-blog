@@ -47,10 +47,33 @@ const posts = (state = {}, action) => {
 // By default we'll be exporting out the reducer
 export default posts;
 
+/**
+ * Get all of the posts from the state
+ *
+ * @method getPosts
+ * @param  {Object} state The passed in state
+ * @return {Object}       All of the posts from the state
+ */
 export const getPosts = state => state.posts;
 
+/**
+ * Get a single post via postId
+ *
+ * @method getPostById
+ * @param  {Object}    state  The passed in state
+ * @param  {string}    postId The id of the post to get
+ * @return {Object}
+ */
 export const getPostById = (state, postId) => state.posts && state.posts[postId];
 
+/**
+ * Get all of the posts via a given categoryId
+ *
+ * @method getPostsByCategoryId
+ * @param  {Object}             state      The passed in state
+ * @param  {string}             categoryId The id of the category to fetch posts for
+ * @return {Object}
+ */
 export const getPostsByCategoryId = (state, categoryId) =>
   state.posts &&
   pickBy(
