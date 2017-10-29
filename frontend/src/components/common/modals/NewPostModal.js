@@ -30,7 +30,11 @@ class NewPostModal extends Component {
         <Modal autoFocus backdrop="static" isOpen={isOpen} toggle={this.toggle} size="lg">
           <ModalHeader toggle={this.toggle}>{`Let's Add A New Post`}</ModalHeader>
           <ModalBody>
-            <AddEditPostForm onCancel={this.toggle} onSubmit={this.addPost} />
+            <AddEditPostForm
+              modalName={MODAL_NAMES.NEW_POST_MODAL}
+              onCancel={this.toggle}
+              onSubmit={this.addPost}
+            />
           </ModalBody>
         </Modal>
       </div>

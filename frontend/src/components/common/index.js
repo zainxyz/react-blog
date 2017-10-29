@@ -14,6 +14,7 @@ import PageTitle from './typography/PageTitle';
 import PostCard from './post-card/PostCard';
 import PostTitle from './typography/PostTitle';
 import PostsList from './posts-list/PostsList';
+import ScrollToTop from './scroll-to-top/ScrollToTop';
 import SectionTitle from './typography/SectionTitle';
 
 export {
@@ -33,5 +34,6 @@ export {
   PostCard,
   PostTitle,
   PostsList,
+  ScrollToTop,
   SectionTitle
 };

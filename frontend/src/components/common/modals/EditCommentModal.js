@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import isEmpty from 'lodash/isEmpty';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { connect } from 'react-redux';
 
@@ -23,7 +24,7 @@ class EditCommentModal extends Component {
   render() {
     const { modal } = this.props;
 
-    const isOpen = modal && modal.isOpen;
+    const isOpen = !isEmpty(modal) && modal.isOpen;
 
     return (
       <Modal autoFocus backdrop="static" isOpen={isOpen} toggle={this.toggle} size="lg">

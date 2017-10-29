@@ -31,6 +31,12 @@ class PostDetails extends Component {
     this.props.addModal(MODAL_NAMES.EDIT_POST_MODAL);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (isEmpty(nextProps.post)) {
+      this.props.history.replace(APP_ROUTE_NOT_FOUND);
+    }
+  }
+
   onAddCommentSubmit = commentInfo => {
     this.props.addComment({
       ...commentInfo,
@@ -40,14 +46,20 @@ class PostDetails extends Component {
 
   getBodyText = () => (this.props.post.body ? this.props.post.body : null);
 
-  getPostTitleProps = () => ({
-    author      : this.props.post.author,
-    category    : this.props.post.category,
-    commentCount: this.props.commentCount,
-    timestamp   : this.props.post.timestamp,
-    title       : this.props.post.title,
-    voteScore   : this.props.post.voteScore
-  });
+  getPostTitleProps = () => {
+    const { post } = this.props;
+
+    return isEmpty(post)
+      ? {}
+      : {
+        author      : this.props.post.author,
+        category    : this.props.post.category,
+        commentCount: this.props.commentCount,
+        timestamp   : this.props.post.timestamp,
+        title       : this.props.post.title,
+        voteScore   : this.props.post.voteScore
+      };
+  };
 
   backToCategory = () => {
     this.props.history.replace(`/category/${this.props.match.params.categoryId}`);

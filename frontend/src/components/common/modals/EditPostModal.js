@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import isEmpty from 'lodash/isEmpty';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { connect } from 'react-redux';
 
@@ -23,13 +24,17 @@ class EditPostModal extends Component {
   render() {
     const { modal } = this.props;
 
-    const isOpen = modal && modal.isOpen;
+    const isOpen = !isEmpty(modal) && modal.isOpen;
 
     return (
       <Modal autoFocus backdrop="static" isOpen={isOpen} toggle={this.toggle} size="lg">
         <ModalHeader toggle={this.toggle}>{`Edit A Post`}</ModalHeader>
         <ModalBody>
-          <AddEditPostForm onCancel={this.toggle} onSubmit={this.editPost} />
+          <AddEditPostForm
+            modalName={MODAL_NAMES.EDIT_POST_MODAL}
+            onCancel={this.toggle}
+            onSubmit={this.editPost}
+          />
         </ModalBody>
       </Modal>
     );

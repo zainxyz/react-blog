@@ -12,7 +12,8 @@ import {
   DeleteCommentModal,
   DeletePostModal,
   EditCommentModal,
-  NewPostModal
+  NewPostModal,
+  ScrollToTop
 } from './common';
 import { Categories, Home, NotFound, PostDetails } from './views';
 
@@ -29,19 +30,21 @@ class App extends Component {
     return (
       <Provider store={store}>
         <BrowserRouter>
-          <div>
-            <AppNav brand={brand} />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/category/:categoryId" component={Categories} />
-              <Route exact path="/category/:categoryId/:postId" component={PostDetails} />
-              <Route component={NotFound} />
-            </Switch>
-            <DeleteCommentModal />
-            <DeletePostModal />
-            <EditCommentModal />
-            <NewPostModal />
-          </div>
+          <ScrollToTop>
+            <div>
+              <AppNav brand={brand} />
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/category/:categoryId" component={Categories} />
+                <Route exact path="/category/:categoryId/:postId" component={PostDetails} />
+                <Route component={NotFound} />
+              </Switch>
+              <DeleteCommentModal />
+              <DeletePostModal />
+              <EditCommentModal />
+              <NewPostModal />
+            </div>
+          </ScrollToTop>
         </BrowserRouter>
       </Provider>
     );

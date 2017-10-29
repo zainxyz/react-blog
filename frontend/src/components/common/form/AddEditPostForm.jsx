@@ -15,7 +15,8 @@ import SelectField from './fields/SelectField';
 import TextAreaField from './fields/TextAreaField';
 
 class AddEditPostForm extends Component {
-  getButtonText = () => (!isEmpty(this.props.post) ? 'Save Post' : 'Add Post');
+  getButtonText = () =>
+    this.props.initialValues && !isEmpty(this.props.initialValues.id) ? 'Save Post' : 'Add Post';
 
   getCategoriesForSelectList = () =>
     !isEmpty(this.props.categories) ? map(this.props.categories, category => category.id) : [];
@@ -99,23 +100,23 @@ class AddEditPostForm extends Component {
 }
 
 AddEditPostForm.propTypes = {
-  categories  : PropTypes.object.isRequired,
-  createRecord: PropTypes.func,
-  handleSubmit: PropTypes.func.isRequired,
-  onCancel    : PropTypes.func,
-  post        : PropTypes.object,
-  reset       : PropTypes.func.isRequired
+  categories   : PropTypes.object.isRequired,
+  createRecord : PropTypes.func,
+  handleSubmit : PropTypes.func.isRequired,
+  initialValues: PropTypes.object,
+  onCancel     : PropTypes.func,
+  reset        : PropTypes.func.isRequired
 };
 
 AddEditPostForm.defaultProps = {
-  createRecord: () => {},
-  onCancel    : () => {},
-  post        : {}
+  createRecord : () => {},
+  initialValues: {},
+  onCancel     : () => {}
 };
 
 export default connect((state, props) => ({
   categories   : categorySelectors.getAllCategories(state),
-  initialValues: modalSelectors.getModalDataById(state, MODAL_NAMES.EDIT_POST_MODAL)
+  initialValues: modalSelectors.getModalDataById(state, props.modalName)
 }))(
   reduxForm({
     form    : 'add-edit-post-form',

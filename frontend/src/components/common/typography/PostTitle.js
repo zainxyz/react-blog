@@ -53,17 +53,18 @@ class PostTitle extends Component {
 
 PostTitle.propTypes = {
   author      : PropTypes.string,
-  title       : PropTypes.string.isRequired,
   category    : PropTypes.string,
+  commentCount: PropTypes.number,
   timestamp   : PropTypes.number,
-  commentCount: PropTypes.number
+  title       : PropTypes.string
 };
 
 PostTitle.defaultProps = {
   author      : '',
   category    : '',
-  timestamp   : '',
-  commentCount: ''
+  commentCount: 0,
+  timestamp   : Date.now(),
+  title       : ''
 };
 
 export default PostTitle;

@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 import orderBy from 'lodash/orderBy';
-import { Col, Container, Row } from 'reactstrap';
+import { Button, Col, Container, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import { PostCard, SectionTitle } from 'components/common';
-import { generateKey } from 'utils';
+import { generateKey, MODAL_NAMES } from 'utils';
 import { actions as postsActions, selectors as postsSelectors } from 'modules/posts';
+import { actions as modalsActions } from 'modules/modals';
 
 class PostsList extends Component {
   componentDidMount() {
@@ -25,6 +26,11 @@ class PostsList extends Component {
     !isEmpty(this.props.showPostsForCategory)
       ? `Listing all posts for ${this.props.showPostsForCategory}`
       : 'Listing All Posts';
+
+  addNewPost = () =>
+    this.props.toggleModal(MODAL_NAMES.NEW_POST_MODAL, {
+      category: this.props.showPostsForCategory.toLowerCase()
+    });
 
   renderPosts = () => {
     const { posts, postsByCategory, showPostsForCategory } = this.props;
@@ -47,6 +53,9 @@ class PostsList extends Component {
           Sorry, <span className="font-weight-bold">{showPostsForCategory}</span> does not have any
           posts associated with it.
         </p>
+        <Button color="primary" onClick={this.addNewPost}>
+          {`Add a New Post for the '${showPostsForCategory}' category`}
+        </Button>
       </Col>
     );
   };
@@ -69,7 +78,8 @@ PostsList.propTypes = {
   fetchPostsByCategory: PropTypes.func.isRequired,
   posts               : PropTypes.object.isRequired,
   postsByCategory     : PropTypes.object,
-  showPostsForCategory: PropTypes.string
+  showPostsForCategory: PropTypes.string,
+  toggleModal         : PropTypes.func.isRequired
 };
 
 PostsList.defaultProps = {
@@ -85,5 +95,6 @@ const mapStateToProps = (state, props) => ({
 
 export default connect(mapStateToProps, {
   fetchAllPosts       : postsActions.fetchAllPosts,
-  fetchPostsByCategory: postsActions.fetchPostsByCategory
+  fetchPostsByCategory: postsActions.fetchPostsByCategory,
+  toggleModal         : modalsActions.toggleModalById
 })(PostsList);

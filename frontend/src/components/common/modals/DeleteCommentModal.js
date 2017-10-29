@@ -29,7 +29,7 @@ class DeleteCommentModal extends Component {
   render() {
     const { modal } = this.props;
 
-    const isOpen = modal && modal.isOpen;
+    const isOpen = !isEmpty(modal) && modal.isOpen;
 
     return (
       <Modal

@@ -16,9 +16,10 @@ class DeletePostModal extends Component {
     const onDelete = isFunction(data.onDelete) ? data.onDelete : this.toggle;
 
     this.props.deletePost(data.id).then(resp => {
-      console.log('resp : ', resp);
-      // onDelete();
-      // this.toggle();
+      if (resp.payload && resp.payload.status >= 200) {
+        onDelete();
+      }
+      this.toggle();
     });
   };
 
@@ -31,7 +32,7 @@ class DeletePostModal extends Component {
   render() {
     const { modal } = this.props;
 
-    const isOpen = modal && modal.isOpen;
+    const isOpen = !isEmpty(modal) && modal.isOpen;
 
     return (
       <Modal
