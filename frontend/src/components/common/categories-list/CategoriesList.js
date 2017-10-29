@@ -51,7 +51,7 @@ CategoriesList.defaultProps = {
 
 export default connect(
   createStructuredSelector({
-    categoriesList: categorySelectors.getCategories
+    categoriesList: categorySelectors.getAllCategories
   }),
   {
     fetchAllCategories: categoryActions.fetchAllCategories

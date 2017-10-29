@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
+import isFunction from 'lodash/isFunction';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from 'react-redux';
 
@@ -9,18 +10,24 @@ import { actions as modalsActions, selectors as modalSelectors } from 'modules/m
 import { actions as commentsActions } from 'modules/comments';
 
 class DeleteCommentModal extends Component {
-  deleteComment = () => {
+  onDelete = () => {
+    const { modal: { data } } = this.props;
+
+    const onDelete = isFunction(data.onDelete) ? data.onDelete : this.toggle;
+
     this.props
-      .deleteComment({
-        id: this.props.modal.data.id
-      })
-      .then(resp => (!isEmpty(resp.error) ? this.toggle() : this.props.onDelete()));
+      .deleteComment(data.id)
+      .then(resp => (!isEmpty(resp.error) ? this.toggle() : onDelete()));
   };
+
+  getAuthor = data => (data && !isEmpty(data.author) ? data.author : 'Unknown');
+
+  getDate = data => (data && !isEmpty(data.date) ? data.date : 'unknown date');
 
   toggle = () => this.props.toggleModal(MODAL_NAMES.DELETE_COMMENT_MODAL);
 
   render() {
-    const { author, modal, title } = this.props;
+    const { modal } = this.props;
 
     const isOpen = modal && modal.isOpen;
 
@@ -37,11 +44,12 @@ class DeleteCommentModal extends Component {
         </ModalHeader>
         <ModalBody>
           <p className="lead">
-            <span>{title}</span> by {author}
+            Comment was written by <span>{this.getAuthor(modal.data)}</span> on{' '}
+            {this.getDate(modal.data)}
           </p>
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={this.deleteComment}>
+          <Button color="danger" onClick={this.onDelete}>
             Delete Comment
           </Button>
           <Button color="link" onClick={this.toggle}>
@@ -54,18 +62,13 @@ class DeleteCommentModal extends Component {
 }
 
 DeleteCommentModal.propTypes = {
-  author       : PropTypes.string,
   deleteComment: PropTypes.func.isRequired,
   modal        : PropTypes.object,
-  onDelete     : PropTypes.func.isRequired,
-  title        : PropTypes.string,
   toggleModal  : PropTypes.func.isRequired
 };
 
 DeleteCommentModal.defaultProps = {
-  author: 'unknown',
-  modal : {},
-  title : 'Unknown Comment Name'
+  modal: {}
 };
 
 const mapStateToProps = state => ({

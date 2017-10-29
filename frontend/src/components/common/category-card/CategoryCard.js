@@ -16,7 +16,7 @@ const CategoryCard = ({ buttonText, id, thumbURL, subtitle, title }) => (
       <CardBody>
         <CardTitle>{title}</CardTitle>
         <CardText>{subtitle}</CardText>
-        <Button color="info" tag={NavLink} to={`/${id}`}>
+        <Button color="primary" tag={NavLink} to={`/category/${id}`}>
           {buttonText}
         </Button>
       </CardBody>
@@ -25,11 +25,15 @@ const CategoryCard = ({ buttonText, id, thumbURL, subtitle, title }) => (
 );
 
 CategoryCard.propTypes = {
-  buttonText: PropTypes.string.isRequired,
+  buttonText: PropTypes.string,
   id        : PropTypes.string.isRequired,
   subtitle  : PropTypes.string.isRequired,
   thumbURL  : PropTypes.string.isRequired,
   title     : PropTypes.string.isRequired
+};
+
+CategoryCard.defaultProps = {
+  buttonText: 'View Posts'
 };
 
 export default CategoryCard;

@@ -9,15 +9,11 @@ import { actions as modalsActions, selectors as modalSelectors } from 'modules/m
 import { actions as postsActions } from 'modules/posts';
 
 class EditPostModal extends Component {
-  editPost = ({ title, body, author, category, excerpt }) => {
+  editPost = post => {
     this.props
       .editPost({
-        id: this.props.post.id,
-        title,
-        body,
-        author,
-        category,
-        excerpt
+        id: this.props.modal.data.id,
+        ...post
       })
       .then(() => this.toggle());
   };
@@ -25,7 +21,7 @@ class EditPostModal extends Component {
   toggle = () => this.props.toggleModal(MODAL_NAMES.EDIT_POST_MODAL);
 
   render() {
-    const { modal, post } = this.props;
+    const { modal } = this.props;
 
     const isOpen = modal && modal.isOpen;
 
@@ -33,7 +29,7 @@ class EditPostModal extends Component {
       <Modal autoFocus backdrop="static" isOpen={isOpen} toggle={this.toggle} size="lg">
         <ModalHeader toggle={this.toggle}>{`Edit A Post`}</ModalHeader>
         <ModalBody>
-          <AddEditPostForm post={post} onCancel={this.toggle} onSubmit={this.editPost} />
+          <AddEditPostForm onCancel={this.toggle} onSubmit={this.editPost} />
         </ModalBody>
       </Modal>
     );
@@ -43,7 +39,6 @@ class EditPostModal extends Component {
 EditPostModal.propTypes = {
   editPost   : PropTypes.func.isRequired,
   modal      : PropTypes.object,
-  post       : PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired
 };
 

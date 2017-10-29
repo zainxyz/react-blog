@@ -6,8 +6,9 @@ import { Button, Col, Container, FormGroup, Label, Row } from 'reactstrap';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
-import { validatePostForm, warnPostForm } from 'utils';
 import { selectors as categorySelectors } from 'modules/categories';
+import { selectors as modalSelectors } from 'modules/modals';
+import { MODAL_NAMES, validatePostForm, warnPostForm } from 'utils';
 
 import InputField from './fields/InputField';
 import SelectField from './fields/SelectField';
@@ -25,7 +26,7 @@ class AddEditPostForm extends Component {
   };
 
   render() {
-    const { handleSubmit, onCancel } = this.props;
+    const { handleSubmit } = this.props;
 
     return (
       <Container className="add-post-form">
@@ -68,7 +69,7 @@ class AddEditPostForm extends Component {
           <Row className="form-body">
             <Col className="input-body">
               <FormGroup>
-                <Label for="body">Post Body</Label>
+                <Label for="body">Post Body (valid HTML is allowed)</Label>
                 <Field name="body" component={TextAreaField} type="text" rows="8" />
               </FormGroup>
             </Col>
@@ -86,7 +87,7 @@ class AddEditPostForm extends Component {
               <Button color="link" onClick={this.props.onCancel}>
                 Cancel
               </Button>
-              <Button type="submit" color="info">
+              <Button type="submit" color="primary">
                 {this.getButtonText()}
               </Button>
             </Col>
@@ -112,14 +113,10 @@ AddEditPostForm.defaultProps = {
   post        : {}
 };
 
-export default connect((state, props) => {
-  const initialValues = !isEmpty(props.post) ? props.post : {};
-  console.log('post form : initialValues :', initialValues);
-  return {
-    categories: categorySelectors.getCategories(state),
-    initialValues
-  };
-})(
+export default connect((state, props) => ({
+  categories   : categorySelectors.getAllCategories(state),
+  initialValues: modalSelectors.getModalDataById(state, MODAL_NAMES.EDIT_POST_MODAL)
+}))(
   reduxForm({
     form    : 'add-edit-post-form',
     validate: validatePostForm,

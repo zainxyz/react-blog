@@ -10,14 +10,10 @@ import { actions as modalsActions, selectors as modalSelectors } from 'modules/m
 import { actions as postsActions } from 'modules/posts';
 
 class NewPostModal extends Component {
-  addPost = ({ title, body, author, category, excerpt }) => {
+  addPost = post => {
     this.props
       .addPost({
-        title,
-        body,
-        author,
-        category,
-        excerpt
+        ...post
       })
       .then(() => this.toggle());
   };
@@ -30,12 +26,14 @@ class NewPostModal extends Component {
     const isOpen = !isEmpty(modal) && modal.isOpen;
 
     return (
-      <Modal autoFocus backdrop="static" isOpen={isOpen} toggle={this.toggle} size="lg">
-        <ModalHeader toggle={this.toggle}>{`Let's Add A New Post`}</ModalHeader>
-        <ModalBody>
-          <AddEditPostForm onCancel={this.toggle} onSubmit={this.addPost} />
-        </ModalBody>
-      </Modal>
+      <div className="new-post-modal-thingy">
+        <Modal autoFocus backdrop="static" isOpen={isOpen} toggle={this.toggle} size="lg">
+          <ModalHeader toggle={this.toggle}>{`Let's Add A New Post`}</ModalHeader>
+          <ModalBody>
+            <AddEditPostForm onCancel={this.toggle} onSubmit={this.addPost} />
+          </ModalBody>
+        </Modal>
+      </div>
     );
   }
 }

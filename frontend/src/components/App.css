@@ -58,27 +58,37 @@
 .post-body,
 .comment-card {
   line-height: 2;
+  word-wrap: break-word;
 }
 
 /* Styles for the post-actions */
 .post-actions {
   align-items: center;
-  border-bottom: 1px solid #ced4da;
-  border-top: 1px solid #ced4da;
+  border-bottom: 1px solid #0069d9;
+  border-top: 1px solid #0069d9;
   display: flex;
   justify-content: space-between;
   padding: 0 !important;
 }
-.post-actions > .col {
+.post-actions .col {
   align-items: center;
-  border-right: 1px solid #ced4da;
+  border-right: 1px solid #0069d9;
   display: flex;
   flex: 1 1 auto;
   justify-content: center;
-  padding: 3rem 2rem !important;
+  padding: 0;
 }
-.post-actions > .col:last-of-type {
+.post-actions .col:last-of-type {
   border-right: 0;
+}
+.post-actions .col > .btn {
+  border-radius: 0;
+  padding: 3rem 2rem !important;
+  width: 100%;
+  border-color: transparent;
+}
+.post-actions .col > .btn:hover {
+  border-color: transparent;
 }
 
 /* Styles for the post-leave-a-reply */
@@ -113,7 +123,7 @@
 }
 .comment-card .comment-meta .comment-actions button {
   padding: 0;
-  background: ;
+  /*background: ;*/
 }
 
 /* Styles for the comment-reply-form */
@@ -135,13 +145,16 @@
 }
 
 /* Styles for the modals */
+.delete-comment-modal .modal-title,
 .delete-post-modal .modal-title {
   font-size: 1.25rem;
   font-weight: 400;
 }
+.delete-comment-modal .modal-body p,
 .delete-post-modal .modal-body p {
   margin-bottom: 0;
 }
+.delete-comment-modal .modal-body p span,
 .delete-post-modal .modal-body p span {
   font-weight: 600;
 }

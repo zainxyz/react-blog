@@ -56,12 +56,13 @@ class PageTitle extends Component {
 
 PageTitle.propTypes = {
   subtitle   : PropTypes.string,
-  title      : PropTypes.string.isRequired,
+  title      : PropTypes.string,
   titlePrefix: PropTypes.string
 };
 
 PageTitle.defaultProps = {
   subtitle   : '',
+  title      : '',
   titlePrefix: ''
 };
 

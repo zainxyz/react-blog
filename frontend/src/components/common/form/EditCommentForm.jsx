@@ -38,8 +38,8 @@ const EditCommentForm = ({ handleSubmit, onCancel }) => (
       </Row>
       <Row className="form-actions">
         <Col className="d-flex justify-content-center">
-          <Button type="submit" color="info">
-            Submit Comment
+          <Button type="submit" color="primary">
+            Update Comment
           </Button>
         </Col>
       </Row>

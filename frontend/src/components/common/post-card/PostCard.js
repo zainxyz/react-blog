@@ -16,11 +16,18 @@ import {
   Row
 } from 'reactstrap';
 
+import { actions as modalsActions } from 'modules/modals';
 import { actions as postsActions } from 'modules/posts';
-import { getCommentCount } from 'utils';
+
+import { getCommentCount, MODAL_NAMES } from 'utils';
 
 class PostCard extends Component {
-  deletePost = () => this.props.deletePost(this.props.id);
+  deletePost = () =>
+    this.props.toggleModal(MODAL_NAMES.DELETE_POST_MODAL, {
+      author: this.props.author,
+      id    : this.props.id,
+      title : this.props.title
+    });
 
   renderPostExcerpt = excerpt => (
     <Truncate lines={2} ellipsis={<span>...</span>}>
@@ -44,7 +51,7 @@ class PostCard extends Component {
         {/* <CardImg top width="100%" src="http://placehold.it/100x200" alt="Post Image Caption" /> */}
         <CardBody>
           <CardTitle>
-            {title} <Badge color="info">{voteScore}</Badge>{' '}
+            {title} <Badge color="primary">{voteScore}</Badge>{' '}
             <a onClick={() => voteOnPost({ id: id, option: 'upVote' })} role="button">
               <small>upVote</small>
             </a>{' '}
@@ -64,7 +71,7 @@ class PostCard extends Component {
             </Row>
           </CardSubtitle>
           <CardText>{this.renderPostExcerpt(excerpt)}</CardText>
-          <Button color="info" tag={NavLink} to={`/${category}/${id}`}>
+          <Button color="primary" tag={NavLink} to={`/category/${category}/${id}`}>
             View Post
           </Button>
           <Button color="danger" onClick={this.deletePost}>
@@ -80,7 +87,7 @@ PostCard.propTypes = {
   author      : PropTypes.string.isRequired,
   category    : PropTypes.string.isRequired,
   commentCount: PropTypes.number.isRequired,
-  deletePost  : PropTypes.func.isRequired,
+  toggleModal : PropTypes.func.isRequired,
   excerpt     : PropTypes.string,
   id          : PropTypes.string.isRequired,
   title       : PropTypes.string.isRequired,
@@ -93,6 +100,6 @@ PostCard.defaultProps = {
 };
 
 export default connect(null, {
-  deletePost: postsActions.deletePost,
-  voteOnPost: postsActions.voteOnPost
+  toggleModal: modalsActions.toggleModalById,
+  voteOnPost : postsActions.voteOnPost
 })(PostCard);

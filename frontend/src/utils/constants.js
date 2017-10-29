@@ -16,6 +16,13 @@ export const APP_NAMESPACE = `8a675a23-087c-4031-ba54-20c56da119a2`;
 export const API_BASE_URL = 'http://localhost:3001';
 
 /**
+ * The 404 or /notfound route for the Application
+ *
+ * @type {String}
+ */
+export const APP_ROUTE_NOT_FOUND = '/notfound';
+
+/**
  * The Application Navbar
  *
  * @type {Array}
@@ -106,7 +113,7 @@ export const CATEGORY_TITLE_PREFIXES = [
  *
  * @type {Number}
  */
-export const COMMENT_BODY_MIN_LENGTH = 100;
+export const COMMENT_BODY_MIN_LENGTH = 50;
 
 /**
  * Min length for submitting a Post's body
@@ -114,6 +121,27 @@ export const COMMENT_BODY_MIN_LENGTH = 100;
  * @type {Number}
  */
 export const POST_BODY_MIN_LENGTH = 250;
+
+/**
+ * Min length for submitting a Post's title
+ *
+ * @type {Number}
+ */
+export const POST_TITLE_MIN_LENGTH = 5;
+
+/**
+ * Min length for submitting a Post's excerpt
+ *
+ * @type {Number}
+ */
+export const POST_EXCERPT_MIN_LENGTH = 50;
+
+/**
+ * Default value for the Categories dropdown select list
+ *
+ * @type {String}
+ */
+export const POST_CATEGORIES_DEFAULT_VALUE = 'Please select a Category';
 
 /**
  * Date format... i.e. Monday, October 23, 2017
@@ -143,7 +171,9 @@ export const DOM_PURIFY_DEFAULT_CONFIG = {};
  */
 export const REGEX_PATTERNS = {
   // Matches any character that is not one of the 26 alphabets
-  LETTERS: /[^a-zA-Z]+/g
+  LETTERS: /[^a-zA-Z]+/g,
+  // Verifies if the string is a valid email
+  EMAIL  : /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
 };
 
 /**

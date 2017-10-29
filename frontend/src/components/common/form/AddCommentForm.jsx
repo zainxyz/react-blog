@@ -35,8 +35,8 @@ const AddCommentForm = ({ handleSubmit }) => (
       </Row>
       <Row className="form-actions">
         <Col className="d-flex justify-content-center">
-          <Button type="submit" color="info">
-            Submit Comment
+          <Button type="submit" color="primary" size="lg">
+            Add Comment
           </Button>
         </Col>
       </Row>

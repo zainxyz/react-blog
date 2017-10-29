@@ -1,5 +1,6 @@
 import Categories from './Categories';
 import Home from './Home';
-import Posts from './Posts';
+import NotFound from './NotFound';
+import PostDetails from './PostDetails';
 
-export { Categories, Home, Posts };
+export { Categories, Home, NotFound, PostDetails };

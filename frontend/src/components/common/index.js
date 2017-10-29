@@ -4,6 +4,7 @@ import AppNav from './navigation/AppNav';
 import CategoriesList from './categories-list/CategoriesList';
 import CategoryCard from './category-card/CategoryCard';
 import CommentCard from './comment-card/CommentCard';
+import DeleteCommentModal from './modals/DeleteCommentModal';
 import DeletePostModal from './modals/DeletePostModal';
 import EditCommentForm from './form/EditCommentForm';
 import EditCommentModal from './modals/EditCommentModal';
@@ -22,6 +23,7 @@ export {
   CategoriesList,
   CategoryCard,
   CommentCard,
+  DeleteCommentModal,
   DeletePostModal,
   EditCommentForm,
   EditCommentModal,

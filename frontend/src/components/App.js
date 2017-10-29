@@ -1,20 +1,27 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect, Provider } from 'react-redux';
 
 import { actions as modalsActions } from 'modules/modals';
 import { MODAL_NAMES } from 'utils';
 
 import './App.css';
-import { AppNav, NewPostModal, EditCommentModal } from './common';
-import { Categories, Home, Posts } from './views';
+import {
+  AppNav,
+  DeleteCommentModal,
+  DeletePostModal,
+  EditCommentModal,
+  NewPostModal
+} from './common';
+import { Categories, Home, NotFound, PostDetails } from './views';
 
 class App extends Component {
   componentDidMount() {
-    this.props.addModal(MODAL_NAMES.NEW_POST_MODAL);
-    this.props.addModal(MODAL_NAMES.EDIT_COMMENT_MODAL);
     this.props.addModal(MODAL_NAMES.DELETE_COMMENT_MODAL);
+    this.props.addModal(MODAL_NAMES.DELETE_POST_MODAL);
+    this.props.addModal(MODAL_NAMES.EDIT_COMMENT_MODAL);
+    this.props.addModal(MODAL_NAMES.NEW_POST_MODAL);
   }
 
   render() {
@@ -24,11 +31,16 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <AppNav brand={brand} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/:categoryId" component={Categories} />
-            <Route exact path="/:categoryId/:postId" component={Posts} />
-            <NewPostModal />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/category/:categoryId" component={Categories} />
+              <Route exact path="/category/:categoryId/:postId" component={PostDetails} />
+              <Route component={NotFound} />
+            </Switch>
+            <DeleteCommentModal />
+            <DeletePostModal />
             <EditCommentModal />
+            <NewPostModal />
           </div>
         </BrowserRouter>
       </Provider>
@@ -38,8 +50,12 @@ class App extends Component {
 
 App.propTypes = {
   addModal: PropTypes.func.isRequired,
-  brand   : PropTypes.string.isRequired,
+  brand   : PropTypes.string,
   store   : PropTypes.object.isRequired
+};
+
+App.defaultProps = {
+  brand: 'React App'
 };
 
 export default connect(null, {

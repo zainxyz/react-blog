@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
+import isFunction from 'lodash/isFunction';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from 'react-redux';
 
@@ -9,19 +10,26 @@ import { actions as modalsActions, selectors as modalSelectors } from 'modules/m
 import { actions as postsActions } from 'modules/posts';
 
 class DeletePostModal extends Component {
-  deletePost = ({ id }) => {
-    console.log('this.props :', this.props);
-    this.props
-      .deletePost({
-        id
-      })
-      .then(resp => (!isEmpty(resp.error) ? this.toggle() : this.props.onDelete()));
+  onDelete = () => {
+    const { modal: { data } } = this.props;
+
+    const onDelete = isFunction(data.onDelete) ? data.onDelete : this.toggle;
+
+    this.props.deletePost(data.id).then(resp => {
+      console.log('resp : ', resp);
+      // onDelete();
+      // this.toggle();
+    });
   };
+
+  getAuthor = data => (data && !isEmpty(data.author) ? data.author : 'Unknown');
+
+  getTitle = data => (data && !isEmpty(data.title) ? data.title : 'Unknown post name');
 
   toggle = () => this.props.toggleModal(MODAL_NAMES.DELETE_POST_MODAL);
 
   render() {
-    const { author, modal, title } = this.props;
+    const { modal } = this.props;
 
     const isOpen = modal && modal.isOpen;
 
@@ -38,11 +46,11 @@ class DeletePostModal extends Component {
         </ModalHeader>
         <ModalBody>
           <p className="lead">
-            <span>{title}</span> by {author}
+            <span>{this.getTitle(modal.data)}</span> by {this.getAuthor(modal.data)}
           </p>
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={this.deletePost}>
+          <Button color="danger" onClick={this.onDelete}>
             Delete Post
           </Button>
           <Button color="link" onClick={this.toggle}>
@@ -55,18 +63,13 @@ class DeletePostModal extends Component {
 }
 
 DeletePostModal.propTypes = {
-  author     : PropTypes.string,
   deletePost : PropTypes.func.isRequired,
   modal      : PropTypes.object,
-  onDelete   : PropTypes.func.isRequired,
-  title      : PropTypes.string,
   toggleModal: PropTypes.func.isRequired
 };
 
 DeletePostModal.defaultProps = {
-  author: 'unknown',
-  modal : {},
-  title : 'Unknown Post Name'
+  modal: {}
 };
 
 const mapStateToProps = state => ({

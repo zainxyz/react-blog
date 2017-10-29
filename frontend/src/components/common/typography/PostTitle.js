@@ -17,7 +17,7 @@ class PostTitle extends Component {
 
   getAuthor = () =>
     !isEmpty(this.props.author) ? (
-      <span className="px-2 border-secondary">{`by: ${this.props.author}`}</span>
+      <span className="px-2 border-secondary text-truncate">{`by: ${this.props.author}`}</span>
     ) : null;
 
   getDate = () =>
@@ -31,7 +31,7 @@ class PostTitle extends Component {
 
   renderCategoryButtons = () =>
     this.props.category ? (
-      <Button outline color="info" exact tag={NavLink} to={`/${this.props.category}`}>
+      <Button outline color="primary" exact tag={NavLink} to={`/${this.props.category}`}>
         {this.props.category}
       </Button>
     ) : null;

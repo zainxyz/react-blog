@@ -1,32 +1,39 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import map from 'lodash/map';
+import isEmpty from 'lodash/isEmpty';
 import { Button, Col, Container, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import {
-  CommentCard,
-  AddCommentForm,
-  DeletePostModal,
-  EditPostModal,
-  PostTitle
-} from 'components/common';
+import { CommentCard, AddCommentForm, EditPostModal, PostTitle } from 'components/common';
 import { actions as commentsActions, selectors as commentsSelectors } from 'modules/comments';
 import { actions as modalsActions } from 'modules/modals';
-import { generateKey, getCommentCount, MODAL_NAMES, sanitizeMarkup } from 'utils';
 import { selectors as postsSelectors } from 'modules/posts';
+import {
+  APP_ROUTE_NOT_FOUND,
+  generateKey,
+  getCommentCount,
+  MODAL_NAMES,
+  sanitizeMarkup
+} from 'utils';
 
-class Posts extends Component {
+class PostDetails extends Component {
+  componentWillMount(props) {
+    if (isEmpty(this.props.post)) {
+      this.props.history.replace(APP_ROUTE_NOT_FOUND);
+    }
+  }
+
   componentDidMount() {
+    // Fetch all of the comments for the current post
     this.props.fetchAllComments(this.props.post.id);
-    this.props.addModal(MODAL_NAMES.DELETE_POST_MODAL);
+    // Add an EDIT POST modal to the details page
     this.props.addModal(MODAL_NAMES.EDIT_POST_MODAL);
   }
 
-  onAddCommentSubmit = ({ author, body }) => {
+  onAddCommentSubmit = commentInfo => {
     this.props.addComment({
-      author,
-      body,
+      ...commentInfo,
       parentId: this.props.post.id
     });
   };
@@ -38,16 +45,24 @@ class Posts extends Component {
     category    : this.props.post.category,
     commentCount: this.props.commentCount,
     timestamp   : this.props.post.timestamp,
-    title       : this.props.post.title
+    title       : this.props.post.title,
+    voteScore   : this.props.post.voteScore
   });
 
-  deletePost = () => this.props.toggleModal(MODAL_NAMES.DELETE_POST_MODAL);
-
-  editPost = () => this.props.toggleModal(MODAL_NAMES.EDIT_POST_MODAL);
-
   backToCategory = () => {
-    this.props.history.replace(`/${this.props.match.params.categoryId}`);
+    this.props.history.replace(`/category/${this.props.match.params.categoryId}`);
   };
+
+  deletePost = () =>
+    this.props.toggleModal(MODAL_NAMES.DELETE_POST_MODAL, {
+      ...this.props.post,
+      onDelete: this.backToCategory
+    });
+
+  editPost = () =>
+    this.props.toggleModal(MODAL_NAMES.EDIT_POST_MODAL, {
+      ...this.props.post
+    });
 
   renderComments = () => {
     return map(this.props.comments, comment => <CommentCard key={generateKey()} {...comment} />);
@@ -64,12 +79,12 @@ class Posts extends Component {
         </Container>
         <Container fluid className="post-actions">
           <Col>
-            <Button color="link" onClick={this.editPost}>
+            <Button color="primary" onClick={this.editPost}>
               Edit Post
             </Button>
           </Col>
           <Col>
-            <Button color="link" onClick={this.deletePost}>
+            <Button color="primary" onClick={this.deletePost}>
               Delete Post
             </Button>
           </Col>
@@ -93,18 +108,13 @@ class Posts extends Component {
             <AddCommentForm onSubmit={this.onAddCommentSubmit} />
           </Col>
         </Container>
-        <DeletePostModal
-          author={this.props.post.author}
-          onDelete={this.backToCategory}
-          title={this.props.post.title}
-        />
-        <EditPostModal post={this.props.post} />
+        <EditPostModal />
       </div>
     );
   }
 }
 
-Posts.propTypes = {
+PostDetails.propTypes = {
   addComment      : PropTypes.func.isRequired,
   addModal        : PropTypes.func.isRequired,
   commentCount    : PropTypes.number.isRequired,
@@ -112,12 +122,13 @@ Posts.propTypes = {
   fetchAllComments: PropTypes.func.isRequired,
   history         : PropTypes.object.isRequired,
   match           : PropTypes.object.isRequired,
-  post            : PropTypes.object.isRequired,
+  post            : PropTypes.object,
   toggleModal     : PropTypes.func.isRequired
 };
 
-Posts.defaultProps = {
-  comments: {}
+PostDetails.defaultProps = {
+  comments: {},
+  post    : {}
 };
 
 const mapStateToProps = (state, props) => ({
@@ -131,4 +142,4 @@ export default connect(mapStateToProps, {
   addModal        : modalsActions.addModalById,
   fetchAllComments: commentsActions.fetchCommentsByPost,
   toggleModal     : modalsActions.toggleModalById
-})(Posts);
+})(PostDetails);

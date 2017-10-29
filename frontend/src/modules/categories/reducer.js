@@ -25,7 +25,7 @@ const categories = (state = {}, action) => {
 // By default we'll be exporting out the reducer
 export default categories;
 
-export const getCategories = state => state.categories;
+export const getAllCategories = state => state.categories;
 
 export const getCategoryById = (state, categoryId) =>
   state.categories && state.categories[categoryId];

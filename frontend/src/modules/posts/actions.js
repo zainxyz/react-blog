@@ -54,27 +54,20 @@ export const fetchAllPosts = () => ({
  * Add a new post to the server
  *
  * @method addPost
- * @param  {string} title    The title of the post
- * @param  {string} body     The body of the post
- * @param  {string} author   The author of the post
- * @param  {string} category The category of the post
- * @param  {string} excerpt  The excerpt of the post
+ * @param  {Object} post The post to add
  * @return {Action}
  */
-export const addPost = ({ title, body, author, category, excerpt }) => ({
+export const addPost = post => ({
   type   : POSTS_ACTIONS.ADD_POST,
   payload: {
     request: {
       method: 'post',
       url   : POST_URL,
       data  : {
+        ...post,
         id       : generateID(),
         timestamp: getTime(new Date()),
-        title,
-        body,
-        author,
-        category : category.toLowerCase(),
-        excerpt
+        category : post.category.toLowerCase()
       }
     }
   }
@@ -122,24 +115,28 @@ export const voteOnPost = ({ id, option }) => ({
  * Edit a post on the server
  *
  * @method editPost
+ * @param  {string} author   The author of the post
+ * @param  {string} body     The body of the post
+ * @param  {string} category The category of the post
+ * @param  {string} email    The email of the post
+ * @param  {string} excerpt  The excerpt of the post
  * @param  {string} id       The unique id of the post
  * @param  {string} title    The title of the post
- * @param  {string} body     The body of the post
- * @param  {string} author   The author of the post
- * @param  {string} category The category of the post
  * @return {Action}
  */
-export const editPost = ({ id, title, body, author, category }) => ({
+export const editPost = ({ author, body, category, email, excerpt, id, title }) => ({
   type   : POSTS_ACTIONS.EDIT_POST,
   payload: {
     request: {
       method: 'put',
       url   : `${POST_URL}/${id}`,
       data  : {
-        title,
-        body,
         author,
-        category
+        body,
+        category,
+        email,
+        excerpt,
+        title
       }
     }
   }

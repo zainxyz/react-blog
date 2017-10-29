@@ -23,7 +23,7 @@ Home.propTypes = {
 
 Home.defaultProps = {
   title      : 'React Blog...',
-  titlePrefix: 'This is'
+  titlePrefix: 'This is a'
 };
 
 export default Home;

@@ -1,12 +1,25 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import includes from 'lodash/includes';
+import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
 
-import { selectors as categorySelectors } from 'modules/categories';
 import { PageTitle, PostsList } from 'components/common';
-import { generateCategoryTitlePrefixes } from 'utils';
+import { APP_ROUTE_NOT_FOUND, generateCategoryTitlePrefixes } from 'utils';
+import { selectors as categorySelectors } from 'modules/categories';
 
 class Categories extends Component {
+  componentWillMount() {
+    const { match, categoriesList } = this.props;
+
+    if (
+      isEmpty(match.params.categoryId) ||
+      !includes(Object.keys(categoriesList), match.params.categoryId)
+    ) {
+      this.props.history.replace(APP_ROUTE_NOT_FOUND);
+    }
+  }
+
   getPageTitleProps = () => ({
     title      : this.props.category.title,
     subtitle   : this.props.category.subtitle,
@@ -24,15 +37,20 @@ class Categories extends Component {
 }
 
 Categories.propTypes = {
-  category: PropTypes.object
+  categoriesList: PropTypes.object,
+  category      : PropTypes.object,
+  history       : PropTypes.object.isRequired,
+  match         : PropTypes.object.isRequired
 };
 
 Categories.defaultProps = {
-  category: {}
+  category      : {},
+  categoriesList: {}
 };
 
 const mapStateToProps = (state, props) => ({
-  category: categorySelectors.getCategoryById(state, props.match.params.categoryId)
+  category      : categorySelectors.getCategoryById(state, props.match.params.categoryId),
+  categoriesList: categorySelectors.getAllCategories(state)
 });
 
 export default connect(mapStateToProps)(Categories);

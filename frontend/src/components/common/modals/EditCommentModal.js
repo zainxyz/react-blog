@@ -9,13 +9,11 @@ import { actions as modalsActions, selectors as modalSelectors } from 'modules/m
 import { actions as commentActions } from 'modules/comments';
 
 class EditCommentModal extends Component {
-  editComment = ({ body, email }) => {
-    console.log('...editComment : ', this.props);
+  editComment = comment => {
     this.props
       .editComment({
         id: this.props.modal.data.id,
-        body,
-        email
+        ...comment
       })
       .then(() => this.toggle());
   };
@@ -29,7 +27,7 @@ class EditCommentModal extends Component {
 
     return (
       <Modal autoFocus backdrop="static" isOpen={isOpen} toggle={this.toggle} size="lg">
-        <ModalHeader toggle={this.toggle}>{`Edit A Post`}</ModalHeader>
+        <ModalHeader toggle={this.toggle}>{`Edit A Comment`}</ModalHeader>
         <ModalBody>
           <EditCommentForm onCancel={this.toggle} onSubmit={this.editComment} />
         </ModalBody>
@@ -41,7 +39,6 @@ class EditCommentModal extends Component {
 EditCommentModal.propTypes = {
   editComment: PropTypes.func.isRequired,
   modal      : PropTypes.object,
-  comment    : PropTypes.object,
   toggleModal: PropTypes.func.isRequired
 };
 

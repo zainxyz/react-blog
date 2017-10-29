@@ -18,7 +18,9 @@ class CommentCard extends Component {
 
   deleteComment = () =>
     this.props.toggleModal(MODAL_NAMES.DELETE_COMMENT_MODAL, {
-      id: this.props.id
+      author: this.props.author,
+      date  : formatDateWithTime(this.props.timestamp),
+      id    : this.props.id
     });
 
   render() {
@@ -75,7 +77,6 @@ class CommentCard extends Component {
 CommentCard.propTypes = {
   author       : PropTypes.string.isRequired,
   body         : PropTypes.string.isRequired,
-  deleteComment: PropTypes.func.isRequired,
   email        : PropTypes.string.isRequired,
   id           : PropTypes.string.isRequired,
   timestamp    : PropTypes.number.isRequired,
@@ -90,6 +91,5 @@ CommentCard.defaultProps = {
 
 export default connect(null, {
   toggleModal  : modalsActions.toggleModalById,
-  voteOnComment: commentsActions.voteOnComment,
-  deleteComment: commentsActions.deleteComment
+  voteOnComment: commentsActions.voteOnComment
 })(CommentCard);
