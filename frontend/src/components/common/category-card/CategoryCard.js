@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, Button } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
 import { importAll } from 'utils';
@@ -10,18 +10,17 @@ const categoryImages = importAll(require.context('assets/categories', false, /\.
 export const buildCategoryImageURL = imageId => categoryImages[imageId];
 
 const CategoryCard = ({ buttonText, id, thumbURL, subtitle, title }) => (
-  <div>
+  <NavLink to={`/category/${id}`} className="category-card">
     <Card>
-      <CardImg top width="100%" src={buildCategoryImageURL(thumbURL)} alt="Card image cap" />
+      <div className="card-image">
+        <CardImg alt={title} src={buildCategoryImageURL(thumbURL)} top width="100%" />
+      </div>
       <CardBody>
         <CardTitle>{title}</CardTitle>
         <CardText>{subtitle}</CardText>
-        <Button color="primary" tag={NavLink} to={`/category/${id}`}>
-          {buttonText}
-        </Button>
       </CardBody>
     </Card>
-  </div>
+  </NavLink>
 );
 
 CategoryCard.propTypes = {

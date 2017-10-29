@@ -46,7 +46,7 @@ CategoriesList.propTypes = {
 };
 
 CategoriesList.defaultProps = {
-  className: 'bg-light'
+  className: 'bg-light categories-list'
 };
 
 export default connect(

@@ -116,7 +116,9 @@ function edit(token, id, comment) {
   return new Promise(res => {
     let comments = getData(token);
     for (prop in comment) {
-      comments[id][prop] = comment[prop];
+      if (comment[prop]) {
+        comments[id][prop] = comment[prop];
+      }
     }
     res(comments[id]);
   });

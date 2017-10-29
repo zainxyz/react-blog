@@ -31,7 +31,7 @@ class PostTitle extends Component {
 
   renderCategoryButtons = () =>
     this.props.category ? (
-      <Button outline color="primary" exact tag={NavLink} to={`/${this.props.category}`}>
+      <Button outline color="primary" exact tag={NavLink} to={`/category/${this.props.category}`}>
         {this.props.category}
       </Button>
     ) : null;
@@ -56,7 +56,8 @@ PostTitle.propTypes = {
   category    : PropTypes.string,
   commentCount: PropTypes.number,
   timestamp   : PropTypes.number,
-  title       : PropTypes.string
+  title       : PropTypes.string,
+  voteScore   : PropTypes.number
 };
 
 PostTitle.defaultProps = {
@@ -64,7 +65,8 @@ PostTitle.defaultProps = {
   category    : '',
   commentCount: 0,
   timestamp   : Date.now(),
-  title       : ''
+  title       : '',
+  voteScore   : 0
 };
 
 export default PostTitle;

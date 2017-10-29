@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 import { Button, Col, Container, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import { CommentCard, AddCommentForm, EditPostModal, PostTitle } from 'components/common';
+import { CommentCard, AddCommentForm, PostTitle } from 'components/common';
 import { actions as commentsActions, selectors as commentsSelectors } from 'modules/comments';
 import { actions as modalsActions } from 'modules/modals';
 import { selectors as postsSelectors } from 'modules/posts';
@@ -120,7 +120,6 @@ class PostDetails extends Component {
             <AddCommentForm onSubmit={this.onAddCommentSubmit} />
           </Col>
         </Container>
-        <EditPostModal />
       </div>
     );
   }

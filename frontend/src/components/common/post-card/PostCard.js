@@ -29,6 +29,13 @@ class PostCard extends Component {
       title : this.props.title
     });
 
+  editPost = () => {
+    console.log('this.props : ', this.props);
+    this.props.toggleModal(MODAL_NAMES.EDIT_POST_MODAL, {
+      ...this.props
+    });
+  };
+
   renderPostExcerpt = excerpt => (
     <Truncate lines={2} ellipsis={<span>...</span>}>
       {excerpt}
@@ -73,6 +80,9 @@ class PostCard extends Component {
           <CardText>{this.renderPostExcerpt(excerpt)}</CardText>
           <Button color="primary" tag={NavLink} to={`/category/${category}/${id}`}>
             View Post
+          </Button>
+          <Button color="secondary" onClick={this.editPost}>
+            Edit Post
           </Button>
           <Button color="danger" onClick={this.deletePost}>
             Delete

@@ -12,6 +12,7 @@ import {
   DeleteCommentModal,
   DeletePostModal,
   EditCommentModal,
+  EditPostModal,
   NewPostModal,
   ScrollToTop
 } from './common';
@@ -22,6 +23,7 @@ class App extends Component {
     this.props.addModal(MODAL_NAMES.DELETE_COMMENT_MODAL);
     this.props.addModal(MODAL_NAMES.DELETE_POST_MODAL);
     this.props.addModal(MODAL_NAMES.EDIT_COMMENT_MODAL);
+    this.props.addModal(MODAL_NAMES.EDIT_POST_MODAL);
     this.props.addModal(MODAL_NAMES.NEW_POST_MODAL);
   }
 
@@ -42,6 +44,7 @@ class App extends Component {
               <DeleteCommentModal />
               <DeletePostModal />
               <EditCommentModal />
+              <EditPostModal />
               <NewPostModal />
             </div>
           </ScrollToTop>

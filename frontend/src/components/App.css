@@ -1,5 +1,13 @@
 /* NOTE: !important is used to overwrite bootstrap imported styles */
 
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+p {
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
 /* Adding .display-5 to the Bootstrap display line-up */
 .display-5 {
   font-size: 2.5rem;
@@ -52,6 +60,36 @@
   line-height: 1.5;
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+/* Styles for category list */
+.categories-list {
+  padding-top: 5rem !important;
+  padding-bottom: 8rem !important;
+}
+
+/* Styles for category card */
+.category-card {
+  color: inherit;
+  display: block;
+  box-shadow: 0px 30px 90px rgba(0, 0, 0, 0.14);
+}
+.category-card:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.category-card .card {
+  border: 0;
+}
+.category-card .card-image {
+  overflow: hidden;
+}
+.category-card .card-image img {
+  transform: scale(1);
+  transition: 0.7s transform ease;
+}
+.category-card:hover .card-image img {
+  transform: scale(1.07);
 }
 
 /* Styles for the post-body and comment-body */
