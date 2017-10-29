@@ -19,7 +19,7 @@ class CategoriesList extends Component {
     const { categoriesList } = this.props;
     if (!isEmpty(categoriesList)) {
       return map(categoriesList, category => (
-        <Col sm="3" key={generateKey()}>
+        <Col sm="12" md="6" className="mb-6" key={generateKey()}>
           <CategoryCard {...category} buttonText="View Posts" />
         </Col>
       ));
@@ -31,7 +31,7 @@ class CategoriesList extends Component {
     const { className } = this.props;
 
     return (
-      <Container fluid className={className}>
+      <Container className={className}>
         <SectionTitle title="Available Categories" />
         <Row>{this.renderCategories()}</Row>
       </Container>
@@ -46,7 +46,7 @@ CategoriesList.propTypes = {
 };
 
 CategoriesList.defaultProps = {
-  className: 'bg-light categories-list'
+  className: 'categories-list'
 };
 
 export default connect(

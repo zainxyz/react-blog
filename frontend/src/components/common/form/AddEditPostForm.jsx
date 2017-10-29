@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import { selectors as categorySelectors } from 'modules/categories';
 import { selectors as modalSelectors } from 'modules/modals';
-import { MODAL_NAMES, validatePostForm, warnPostForm } from 'utils';
+import { validatePostForm, warnPostForm } from 'utils';
 
 import InputField from './fields/InputField';
 import SelectField from './fields/SelectField';

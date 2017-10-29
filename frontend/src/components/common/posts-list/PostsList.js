@@ -41,7 +41,7 @@ class PostsList extends Component {
 
     if (!isEmpty(sortedPostsList)) {
       return map(sortedPostsList, post => (
-        <Col sm="2" key={generateKey()}>
+        <Col sm="12" md="3" className="mb-5" key={generateKey()}>
           <PostCard {...post} buttonText="View Post" />
         </Col>
       ));

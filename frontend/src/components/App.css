@@ -15,6 +15,18 @@ p {
   line-height: 1.2;
 }
 
+/* Adding .mb-6 to the Bootstrap spacing line-up */
+.mb-6 {
+  margin-bottom: 4rem !important;
+}
+
+/* Stretching the Bootstrap's container */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1500px !important;
+  }
+}
+
 /* Overwriting the cursor type for buttons and nav-link */
 .nav-link,
 .btn {
@@ -22,9 +34,11 @@ p {
 }
 
 /* Making the container match the jumbotron in spacing */
-.container-fluid,
-.container {
+.container-fluid {
   padding: 3rem 2rem !important;
+}
+.container {
+  padding: 3rem 6rem !important;
 }
 
 /* Overwriting the 'bg-dark' for container background purposes */
@@ -65,7 +79,7 @@ p {
 /* Styles for category list */
 .categories-list {
   padding-top: 5rem !important;
-  padding-bottom: 8rem !important;
+  padding-bottom: 4rem !important;
 }
 
 /* Styles for category card */
@@ -90,6 +104,9 @@ p {
 }
 .category-card:hover .card-image img {
   transform: scale(1.07);
+}
+.category-card .card-body {
+  padding: 2.25rem !important;
 }
 
 /* Styles for the post-body and comment-body */
