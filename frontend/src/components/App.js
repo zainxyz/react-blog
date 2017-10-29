@@ -1,12 +1,19 @@
+import BrowserRouter from 'react-router-dom/BrowserRouter';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import Route from 'react-router-dom/Route';
 import WebFontLoader from '@dr-kobros/react-webfont-loader';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect, Provider } from 'react-redux';
+import { AnimatedSwitch } from 'react-router-transition';
 
 import { actions as modalsActions } from 'modules/modals';
 import { actions as webfontsActions, selectors as webfontsSelectors } from 'modules/webfonts';
-import { MODAL_NAMES, WEB_FONT_LOADER_CONFIG } from 'utils';
+import {
+  MODAL_NAMES,
+  WEB_FONT_LOADER_CONFIG,
+  SWITCH_ROUTE_BOUNCE_TRANSITION,
+  switchRouteMapStyles
+} from 'utils';
 
 import './App.css';
 import {
@@ -43,12 +50,18 @@ class App extends Component {
             <ScrollToTop>
               <div>
                 <AppNav brand={brand} />
-                <Switch>
+                <AnimatedSwitch
+                  atEnter={SWITCH_ROUTE_BOUNCE_TRANSITION.atEnter}
+                  atLeave={SWITCH_ROUTE_BOUNCE_TRANSITION.atLeave}
+                  atActive={SWITCH_ROUTE_BOUNCE_TRANSITION.atActive}
+                  mapStyles={switchRouteMapStyles}
+                  className="animated-switch-wrapper"
+                >
                   <Route exact path="/" component={Home} />
                   <Route exact path="/category/:categoryId" component={Categories} />
                   <Route exact path="/category/:categoryId/:postId" component={PostDetails} />
                   <Route component={NotFound} />
-                </Switch>
+                </AnimatedSwitch>
                 <DeleteCommentModal />
                 <DeletePostModal />
                 <EditCommentModal />

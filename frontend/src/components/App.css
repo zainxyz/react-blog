@@ -1,5 +1,15 @@
 /* NOTE: !important is used to overwrite bootstrap imported styles */
 
+/* Animations for Routing */
+.animated-switch-wrapper {
+  position: relative;
+}
+.animated-switch-wrapper > div {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   font-family: 'Nunito' !important;

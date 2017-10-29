@@ -6,4 +6,5 @@ export * from './date';
 export * from './form';
 export * from './generate';
 export * from './import';
+export * from './routes';
 export * from './sanitize';
