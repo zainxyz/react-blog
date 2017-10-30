@@ -8,12 +8,20 @@ import React from 'react';
  * @param  {string}  title       The required title for the section title
  * @return {JSX}
  */
-const SectionTitle = ({ title }) => (
-  <h2 className="section-title lead border-secondary">{title}</h2>
+const SectionTitle = ({ title, children }) => (
+  <div className="section-title border-secondary">
+    <h2 className=" lead">{title}</h2>
+    {children}
+  </div>
 );
 
 SectionTitle.propTypes = {
-  title: PropTypes.string.isRequired
+  title   : PropTypes.string.isRequired,
+  children: PropTypes.node
+};
+
+SectionTitle.defaultProps = {
+  children: []
 };
 
 export default SectionTitle;

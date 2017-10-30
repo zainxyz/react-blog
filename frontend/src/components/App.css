@@ -80,12 +80,17 @@ p {
 }
 
 /* Styles for the section title */
-.section-title.lead {
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid transparent;
-  font-size: 2rem;
-  line-height: 1.5;
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
+}
+.section-title .lead {
+  font-size: 2rem;
+  line-height: 1.5;
 }
 
 /* Styles for category list */
@@ -206,6 +211,15 @@ p {
 .comment-reply-form .form-author {
   margin-bottom: 1rem;
   margin-top: 0.5rem;
+}
+
+.sorting-options-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.sorting-options .form-group select:first-of-type {
+  margin-right: 20px;
 }
 
 /* Overwriting global form-control (inputs) */

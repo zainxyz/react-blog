@@ -1,21 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import map from 'lodash/map';
 import isEmpty from 'lodash/isEmpty';
-import { Button, Col, Container, Row } from 'reactstrap';
+import { Button, Col, Container } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import { CommentCard, AddCommentForm, PostTitle } from 'components/common';
+import { APP_ROUTE_NOT_FOUND, MODAL_NAMES, sanitizeMarkup } from 'utils';
+import { CommentsList, AddCommentForm, PostTitle } from 'components/common';
 import { actions as commentsActions, selectors as commentsSelectors } from 'modules/comments';
 import { actions as modalsActions } from 'modules/modals';
 import { selectors as postsSelectors } from 'modules/posts';
-import {
-  APP_ROUTE_NOT_FOUND,
-  generateKey,
-  getCommentCount,
-  MODAL_NAMES,
-  sanitizeMarkup
-} from 'utils';
 
 class PostDetails extends Component {
   componentWillMount(props) {
@@ -76,10 +69,6 @@ class PostDetails extends Component {
       ...this.props.post
     });
 
-  renderComments = () => {
-    return map(this.props.comments, comment => <CommentCard key={generateKey()} {...comment} />);
-  };
-
   render() {
     return (
       <div className="post-view">
@@ -102,17 +91,7 @@ class PostDetails extends Component {
           </Col>
         </Container>
         <Container className="post-comments">
-          <Row>
-            <Col>
-              <h5 className="text-center font-italic font-weight-light">Join the discussion</h5>
-              <h2 className="display-4 text-center font-weight-bold">
-                {getCommentCount(this.props.commentCount)}
-              </h2>
-            </Col>
-          </Row>
-          <Row>
-            <Col>{this.renderComments()}</Col>
-          </Row>
+          <CommentsList comments={this.props.comments} postId={this.props.post.id} />
         </Container>
         <Container fluid className="post-leave-a-reply">
           <Col>
@@ -143,9 +122,9 @@ PostDetails.defaultProps = {
 };
 
 const mapStateToProps = (state, props) => ({
-  post        : postsSelectors.getPostById(state, props.match.params.postId),
+  commentCount: commentsSelectors.getCommentCountForPostId(state, props.match.params.postId),
   comments    : commentsSelectors.getCommentsForPostId(state, props.match.params.postId),
-  commentCount: commentsSelectors.getCommentCountForPostId(state, props.match.params.postId)
+  post        : postsSelectors.getPostById(state, props.match.params.postId)
 });
 
 export default connect(mapStateToProps, {

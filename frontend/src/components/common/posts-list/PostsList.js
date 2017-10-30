@@ -1,21 +1,22 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import isEmpty from 'lodash/isEmpty';
-import map from 'lodash/map';
-import orderBy from 'lodash/orderBy';
+import _isEmpty from 'lodash/isEmpty';
+import _map from 'lodash/map';
+import _orderBy from 'lodash/orderBy';
 import { Button, Col, Container, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import { PostCard, SectionTitle } from 'components/common';
-import { generateKey, MODAL_NAMES } from 'utils';
-import { actions as postsActions, selectors as postsSelectors } from 'modules/posts';
+import { PostCard, SectionTitle, SortingOptions } from 'components/common';
 import { actions as modalsActions } from 'modules/modals';
+import { actions as postsActions, selectors as postsSelectors } from 'modules/posts';
+import { actions as sortingActions, selectors as sortingSelectors } from 'modules/sorting';
+import { generateKey, MODAL_NAMES } from 'utils';
 
 class PostsList extends Component {
   componentDidMount() {
     const { showPostsForCategory } = this.props;
 
-    if (isEmpty(showPostsForCategory)) {
+    if (_isEmpty(showPostsForCategory)) {
       this.props.fetchAllPosts();
     } else {
       this.props.fetchPostsByCategory(showPostsForCategory.toLowerCase());
@@ -23,7 +24,7 @@ class PostsList extends Component {
   }
 
   getSectionTitle = () =>
-    !isEmpty(this.props.showPostsForCategory)
+    !_isEmpty(this.props.showPostsForCategory)
       ? `Listing all posts for ${this.props.showPostsForCategory}`
       : 'Listing All Posts';
 
@@ -33,14 +34,15 @@ class PostsList extends Component {
     });
 
   renderPosts = () => {
-    const { posts, postsByCategory, showPostsForCategory } = this.props;
+    const { posts, postsByCategory, showPostsForCategory, sortingOptions } = this.props;
+    const { sortBy, orderBy } = sortingOptions;
 
-    const postsList = !isEmpty(showPostsForCategory) ? postsByCategory : posts;
+    const postsList = !_isEmpty(showPostsForCategory) ? postsByCategory : posts;
 
-    const sortedPostsList = orderBy(postsList, ['voteScore'], ['desc']);
+    const sortedPostsList = _orderBy(postsList, [sortBy], [orderBy]);
 
-    if (!isEmpty(sortedPostsList)) {
-      return map(sortedPostsList, post => (
+    if (!_isEmpty(sortedPostsList)) {
+      return _map(sortedPostsList, post => (
         <Col sm="12" md="3" className="mb-5" key={generateKey()}>
           <PostCard {...post} buttonText="View Post" />
         </Col>
@@ -60,12 +62,19 @@ class PostsList extends Component {
     );
   };
 
+  renderSortingOptions = () => {
+    const { sortingOptions } = this.props;
+    const { sortBy, orderBy } = sortingOptions;
+
+    return <SortingOptions onChange={this.props.setSortingOptions} values={{ sortBy, orderBy }} />;
+  };
+
   render() {
     const { className } = this.props;
 
     return (
       <Container fluid className={className}>
-        <SectionTitle title={this.getSectionTitle()} />
+        <SectionTitle title={this.getSectionTitle()}>{this.renderSortingOptions()}</SectionTitle>
         <Row>{this.renderPosts()}</Row>
       </Container>
     );
@@ -78,7 +87,9 @@ PostsList.propTypes = {
   fetchPostsByCategory: PropTypes.func.isRequired,
   posts               : PropTypes.object.isRequired,
   postsByCategory     : PropTypes.object,
+  setSortingOptions   : PropTypes.func.isRequired,
   showPostsForCategory: PropTypes.string,
+  sortingOptions      : PropTypes.object.isRequired,
   toggleModal         : PropTypes.func.isRequired
 };
 
@@ -90,11 +101,13 @@ PostsList.defaultProps = {
 
 const mapStateToProps = (state, props) => ({
   posts          : postsSelectors.getPosts(state),
-  postsByCategory: postsSelectors.getPostsByCategoryId(state, props.showPostsForCategory)
+  postsByCategory: postsSelectors.getPostsByCategoryId(state, props.showPostsForCategory),
+  sortingOptions : sortingSelectors.getSortingOptionsForPosts(state)
 });
 
 export default connect(mapStateToProps, {
   fetchAllPosts       : postsActions.fetchAllPosts,
   fetchPostsByCategory: postsActions.fetchPostsByCategory,
+  setSortingOptions   : sortingActions.setSortingOptionsForPosts,
   toggleModal         : modalsActions.toggleModalById
 })(PostsList);

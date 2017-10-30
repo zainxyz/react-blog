@@ -42,7 +42,9 @@ const configureStore = () => {
       saveState({
         categories: store.getState().categories,
         comments  : store.getState().comments,
-        posts     : store.getState().posts
+        modals    : store.getState().modals,
+        posts     : store.getState().posts,
+        sorting   : store.getState().sorting
       });
     }, 1000)
   );

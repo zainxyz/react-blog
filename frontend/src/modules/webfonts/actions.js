@@ -3,7 +3,7 @@ import { createActionsFor } from 'utils';
 /**
  * Define the different actions for the WebFonts module
  *
- * @type {[type]}
+ * @type {Object}
  */
 export const WEB_FONTS_ACTIONS = createActionsFor('webfonts', ['SET_WEB_FONT_STATUS']);
 
