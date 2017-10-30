@@ -32,7 +32,7 @@ class CategoriesList extends Component {
 
     return (
       <Container className={className}>
-        <SectionTitle title="Available Categories" />
+        <SectionTitle title="Categories" />
         <Row>{this.renderCategories()}</Row>
       </Container>
     );

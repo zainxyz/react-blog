@@ -18,7 +18,7 @@ import {
 import { actions as modalsActions } from 'modules/modals';
 import { actions as postsActions } from 'modules/posts';
 
-import { getCommentCount, MODAL_NAMES } from 'utils';
+import { getCommentsCount, MODAL_NAMES } from 'utils';
 
 class PostCard extends Component {
   deletePost = () =>
@@ -72,7 +72,7 @@ class PostCard extends Component {
                 <small>written by: {author}</small>
               </Col>
               <Col md="6" className="text-right">
-                <small>{getCommentCount(commentCount)}</small>
+                <small>{getCommentsCount(commentCount)}</small>
               </Col>
             </Row>
           </CardSubtitle>

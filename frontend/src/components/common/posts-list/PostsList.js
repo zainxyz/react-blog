@@ -10,7 +10,7 @@ import { PostCard, SectionTitle, SortingOptions } from 'components/common';
 import { actions as modalsActions } from 'modules/modals';
 import { actions as postsActions, selectors as postsSelectors } from 'modules/posts';
 import { actions as sortingActions, selectors as sortingSelectors } from 'modules/sorting';
-import { generateKey, MODAL_NAMES } from 'utils';
+import { generateKey, getTotalPostsCount, MODAL_NAMES } from 'utils';
 
 class PostsList extends Component {
   componentDidMount() {
@@ -23,10 +23,16 @@ class PostsList extends Component {
     }
   }
 
-  getSectionTitle = () =>
-    !_isEmpty(this.props.showPostsForCategory)
-      ? `Listing all posts for ${this.props.showPostsForCategory}`
-      : 'Listing All Posts';
+  getSectionTitle = () => {
+    const { posts, showPostsForCategory, postsByCategory } = this.props;
+    const postsList = !_isEmpty(showPostsForCategory) ? postsByCategory : posts;
+
+    const postsCount = getTotalPostsCount(postsList);
+
+    return !_isEmpty(this.props.showPostsForCategory)
+      ? `${postsCount} Post(s) for ${this.props.showPostsForCategory}`
+      : `${postsCount} Total Post(s)`;
+  };
 
   addNewPost = () =>
     this.props.toggleModal(MODAL_NAMES.NEW_POST_MODAL, {

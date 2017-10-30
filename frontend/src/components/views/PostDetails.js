@@ -122,7 +122,7 @@ PostDetails.defaultProps = {
 };
 
 const mapStateToProps = (state, props) => ({
-  commentCount: commentsSelectors.getCommentCountForPostId(state, props.match.params.postId),
+  commentCount: commentsSelectors.getCommentsCountForPostId(state, props.match.params.postId),
   comments    : commentsSelectors.getCommentsForPostId(state, props.match.params.postId),
   post        : postsSelectors.getPostById(state, props.match.params.postId)
 });

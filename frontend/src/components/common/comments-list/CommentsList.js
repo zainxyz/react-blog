@@ -8,7 +8,7 @@ import { Row, Col } from 'reactstrap';
 import { CommentCard, SortingOptions } from 'components/common';
 import { actions as sortingActions, selectors as sortingSelectors } from 'modules/sorting';
 import { selectors as commentsSelectors } from 'modules/comments';
-import { generateKey, getCommentCount } from 'utils';
+import { generateKey, getCommentsCount } from 'utils';
 
 class CommentsList extends Component {
   renderSortingOptions = () => {
@@ -34,7 +34,7 @@ class CommentsList extends Component {
           <Col>
             <h5 className="text-center font-italic font-weight-light">Join the discussion</h5>
             <h2 className="display-4 text-center font-weight-bold">
-              {getCommentCount(this.props.commentCount)}
+              {getCommentsCount(this.props.commentCount)}
             </h2>
           </Col>
         </Row>
@@ -57,7 +57,7 @@ CommentsList.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
-  commentCount  : commentsSelectors.getCommentCountForPostId(state, props.postId),
+  commentCount  : commentsSelectors.getCommentsCountForPostId(state, props.postId),
   sortingOptions: sortingSelectors.getSortingOptionsForComments(state)
 });
 

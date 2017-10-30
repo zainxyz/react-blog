@@ -68,7 +68,7 @@ export const getCommentsForPostId = (state, postId) =>
 /**
  * Get the comment count for the given post id
  */
-export const getCommentCountForPostId = createSelector(
+export const getCommentsCountForPostId = createSelector(
   [getCommentsForPostId],
   comments => Object.keys(comments).length
 );

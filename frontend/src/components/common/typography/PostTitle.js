@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import { Button, Jumbotron } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
-import { formatDate, getCommentCount } from 'utils';
+import { formatDate, getCommentsCount } from 'utils';
 
 /**
  * Class for building the post title
@@ -25,8 +25,8 @@ class PostTitle extends Component {
       <span className="px-2 border-secondary">{formatDate(this.props.timestamp)}</span>
     ) : null;
 
-  getCommentCount = () => (
-    <span className="px-2 border-secondary">{getCommentCount(this.props.commentCount)}</span>
+  getCommentsCount = () => (
+    <span className="px-2 border-secondary">{getCommentsCount(this.props.commentCount)}</span>
   );
 
   renderCategoryButtons = () =>
@@ -43,7 +43,7 @@ class PostTitle extends Component {
         <p className="text-center pb-2">
           {this.getAuthor()}
           {this.getDate()}
-          {this.getCommentCount()}
+          {this.getCommentsCount()}
         </p>
         <div className="category-btns text-center">{this.renderCategoryButtons()}</div>
       </Jumbotron>
