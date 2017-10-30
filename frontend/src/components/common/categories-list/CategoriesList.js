@@ -29,9 +29,10 @@ class CategoriesList extends Component {
 
   render() {
     const { className } = this.props;
+    const classes = `${className} categories-list`;
 
     return (
-      <Container className={className}>
+      <Container className={classes}>
         <SectionTitle title="Categories" />
         <Row>{this.renderCategories()}</Row>
       </Container>
@@ -46,7 +47,7 @@ CategoriesList.propTypes = {
 };
 
 CategoriesList.defaultProps = {
-  className: 'categories-list'
+  className: ''
 };
 
 export default connect(

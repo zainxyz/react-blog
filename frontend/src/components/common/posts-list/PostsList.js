@@ -77,11 +77,14 @@ class PostsList extends Component {
 
   render() {
     const { className } = this.props;
+    const classes = `${className} posts-list`;
 
     return (
-      <Container fluid className={className}>
-        <SectionTitle title={this.getSectionTitle()}>{this.renderSortingOptions()}</SectionTitle>
-        <Row>{this.renderPosts()}</Row>
+      <Container fluid className={classes}>
+        <Container>
+          <SectionTitle title={this.getSectionTitle()}>{this.renderSortingOptions()}</SectionTitle>
+          <Row>{this.renderPosts()}</Row>
+        </Container>
       </Container>
     );
   }

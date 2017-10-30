@@ -12,7 +12,7 @@ const Home = ({ title, titlePrefix }) => (
   <div className="home-view">
     <PageTitle titlePrefix={titlePrefix} title={title} subtitle={generateTagline()} />
     <CategoriesList />
-    <PostsList className="bg-dark" />
+    <PostsList />
   </div>
 );
 

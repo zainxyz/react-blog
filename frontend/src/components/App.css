@@ -51,6 +51,12 @@ p {
 .container {
   padding: 3rem 6rem !important;
 }
+.container-fluid > .container {
+  padding: 0 6rem !important;
+}
+.modal-body .container {
+  padding: 1.5rem !important;
+}
 
 /* Overwriting the 'bg-dark' for container background purposes */
 .container-fluid.bg-dark,
