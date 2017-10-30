@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import _isEmpty from 'lodash/isEmpty';
 import _map from 'lodash/map';
 import _orderBy from 'lodash/orderBy';
-import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
+import { connect } from 'react-redux';
 
 import { CommentCard, SortingOptions } from 'components/common';
 import { actions as sortingActions, selectors as sortingSelectors } from 'modules/sorting';
@@ -12,10 +13,16 @@ import { generateKey, getCommentsCount } from 'utils';
 
 class CommentsList extends Component {
   renderSortingOptions = () => {
-    const { sortingOptions } = this.props;
+    const { sortingOptions, comments } = this.props;
     const { sortBy, orderBy } = sortingOptions;
 
-    return <SortingOptions onChange={this.props.setSortingOptions} values={{ sortBy, orderBy }} />;
+    if (!_isEmpty(comments) && Object.keys(comments).length > 0) {
+      return (
+        <SortingOptions onChange={this.props.setSortingOptions} values={{ sortBy, orderBy }} />
+      );
+    }
+
+    return null;
   };
 
   renderComments = () => {

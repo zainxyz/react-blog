@@ -71,11 +71,29 @@ p {
 /* Styles for the page title */
 .page-title,
 .post-title {
-  margin-bottom: 0 !important;
   /*font-family: 'Roboto';*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 0 !important;
+  margin-bottom: 0 !important;
+  position: relative;
 }
 .page-title .blockquote-footer.lead {
   font-size: 1.25rem;
+}
+.page-title .page-title__overlay {
+  background: rgba(0, 0, 0, 0.25);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+}
+.page-title .page-title__content {
+  position: relative;
+  z-index: 1;
 }
 
 /* Styles for the post title */
@@ -87,6 +105,11 @@ p {
 }
 .post-title p span:first-of-type {
   border-left-color: transparent !important;
+}
+.post-title .vote-on-post {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 /* Styles for the section title */

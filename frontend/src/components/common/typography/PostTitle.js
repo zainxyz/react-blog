@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
-import { Button, Jumbotron } from 'reactstrap';
+import { Button, Container, Jumbotron } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import { VoteScore } from 'components/common';
+import { actions as postsActions } from 'modules/posts';
 import { formatDate, getCommentsCount } from 'utils';
 
 /**
@@ -37,6 +40,8 @@ class PostTitle extends Component {
     ) : null;
 
   render() {
+    const { id, voteScore, voteOnPost } = this.props;
+
     return (
       <Jumbotron className="post-title">
         <h1 className="display-3 text-center pb-4">{this.getTitle()}</h1>
@@ -46,6 +51,9 @@ class PostTitle extends Component {
           {this.getCommentsCount()}
         </p>
         <div className="category-btns text-center">{this.renderCategoryButtons()}</div>
+        <Container className="vote-on-post pb-0 pt-2">
+          <VoteScore id={id} score={voteScore} onClick={voteOnPost} className="col-md-2" />
+        </Container>
       </Jumbotron>
     );
   }
@@ -69,4 +77,6 @@ PostTitle.defaultProps = {
   voteScore   : 0
 };
 
-export default PostTitle;
+export default connect(null, {
+  voteOnPost: postsActions.voteOnPost
+})(PostTitle);

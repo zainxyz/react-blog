@@ -48,6 +48,7 @@ class PostDetails extends Component {
         author      : this.props.post.author,
         category    : this.props.post.category,
         commentCount: this.props.commentCount,
+        id          : this.props.post.id,
         timestamp   : this.props.post.timestamp,
         title       : this.props.post.title,
         voteScore   : this.props.post.voteScore

@@ -69,10 +69,18 @@ class PostsList extends Component {
   };
 
   renderSortingOptions = () => {
-    const { sortingOptions } = this.props;
+    const { posts, postsByCategory, showPostsForCategory, sortingOptions } = this.props;
     const { sortBy, orderBy } = sortingOptions;
 
-    return <SortingOptions onChange={this.props.setSortingOptions} values={{ sortBy, orderBy }} />;
+    const postsList = !_isEmpty(showPostsForCategory) ? postsByCategory : posts;
+
+    if (!_isEmpty(postsList) && Object.keys(postsList).length > 0) {
+      return (
+        <SortingOptions onChange={this.props.setSortingOptions} values={{ sortBy, orderBy }} />
+      );
+    }
+
+    return null;
   };
 
   render() {

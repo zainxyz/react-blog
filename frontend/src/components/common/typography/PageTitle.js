@@ -4,8 +4,12 @@ import isEmpty from 'lodash/isEmpty';
 import { Button, Jumbotron } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import { MODAL_NAMES } from 'utils';
+import { MODAL_NAMES, importAll } from 'utils';
 import { actions as modalsActions } from 'modules/modals';
+
+const categoryImages = importAll(require.context('assets/page-title', false, /\.(png|jpe?g|svg)$/));
+
+export const buildPageTitleImgURL = imageId => categoryImages[imageId];
 
 /**
  * Class for building the page title with an optional titlePrefix and subtitle
@@ -25,7 +29,7 @@ class PageTitle extends Component {
     const { subtitle } = this.props;
 
     if (!isEmpty(subtitle)) {
-      return <footer className="blockquote-footer lead text-center">{subtitle}</footer>;
+      return <footer className="blockquote-footer lead text-center text-light">{subtitle}</footer>;
     }
 
     return null;
@@ -54,14 +58,22 @@ class PageTitle extends Component {
   };
 
   render() {
+    const { imgURL } = this.props;
+
     return (
-      <Jumbotron className="page-title text-center">
-        <h1 className="display-4">
-          {this.renderTitlePrefix()}
-          {this.renderTitle()}
-        </h1>
-        {this.renderSubtitle()}
-        {this.renderAddNewPostsButton()}
+      <Jumbotron
+        className="page-title text-center"
+        style={{ backgroundImage: `url(${buildPageTitleImgURL(imgURL)})` }}
+      >
+        <div className="page-title__overlay" />
+        <div className="page-title__content">
+          <h1 className="display-4 text-light">
+            {this.renderTitlePrefix()}
+            {this.renderTitle()}
+          </h1>
+          {this.renderSubtitle()}
+          {this.renderAddNewPostsButton()}
+        </div>
       </Jumbotron>
     );
   }

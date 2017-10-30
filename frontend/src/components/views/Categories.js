@@ -21,8 +21,9 @@ class Categories extends Component {
   }
 
   getPageTitleProps = () => ({
-    title      : this.props.category.title,
+    imgURL     : this.props.category.imgURL,
     subtitle   : this.props.category.subtitle,
+    title      : this.props.category.title,
     titlePrefix: generateCategoryTitlePrefixes()
   });
 
