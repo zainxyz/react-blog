@@ -23,7 +23,13 @@ class AppNav extends Component {
   renderNavItems = () => {
     return APP_NAVBAR.map(item => (
       <NavItem key={generateKey()}>
-        <NavLink exact to={item.href} tag={RouterNavLink} activeClassName="active">
+        <NavLink
+          activeClassName="active"
+          exact
+          tag={RouterNavLink}
+          target={item.target}
+          to={item.href}
+        >
           {item.name}
         </NavLink>
       </NavItem>

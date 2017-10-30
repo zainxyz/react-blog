@@ -31,6 +31,11 @@ export const APP_NAVBAR = [
   {
     href: '/',
     name: 'Home'
+  },
+  {
+    href  : 'https://github.com/zainxyz/react-blog',
+    name  : 'Github',
+    target: '_blank'
   }
 ];
 
