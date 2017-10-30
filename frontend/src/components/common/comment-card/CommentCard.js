@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Badge, Card, CardBody, CardLink, CardText } from 'reactstrap';
+import { Card, CardBody, CardHeader, CardLink, CardText, Row } from 'reactstrap';
 import { connect } from 'react-redux';
+import DeleteIcon from 'react-icons/lib/md/delete';
+import EditIcon from 'react-icons/lib/md/edit';
 
+import { VoteScore } from 'components/common';
 import { actions as commentsActions } from 'modules/comments';
 import { actions as modalsActions } from 'modules/modals';
 import { formatDateWithTime, MODAL_NAMES, sanitizeMarkup } from 'utils';
@@ -28,10 +31,18 @@ class CommentCard extends Component {
 
     return (
       <Card className="comment-card">
+        <CardHeader>
+          <Row>
+            <VoteScore
+              id={id}
+              score={voteScore}
+              onClick={voteOnComment}
+              className="col-sm-12 col-md-2 ml-auto"
+            />
+          </Row>
+        </CardHeader>
         <CardBody>
-          <h5 className="card-title comment-author">
-            {author} <Badge color="secondary">{voteScore}</Badge>
-          </h5>
+          <h5 className="card-title comment-author">{author}</h5>
           <div className="card-text comment-meta">
             <div className="comment-timestamp">
               <small>{formatDateWithTime(timestamp)}</small>
@@ -40,34 +51,18 @@ class CommentCard extends Component {
               <ul className="list-inline">
                 <li className="list-inline-item">
                   <CardLink tag="button" className="btn btn-link" onClick={this.editComment}>
-                    Edit
+                    <EditIcon size={24} />
                   </CardLink>
                 </li>
                 <li className="list-inline-item">
                   <CardLink tag="button" className="btn btn-link" onClick={this.deleteComment}>
-                    Delete
+                    <DeleteIcon size={24} />
                   </CardLink>
                 </li>
               </ul>
             </div>
           </div>
           <CardText className="comment-body" dangerouslySetInnerHTML={sanitizeMarkup(body)} />
-        </CardBody>
-        <CardBody>
-          <CardLink
-            tag="button"
-            className="btn btn-link"
-            onClick={() => voteOnComment({ id: id, option: 'upVote' })}
-          >
-            Up Vote
-          </CardLink>
-          <CardLink
-            tag="button"
-            className="btn btn-link"
-            onClick={() => voteOnComment({ id: id, option: 'downVote' })}
-          >
-            Down Vote
-          </CardLink>
         </CardBody>
       </Card>
     );

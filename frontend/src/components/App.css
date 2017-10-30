@@ -44,6 +44,10 @@ p {
   cursor: pointer;
 }
 
+.btn.btn-no-outline {
+  border: 0 !important;
+}
+
 /* Making the container match the jumbotron in spacing */
 .container-fluid {
   padding: 3rem 2rem !important;
@@ -90,13 +94,16 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid transparent;
+  /*border-bottom: 1px solid transparent;*/
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
 }
 .section-title .lead {
-  font-size: 2rem;
+  font-family: 'Roboto';
+  font-size: 3rem;
+  font-weight: 300;
   line-height: 1.5;
+  margin: 0;
 }
 
 /* Styles for category list */
@@ -138,6 +145,41 @@ p {
 }
 .category-card .card-body .card-text {
   font-size: 1.2rem;
+}
+
+.post-card.card {
+  border: 0;
+  box-shadow: 0px 30px 90px rgba(0, 0, 0, 0.14);
+  height: 100%;
+}
+.post-card .card-subtitle {
+  margin: 0;
+}
+.post-card .card-header {
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-color: rgba(0, 0, 0, 0.05);
+}
+.post-card .card-body {
+  color: inherit;
+  text-decoration: none;
+}
+.post-card .card-body:hover {
+  color: #007bff;
+}
+.post-card .card-footer {
+  background: transparent;
+  border-color: rgba(0, 0, 0, 0.05);
+}
+.post-card .card-footer .post-author {
+  margin: 0;
+}
+.post-card .card-footer .post-comments,
+.post-card .card-footer .post-date {
+  margin: 0;
+  font-size: 75%;
 }
 
 /* Styles for the post-body and comment-body */
@@ -187,12 +229,20 @@ p {
   border: 0;
   border-bottom: 1px solid #ced4da;
   border-radius: 0;
+  margin-bottom: 4rem;
+  margin-top: 3rem;
 }
 .comment-card.card:last-of-type {
   border-bottom: 0;
+  margin-bottom: 0;
 }
 .comment-card .card-body {
   padding: 2rem 1.25rem;
+}
+.comment-card .card-header,
+.comment-card .card-footer {
+  border-color: rgba(0, 0, 0, 0.05);
+  background: transparent;
 }
 .comment-card .comment-author,
 .comment-card .list-inline {
@@ -252,4 +302,20 @@ p {
 .delete-comment-modal .modal-body p span,
 .delete-post-modal .modal-body p span {
   font-weight: 600;
+}
+
+.vote-score {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+.vote-score .vote-actions,
+.vote-score .vote-count {
+  padding: 0;
+}
+.vote-score .vote-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

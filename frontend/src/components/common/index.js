@@ -18,6 +18,7 @@ import PostsList from './posts-list/PostsList';
 import ScrollToTop from './scroll-to-top/ScrollToTop';
 import SectionTitle from './typography/SectionTitle';
 import SortingOptions from './sorting-options/SortingOptions';
+import VoteScore from './vote-score/VoteScore';
 
 export {
   AddCommentForm,
@@ -39,5 +40,6 @@ export {
   PostsList,
   ScrollToTop,
   SectionTitle,
-  SortingOptions
+  SortingOptions,
+  VoteScore
 };

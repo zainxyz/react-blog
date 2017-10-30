@@ -13,7 +13,7 @@ class DeletePostModal extends Component {
   onDelete = () => {
     const { modal: { data } } = this.props;
 
-    const onDelete = isFunction(data.onDelete) ? data.onDelete : this.toggle;
+    const onDelete = isFunction(data.onDelete) ? data.onDelete : () => {};
 
     this.props.deletePost(data.id).then(resp => {
       if (resp.payload && resp.payload.status >= 200) {

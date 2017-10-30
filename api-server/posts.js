@@ -1,5 +1,6 @@
 const clone = require('clone');
 const faker = require('faker');
+const getTime = require('date-fns/get_time');
 
 const categoriesList = ['nature', 'technology', 'food', 'travel'];
 let db = {};
@@ -16,7 +17,7 @@ const defaultData = {
     email: faker.fake('{{internet.email}}'),
     excerpt: faker.fake('{{lorem.paragraph}}'),
     id: '8989d293-fc14-4468-8da2-7d9292e11542',
-    timestamp: faker.date.past(),
+    timestamp: getTime(faker.date.past()),
     title: 'Udacity is the best place to learn React',
     voteScore: faker.random.number({ min: -40, max: 40 })
   },
@@ -31,7 +32,7 @@ const defaultData = {
     email: faker.fake('{{internet.email}}'),
     excerpt: faker.fake('{{lorem.paragraph}}'),
     id: '2cd09da4-bfe2-4356-8335-87439f4e8c05',
-    timestamp: faker.date.past(),
+    timestamp: getTime(faker.date.past()),
     title: 'Learn Redux in 10 minutes!',
     voteScore: faker.random.number({ min: -40, max: 40 })
   },
@@ -46,7 +47,7 @@ const defaultData = {
     email: faker.fake('{{internet.email}}'),
     excerpt: faker.fake('{{lorem.paragraph}}'),
     id: 'cd55683a-4c63-4f3b-9266-ab93d5cae865',
-    timestamp: faker.date.past(),
+    timestamp: getTime(faker.date.past()),
     title: faker.fake('{{lorem.sentence}}'),
     voteScore: faker.random.number({ min: -40, max: 40 })
   },
@@ -61,7 +62,7 @@ const defaultData = {
     email: faker.fake('{{internet.email}}'),
     excerpt: faker.fake('{{lorem.paragraph}}'),
     id: '02180cb8-19fd-4e3b-aaf7-36360c451edd',
-    timestamp: faker.date.past(),
+    timestamp: getTime(faker.date.past()),
     title: faker.fake('{{lorem.sentence}}'),
     voteScore: faker.random.number({ min: -40, max: 40 })
   },
@@ -76,7 +77,7 @@ const defaultData = {
     email: faker.fake('{{internet.email}}'),
     excerpt: faker.fake('{{lorem.paragraph}}'),
     id: '41aa3dae-ef60-4350-9a99-196f9d9dc947',
-    timestamp: faker.date.past(),
+    timestamp: getTime(faker.date.past()),
     title: faker.fake('{{lorem.sentence}}'),
     voteScore: faker.random.number({ min: -40, max: 40 })
   },
@@ -91,7 +92,7 @@ const defaultData = {
     email: faker.fake('{{internet.email}}'),
     excerpt: faker.fake('{{lorem.paragraph}}'),
     id: '98cdac49-bc8a-4a6b-a4db-850e801409f9',
-    timestamp: faker.date.past(),
+    timestamp: getTime(faker.date.past()),
     title: faker.fake('{{lorem.sentence}}'),
     voteScore: faker.random.number({ min: -40, max: 40 })
   }

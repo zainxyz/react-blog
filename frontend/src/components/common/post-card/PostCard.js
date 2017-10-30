@@ -3,22 +3,16 @@ import React, { Component } from 'react';
 import Truncate from 'react-truncate';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  Badge,
-  Button,
-  Card,
-  CardBody,
-  CardSubtitle,
-  CardText,
-  CardTitle,
-  Col,
-  Row
-} from 'reactstrap';
+import { Button, Card, CardFooter, CardHeader, CardText, CardTitle, Col, Row } from 'reactstrap';
+import DeleteIcon from 'react-icons/lib/md/delete';
+import EditIcon from 'react-icons/lib/md/edit';
+import ViewIcon from 'react-icons/lib/md/open-in-new';
 
+import { VoteScore } from 'components/common';
 import { actions as modalsActions } from 'modules/modals';
 import { actions as postsActions } from 'modules/posts';
 
-import { getCommentsCount, MODAL_NAMES } from 'utils';
+import { formatDate, getCommentsCount, MODAL_NAMES } from 'utils';
 
 class PostCard extends Component {
   deletePost = () =>
@@ -35,7 +29,7 @@ class PostCard extends Component {
   };
 
   renderPostExcerpt = excerpt => (
-    <Truncate lines={2} ellipsis={<span>...</span>}>
+    <Truncate lines={5} ellipsis={<span>...</span>}>
       {excerpt}
     </Truncate>
   );
@@ -48,44 +42,42 @@ class PostCard extends Component {
       excerpt,
       id,
       title,
+      timestamp,
       voteOnPost,
       voteScore
     } = this.props;
     return (
-      <Card>
-        {/* <CardImg top width="100%" src="http://placehold.it/100x200" alt="Post Image Caption" /> */}
-        <CardBody>
-          <CardTitle>
-            {title} <Badge color="primary">{voteScore}</Badge>{' '}
-            <a onClick={() => voteOnPost({ id: id, option: 'upVote' })} role="button">
-              <small>upVote</small>
-            </a>{' '}
-            |{' '}
-            <a onClick={() => voteOnPost({ id: id, option: 'downVote' })} role="button">
-              <small>downVote</small>
-            </a>
-          </CardTitle>
-          <CardSubtitle>
-            <Row>
-              <Col md="6" className="text-left">
-                <small>written by: {author}</small>
-              </Col>
-              <Col md="6" className="text-right">
-                <small>{getCommentsCount(commentCount)}</small>
-              </Col>
-            </Row>
-          </CardSubtitle>
+      <Card className="post-card">
+        <CardHeader>
+          <Button size="sm" color="link" tag={NavLink} to={`/category/${category}`}>
+            {category}
+          </Button>
+          <Button size="sm" color="link" tag={NavLink} to={`/category/${category}/${id}`}>
+            <ViewIcon size={24} />
+          </Button>
+          <Button size="sm" color="link" onClick={this.editPost}>
+            <EditIcon size={24} />
+          </Button>
+          <Button size="sm" color="link" onClick={this.deletePost}>
+            <DeleteIcon size={24} />
+          </Button>
+        </CardHeader>
+        <NavLink to={`/category/${category}/${id}`} className="card-body">
+          <CardTitle>{title}</CardTitle>
           <CardText>{this.renderPostExcerpt(excerpt)}</CardText>
-          <Button color="primary" tag={NavLink} to={`/category/${category}/${id}`}>
-            View Post
-          </Button>
-          <Button color="secondary" onClick={this.editPost}>
-            Edit Post
-          </Button>
-          <Button color="danger" onClick={this.deletePost}>
-            Delete
-          </Button>
-        </CardBody>
+        </NavLink>
+        <CardFooter>
+          <Row>
+            <Col>
+              <h6 className="post-author font-weight-bold">{author}</h6>
+              <p className="post-date">{formatDate(timestamp)}</p>
+              <p className="post-comments">{getCommentsCount(commentCount)}</p>
+            </Col>
+          </Row>
+          <Row>
+            <VoteScore id={id} score={voteScore} onClick={voteOnPost} />
+          </Row>
+        </CardFooter>
       </Card>
     );
   }
