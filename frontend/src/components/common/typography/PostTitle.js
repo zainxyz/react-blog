@@ -55,7 +55,7 @@ PostTitle.propTypes = {
   author      : PropTypes.string,
   category    : PropTypes.string,
   commentCount: PropTypes.number,
-  timestamp   : PropTypes.number,
+  timestamp   : PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   title       : PropTypes.string,
   voteScore   : PropTypes.number
 };

@@ -29,7 +29,6 @@ class PostCard extends Component {
     });
 
   editPost = () => {
-    console.log('this.props : ', this.props);
     this.props.toggleModal(MODAL_NAMES.EDIT_POST_MODAL, {
       ...this.props
     });

@@ -79,7 +79,7 @@ CommentCard.propTypes = {
   body         : PropTypes.string.isRequired,
   email        : PropTypes.string.isRequired,
   id           : PropTypes.string.isRequired,
-  timestamp    : PropTypes.number.isRequired,
+  timestamp    : PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   toggleModal  : PropTypes.func.isRequired,
   voteOnComment: PropTypes.func.isRequired,
   voteScore    : PropTypes.number

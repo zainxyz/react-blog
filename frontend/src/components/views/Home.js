@@ -6,8 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { CategoriesList, PageTitle, PostsList } from 'components/common';
 import { generateTagline } from 'utils';
 
-// import './Home.css';
-
 const Home = ({ title, titlePrefix }) => (
   <div className="home-view">
     <PageTitle titlePrefix={titlePrefix} title={title} subtitle={generateTagline()} />

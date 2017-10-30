@@ -1,37 +1,99 @@
 const clone = require('clone');
+const faker = require('faker');
 
+const categoriesList = ['nature', 'technology', 'food', 'travel'];
 let db = {};
 
 const defaultData = {
-  '8xf0y6ziyjabvozdd253nd': {
-    author: 'thingtwo',
-    body:
-      '<h4>Everyone says so after all.</h4><p>Integer ut posuere felis, vitae tincidunt massa. Duis sapien nisi, accumsan finibus tempus et, pulvinar vitae nibh. Aenean eget hendrerit mi, posuere bibendum nibh. Donec vitae elit eget purus convallis dignissim vitae vitae nulla. Quisque sit amet tempor nisl. Praesent cursus facilisis lacus non vehicula. Nulla tincidunt ligula sit amet facilisis aliquam. Donec consequat nulla quis turpis porttitor, eleifend varius ligula dignissim. Vestibulum vehicula fermentum efficitur. Aenean congue consectetur risus, a imperdiet tortor mattis ut. Donec vitae lorem nunc. Nullam quis velit rutrum, lacinia mauris vitae, interdum dui. Morbi pulvinar accumsan rhoncus.</p><p>Integer imperdiet porta pulvinar. Etiam ut luctus nisl, sed luctus felis. Donec pharetra tincidunt velit. Sed id faucibus nisi, viverra condimentum sapien. Integer ac magna dictum, tincidunt sapien eget, maximus dolor. Vivamus aliquam ex lacus, sit amet eleifend sapien imperdiet vel. Nunc pulvinar pharetra gravida. Morbi vel ligula eu mi rutrum blandit. In tempor porta eros, dictum viverra est. Nullam molestie condimentum tristique. Nulla lacinia varius augue a mollis. Vestibulum vehicula porta mattis. Fusce pretium nisl ac justo faucibus pellentesque. Praesent fringilla euismod ex, eget vehicula augue suscipit ut.</p>',
-    category: 'nature',
+  '8989d293-fc14-4468-8da2-7d9292e11542': {
+    author: faker.fake('{{name.findName}}'),
+    body: `<h4>${faker.fake('{{lorem.words}}')}</h4><p>${faker.fake(
+      '{{lorem.paragraphs}}'
+    )}</p><p>${faker.fake('{{lorem.paragraphs}}')}</p><p>${faker.fake('{{lorem.paragraphs}}')}</p>`,
+    category: faker.random.arrayElement(categoriesList),
     commentCount: 2,
     deleted: false,
-    email: 'thingtwo@react.com',
-    excerpt:
-      'Pellentesque ac enim et orci elementum porttitor. Duis auctor malesuada diam. Nulla ultrices et ante ut sagittis. Nunc efficitur tincidunt gravida. Sed porta luctus scelerisque. Morbi in nisl vel nisl viverra dignissim.',
-    id: '8xf0y6ziyjabvozdd253nd',
-    timestamp: 1467166872634,
+    email: faker.fake('{{internet.email}}'),
+    excerpt: faker.fake('{{lorem.paragraph}}'),
+    id: '8989d293-fc14-4468-8da2-7d9292e11542',
+    timestamp: faker.date.past(),
     title: 'Udacity is the best place to learn React',
-    voteScore: 6
+    voteScore: faker.random.number({ min: -40, max: 40 })
   },
-  '6ni6ok3ym7mf1p33lnez': {
-    author: 'thingone',
-    body:
-      '<h4>Just kidding.</h4><p>It takes more than 10 minutes to learn technology.</p><p>Integer egestas risus sit amet urna aliquam, sit amet rutrum odio eleifend. Pellentesque eu nulla vitae ante tincidunt placerat sed non sem. Mauris sagittis tellus quam, sed egestas nunc lacinia et. Aliquam non egestas neque. Ut vel ligula in mauris sollicitudin pellentesque. Suspendisse et eleifend magna, egestas fermentum elit. Ut nec mattis sem, sit amet tristique turpis. Aenean enim erat, laoreet vitae mauris dictum, iaculis feugiat erat. Quisque volutpat sed libero in ornare. Proin eleifend ac risus id pellentesque. Sed eleifend imperdiet mauris at pretium. Aliquam convallis dui risus, sit amet vestibulum purus facilisis a. Aenean vestibulum accumsan risus quis posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur et ligula facilisis, ornare orci sit amet, maximus mi. Vivamus sagittis fermentum leo vitae tristique.</p>',
-    category: 'food',
+  '2cd09da4-bfe2-4356-8335-87439f4e8c05': {
+    author: faker.fake('{{name.findName}}'),
+    body: `<h4>${faker.fake('{{lorem.words}}')}</h4><p>${faker.fake(
+      '{{lorem.paragraphs}}'
+    )}</p><p>${faker.fake('{{lorem.paragraphs}}')}</p><p>${faker.fake('{{lorem.paragraphs}}')}</p>`,
+    category: faker.random.arrayElement(categoriesList),
+    commentCount: 3,
+    deleted: false,
+    email: faker.fake('{{internet.email}}'),
+    excerpt: faker.fake('{{lorem.paragraph}}'),
+    id: '2cd09da4-bfe2-4356-8335-87439f4e8c05',
+    timestamp: faker.date.past(),
+    title: 'Learn Redux in 10 minutes!',
+    voteScore: faker.random.number({ min: -40, max: 40 })
+  },
+  'cd55683a-4c63-4f3b-9266-ab93d5cae865': {
+    author: faker.fake('{{name.findName}}'),
+    body: `<h4>${faker.fake('{{lorem.words}}')}</h4><p>${faker.fake(
+      '{{lorem.paragraphs}}'
+    )}</p><p>${faker.fake('{{lorem.paragraphs}}')}</p><p>${faker.fake('{{lorem.paragraphs}}')}</p>`,
+    category: faker.random.arrayElement(categoriesList),
+    commentCount: 1,
+    deleted: false,
+    email: faker.fake('{{internet.email}}'),
+    excerpt: faker.fake('{{lorem.paragraph}}'),
+    id: 'cd55683a-4c63-4f3b-9266-ab93d5cae865',
+    timestamp: faker.date.past(),
+    title: faker.fake('{{lorem.sentence}}'),
+    voteScore: faker.random.number({ min: -40, max: 40 })
+  },
+  '02180cb8-19fd-4e3b-aaf7-36360c451edd': {
+    author: faker.fake('{{name.findName}}'),
+    body: `<h4>${faker.fake('{{lorem.words}}')}</h4><p>${faker.fake(
+      '{{lorem.paragraphs}}'
+    )}</p><p>${faker.fake('{{lorem.paragraphs}}')}</p><p>${faker.fake('{{lorem.paragraphs}}')}</p>`,
+    category: faker.random.arrayElement(categoriesList),
     commentCount: 0,
     deleted: false,
-    email: 'thingone@react.com',
-    excerpt:
-      'Mauris bibendum metus ac hendrerit ullamcorper. Duis efficitur odio ut sem iaculis condimentum. Sed egestas, nisi lobortis porttitor condimentum, arcu lacus convallis felis, rhoncus tincidunt purus quam eu lacus. Donec facilisis est vitae ultrices dictum.',
-    id: '6ni6ok3ym7mf1p33lnez',
-    timestamp: 1468479767190,
-    title: 'Learn Redux in 10 minutes!',
-    voteScore: -5
+    email: faker.fake('{{internet.email}}'),
+    excerpt: faker.fake('{{lorem.paragraph}}'),
+    id: '02180cb8-19fd-4e3b-aaf7-36360c451edd',
+    timestamp: faker.date.past(),
+    title: faker.fake('{{lorem.sentence}}'),
+    voteScore: faker.random.number({ min: -40, max: 40 })
+  },
+  '41aa3dae-ef60-4350-9a99-196f9d9dc947': {
+    author: faker.fake('{{name.findName}}'),
+    body: `<h4>${faker.fake('{{lorem.words}}')}</h4><p>${faker.fake(
+      '{{lorem.paragraphs}}'
+    )}</p><p>${faker.fake('{{lorem.paragraphs}}')}</p><p>${faker.fake('{{lorem.paragraphs}}')}</p>`,
+    category: faker.random.arrayElement(categoriesList),
+    commentCount: 1,
+    deleted: false,
+    email: faker.fake('{{internet.email}}'),
+    excerpt: faker.fake('{{lorem.paragraph}}'),
+    id: '41aa3dae-ef60-4350-9a99-196f9d9dc947',
+    timestamp: faker.date.past(),
+    title: faker.fake('{{lorem.sentence}}'),
+    voteScore: faker.random.number({ min: -40, max: 40 })
+  },
+  '98cdac49-bc8a-4a6b-a4db-850e801409f9': {
+    author: faker.fake('{{name.findName}}'),
+    body: `<h4>${faker.fake('{{lorem.words}}')}</h4><p>${faker.fake(
+      '{{lorem.paragraphs}}'
+    )}</p><p>${faker.fake('{{lorem.paragraphs}}')}</p><p>${faker.fake('{{lorem.paragraphs}}')}</p>`,
+    category: faker.random.arrayElement(categoriesList),
+    commentCount: 4,
+    deleted: false,
+    email: faker.fake('{{internet.email}}'),
+    excerpt: faker.fake('{{lorem.paragraph}}'),
+    id: '98cdac49-bc8a-4a6b-a4db-850e801409f9',
+    timestamp: faker.date.past(),
+    title: faker.fake('{{lorem.sentence}}'),
+    voteScore: faker.random.number({ min: -40, max: 40 })
   }
 };
 
