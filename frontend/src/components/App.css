@@ -19,6 +19,68 @@ p {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
+.app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-container.active {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  transition: 0.5s width ease, 0.5s height ease;
+}
+
+.loading-content {
+  align-items: center;
+  background-color: #343a40;
+  bottom: 0;
+  display: flex;
+  height: 0;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
+}
+
+.loading-content.loading {
+  opacity: 1;
+  height: 100vh;
+  transition: 0.2s height ease, 0.5s opacity ease 0.2s;
+}
+
+.loading-content.active {
+  height: 0;
+  opacity: 0;
+  transition: 0.5s height ease 0.5s, 0.5s opacity ease;
+}
+
+.loading-content .pane-spinner {
+  width: 50px;
+  height: 50px;
+  margin: 50px auto;
+  animation: pane-spinner 1.2s infinite ease-in-out;
+}
+
+@keyframes pane-spinner {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+
 /* Adding .display-5 to the Bootstrap display line-up */
 .display-5 {
   font-size: 2.5rem;

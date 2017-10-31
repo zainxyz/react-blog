@@ -10,6 +10,7 @@ import DeletePostModal from './modals/DeletePostModal';
 import EditCommentForm from './form/EditCommentForm';
 import EditCommentModal from './modals/EditCommentModal';
 import EditPostModal from './modals/EditPostModal';
+import Loading from './loading/Loading';
 import NewPostModal from './modals/NewPostModal';
 import PageTitle from './typography/PageTitle';
 import PostCard from './post-card/PostCard';
@@ -33,6 +34,7 @@ export {
   EditCommentForm,
   EditCommentModal,
   EditPostModal,
+  Loading,
   NewPostModal,
   PageTitle,
   PostCard,

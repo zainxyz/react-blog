@@ -75,13 +75,6 @@ export const CATEGORY_URL = 'categories';
 export const COMMENT_URL = 'comments';
 
 /**
- * List of image names for the home page-title
- *
- * @type {Array}
- */
-export const HOME_TITLE_IMAGES_LIST = ['hacker.jpg', 'home.jpg'];
-
-/**
  * Config for the Web Font Loader
  *
  * @type {Object}

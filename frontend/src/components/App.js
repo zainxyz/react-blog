@@ -17,6 +17,7 @@ import {
   DeletePostModal,
   EditCommentModal,
   EditPostModal,
+  Loading,
   NewPostModal,
   ScrollToTop
 } from './common';
@@ -36,14 +37,15 @@ class App extends Component {
   };
 
   render() {
-    const { brand, store } = this.props;
+    const { brand, store, webfontStatus } = this.props;
 
     return (
       <WebFontLoader config={WEB_FONT_LOADER_CONFIG} onStatus={this.webfontloaderOnStatus}>
         <Provider store={store}>
           <BrowserRouter>
             <ScrollToTop>
-              <div>
+              <div className={`app-container ${webfontStatus}`}>
+                <Loading color="#007bff" name="pacman" className={webfontStatus} />
                 <AppNav brand={brand} />
                 <Switch>
                   <Route exact path="/" component={Home} />
@@ -69,7 +71,8 @@ App.propTypes = {
   addModal        : PropTypes.func.isRequired,
   brand           : PropTypes.string,
   setWebFontStatus: PropTypes.func.isRequired,
-  store           : PropTypes.object.isRequired
+  store           : PropTypes.object.isRequired,
+  webfontStatus   : PropTypes.string.isRequired
 };
 
 App.defaultProps = {
