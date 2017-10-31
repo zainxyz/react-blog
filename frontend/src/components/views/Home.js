@@ -8,7 +8,12 @@ import { generateTagline } from 'utils';
 
 const Home = ({ title, titlePrefix }) => (
   <div className="home-view">
-    <PageTitle titlePrefix={titlePrefix} title={title} subtitle={generateTagline()} />
+    <PageTitle
+      imgURL="home.jpg"
+      subtitle={generateTagline()}
+      title={title}
+      titlePrefix={titlePrefix}
+    />
     <CategoriesList />
     <PostsList />
   </div>

@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import { Button, Jumbotron } from 'reactstrap';
 import { connect } from 'react-redux';
+import { Background, Parallax } from 'react-parallax';
 
 import { MODAL_NAMES, importAll } from 'utils';
 import { actions as modalsActions } from 'modules/modals';
 
-const categoryImages = importAll(require.context('assets/page-title', false, /\.(png|jpe?g|svg)$/));
+const categoryImages = importAll(require.context('static/page-title', false, /\.(png|jpe?g|svg)$/));
 
 export const buildPageTitleImgURL = imageId => categoryImages[imageId];
 
@@ -61,25 +62,30 @@ class PageTitle extends Component {
     const { imgURL } = this.props;
 
     return (
-      <Jumbotron
-        className="page-title text-center"
-        style={{ backgroundImage: `url(${buildPageTitleImgURL(imgURL)})` }}
-      >
-        <div className="page-title__overlay" />
-        <div className="page-title__content">
-          <h1 className="display-4 text-light">
-            {this.renderTitlePrefix()}
-            {this.renderTitle()}
-          </h1>
-          {this.renderSubtitle()}
-          {this.renderAddNewPostsButton()}
-        </div>
-      </Jumbotron>
+      <Parallax strength={750} className="page-title">
+        <Background className="page-title__background">
+          <img src={buildPageTitleImgURL(imgURL)} alt={imgURL} />
+        </Background>
+        <Jumbotron className="page-title__jumbotron text-center">
+          <div className="page-title__jumbotron__overlay" />
+          <div className="page-title__jumbotron__content">
+            <div>
+              <h1 className="display-4 text-light">
+                {this.renderTitlePrefix()}
+                {this.renderTitle()}
+              </h1>
+              {this.renderSubtitle()}
+              {this.renderAddNewPostsButton()}
+            </div>
+          </div>
+        </Jumbotron>
+      </Parallax>
     );
   }
 }
 
 PageTitle.propTypes = {
+  imgURL     : PropTypes.string,
   subtitle   : PropTypes.string,
   title      : PropTypes.string,
   titlePrefix: PropTypes.string,
@@ -87,6 +93,7 @@ PageTitle.propTypes = {
 };
 
 PageTitle.defaultProps = {
+  imgURL     : '',
   subtitle   : '',
   title      : '',
   titlePrefix: ''

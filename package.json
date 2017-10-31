@@ -4,12 +4,14 @@
   "description": "A small react blog built using react js, react router, and redux.",
   "main": "frontend/src/index.js",
   "scripts": {
-    "run-server": "cd api-server && npm start",
-    "install-server": "cd api-server && npm i",
-    "run-app": "cd frontend && npm start",
+    "build": "run-p build-app",
+    "build-app": "cd frontend && npm run build",
     "install-app": "cd frontend && npm i",
-    "start": "run-p run-server run-app",
-    "postinstall": "run-p install-server install-app"
+    "install-server": "cd api-server && npm i",
+    "postinstall": "run-p install-server install-app",
+    "run-app": "cd frontend && npm start",
+    "run-server": "cd api-server && npm start",
+    "start": "run-p run-server run-app"
   },
   "repository": {
     "type": "git",

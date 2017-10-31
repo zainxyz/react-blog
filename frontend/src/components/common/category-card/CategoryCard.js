@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 import { importAll } from 'utils';
 
-const categoryImages = importAll(require.context('assets/categories', false, /\.(png|jpe?g|svg)$/));
+const categoryImages = importAll(require.context('static/categories', false, /\.(png|jpe?g|svg)$/));
 
 export const buildCategoryImageURL = imageId => categoryImages[imageId];
 

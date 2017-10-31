@@ -69,21 +69,26 @@ p {
 }
 
 /* Styles for the page title */
-.page-title,
+.page-title .page-title__jumbotron,
 .post-title {
-  /*font-family: 'Roboto';*/
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   border-radius: 0 !important;
-  margin-bottom: 0 !important;
-  position: relative;
+  margin: 0 !important;
+}
+.page-title .page-title__jumbotron {
+  background-color: transparent !important;
+  height: 500px;
+}
+.page-title .page-title__background {
+  left: 50%;
+  position: absolute;
+  top: 70%;
+  transform: translate(-50%, -30%);
 }
 .page-title .blockquote-footer.lead {
   font-size: 1.25rem;
 }
-.page-title .page-title__overlay {
-  background: rgba(0, 0, 0, 0.25);
+.page-title .page-title__jumbotron__overlay {
+  background: rgba(0, 0, 0, 0.3);
   bottom: 0;
   left: 0;
   position: absolute;
@@ -91,8 +96,13 @@ p {
   top: 0;
   z-index: 0;
 }
-.page-title .page-title__content {
+.page-title .page-title__jumbotron__content {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
   position: relative;
+  width: 100%;
   z-index: 1;
 }
 
