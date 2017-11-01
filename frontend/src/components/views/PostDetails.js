@@ -5,10 +5,10 @@ import { Button, Col, Container } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import { APP_ROUTE_NOT_FOUND, MODAL_NAMES, sanitizeMarkup } from 'utils';
-import { CommentsList, AddCommentForm, PostTitle } from 'components/common';
+import { CommentsList, AddCommentForm, PostTitle, VoteScore } from 'components/common';
 import { actions as commentsActions, selectors as commentsSelectors } from 'modules/comments';
 import { actions as modalsActions } from 'modules/modals';
-import { selectors as postsSelectors } from 'modules/posts';
+import { actions as postsActions, selectors as postsSelectors } from 'modules/posts';
 
 class PostDetails extends Component {
   componentWillMount(props) {
@@ -71,9 +71,15 @@ class PostDetails extends Component {
     });
 
   render() {
+    const { post, voteOnPost } = this.props;
+    const { id, voteScore } = post;
+
     return (
       <div className="post-view">
         <PostTitle {...this.getPostTitleProps()} />
+        <Container className="d-flex justify-content-end vote-on-post pb-0 pt-4">
+          <VoteScore id={id} score={voteScore} onClick={voteOnPost} className="col-md-2" />
+        </Container>
         <Container className="post-body">
           <Col>
             <div dangerouslySetInnerHTML={sanitizeMarkup(this.getBodyText())} />
@@ -114,7 +120,8 @@ PostDetails.propTypes = {
   history         : PropTypes.object.isRequired,
   match           : PropTypes.object.isRequired,
   post            : PropTypes.object,
-  toggleModal     : PropTypes.func.isRequired
+  toggleModal     : PropTypes.func.isRequired,
+  voteOnPost      : PropTypes.func.isRequired
 };
 
 PostDetails.defaultProps = {
@@ -132,5 +139,6 @@ export default connect(mapStateToProps, {
   addComment      : commentsActions.addComment,
   addModal        : modalsActions.addModalById,
   fetchAllComments: commentsActions.fetchCommentsByPost,
-  toggleModal     : modalsActions.toggleModalById
+  toggleModal     : modalsActions.toggleModalById,
+  voteOnPost      : postsActions.voteOnPost
 })(PostDetails);

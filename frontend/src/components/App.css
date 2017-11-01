@@ -1,15 +1,5 @@
 /* NOTE: !important is used to overwrite bootstrap imported styles */
 
-/* Animations for Routing */
-.animated-switch-wrapper {
-  position: relative;
-}
-.animated-switch-wrapper > div {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-
 body {
   -webkit-font-smoothing: antialiased;
   font-family: 'Nunito' !important;
@@ -19,13 +9,32 @@ p {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
+/* Adding .display-5 to the Bootstrap display line-up */
+.display-5 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+/* Adding .mb-6 to the Bootstrap spacing line-up */
+.mb-6 {
+  margin-bottom: 4rem !important;
+}
+
+/* Stretching the Bootstrap's container */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1500px !important;
+  }
+}
+
+/* Styles for the main app-container */
 .app-container {
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
-
 .app-container.active {
   overflow: auto;
   width: 100%;
@@ -33,6 +42,7 @@ p {
   transition: width 0.1s ease 0.8s, height 0.1s ease 0.8s;
 }
 
+/* Styles for the loading content */
 .loading-content {
   align-items: center;
   background-color: #343a40;
@@ -102,25 +112,6 @@ p {
   }
 }
 
-/* Adding .display-5 to the Bootstrap display line-up */
-.display-5 {
-  font-size: 2.5rem;
-  font-weight: 300;
-  line-height: 1.2;
-}
-
-/* Adding .mb-6 to the Bootstrap spacing line-up */
-.mb-6 {
-  margin-bottom: 4rem !important;
-}
-
-/* Stretching the Bootstrap's container */
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1500px !important;
-  }
-}
-
 /* Overwriting the cursor type for buttons and nav-link */
 .nav-link,
 .btn {
@@ -129,6 +120,28 @@ p {
 
 .btn.btn-no-outline {
   border: 0 !important;
+}
+
+.app-nav {
+  align-items: center;
+  display: flex;
+  height: 100px;
+  justify-content: space-between;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 9;
+}
+.app-nav .navbar {
+  background: transparent !important;
+  flex: 1 1 auto;
+  padding: 1rem 2rem !important;
+}
+.app-nav .navbar .navbar-brand {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.2;
 }
 
 /* Making the container match the jumbotron in spacing */
@@ -153,15 +166,16 @@ p {
 
 /* Styles for the page title */
 .page-title .page-title__jumbotron,
-.post-title {
+.post-title .post-title__jumbotron {
   border-radius: 0 !important;
   margin: 0 !important;
-}
-.page-title .page-title__jumbotron {
-  background-color: transparent !important;
   height: 500px;
+  background-color: transparent !important;
 }
-.page-title .page-title__background {
+/*.page-title .page-title__jumbotron {
+}*/
+.page-title .page-title__background,
+.post-title .post-title__background {
   left: 50%;
   position: absolute;
   top: 70%;
@@ -170,7 +184,8 @@ p {
 .page-title .blockquote-footer.lead {
   font-size: 1.25rem;
 }
-.page-title .page-title__jumbotron__overlay {
+.page-title .page-title__jumbotron__overlay,
+.post-title .post-title__jumbotron__overlay {
   background: rgba(0, 0, 0, 0.3);
   bottom: 0;
   left: 0;
@@ -179,7 +194,11 @@ p {
   top: 0;
   z-index: 0;
 }
-.page-title .page-title__jumbotron__content {
+.post-title .post-title__jumbotron__overlay {
+  background: rgba(0, 0, 0, 0.75);
+}
+.page-title .page-title__jumbotron__content,
+.post-title .post-title__jumbotron__content {
   align-items: center;
   display: flex;
   height: 100%;
@@ -187,6 +206,9 @@ p {
   position: relative;
   width: 100%;
   z-index: 1;
+}
+.post-title .post-title__jumbotron__content {
+  flex-direction: column;
 }
 
 /* Styles for the post title */

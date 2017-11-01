@@ -8,7 +8,7 @@ import { validateCommentForm, warnCommentForm } from 'utils';
 import InputField from './fields/InputField';
 import TextAreaField from './fields/TextAreaField';
 
-const AddCommentForm = ({ handleSubmit }) => (
+const AddCommentForm = ({ handleSubmit, reset }) => (
   <Container className="comment-reply-form">
     <form onSubmit={handleSubmit}>
       <Row className="form-body">
@@ -35,6 +35,9 @@ const AddCommentForm = ({ handleSubmit }) => (
       </Row>
       <Row className="form-actions">
         <Col className="d-flex justify-content-center">
+          <Button onClick={reset} color="link" size="lg">
+            Clear
+          </Button>
           <Button type="submit" color="primary" size="lg">
             Add Comment
           </Button>

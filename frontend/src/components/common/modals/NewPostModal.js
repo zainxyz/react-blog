@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { AddEditPostForm } from 'components/common';
 import { MODAL_NAMES } from 'utils';
@@ -15,7 +16,19 @@ class NewPostModal extends Component {
       .addPost({
         ...post
       })
-      .then(() => this.toggle());
+      .then(resp => {
+        if (
+          resp.payload &&
+          resp.payload.status === 200 &&
+          resp.payload.data.category &&
+          resp.payload.data.id
+        ) {
+          this.props.history.push(
+            `/category/${resp.payload.data.category}/${resp.payload.data.id}`
+          );
+          this.toggle();
+        }
+      });
   };
 
   toggle = () => this.props.toggleModal(MODAL_NAMES.NEW_POST_MODAL);
@@ -44,6 +57,7 @@ class NewPostModal extends Component {
 
 NewPostModal.propTypes = {
   addPost    : PropTypes.func.isRequired,
+  history    : PropTypes.object.isRequired,
   modal      : PropTypes.object,
   toggleModal: PropTypes.func.isRequired
 };
@@ -57,7 +71,9 @@ const mapStateToProps = state => ({
   modal: modalSelectors.getModalById(state, MODAL_NAMES.NEW_POST_MODAL)
 });
 
-export default connect(mapStateToProps, {
-  toggleModal: modalsActions.toggleModalById,
-  addPost    : postsActions.addPost
-})(NewPostModal);
+export default withRouter(
+  connect(mapStateToProps, {
+    toggleModal: modalsActions.toggleModalById,
+    addPost    : postsActions.addPost
+  })(NewPostModal)
+);

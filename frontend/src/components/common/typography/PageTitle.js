@@ -8,9 +8,11 @@ import { Background, Parallax } from 'react-parallax';
 import { MODAL_NAMES, importAll } from 'utils';
 import { actions as modalsActions } from 'modules/modals';
 
-const categoryImages = importAll(require.context('static/page-title', false, /\.(png|jpe?g|svg)$/));
+const pageTitleImages = importAll(
+  require.context('static/page-title', false, /\.(png|jpe?g|svg)$/)
+);
 
-export const buildPageTitleImgURL = imageId => categoryImages[imageId];
+export const buildPageTitleImgURL = imageId => pageTitleImages[imageId];
 
 /**
  * Class for building the page title with an optional titlePrefix and subtitle

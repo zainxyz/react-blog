@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { PageTitle } from 'components/common';
+import { CategoriesList, PageTitle } from 'components/common';
 import { generateCategoryTitlePrefixes } from 'utils';
 
 class NotFound extends Component {
   getPageTitleProps = () => ({
+    imgURL     : 'hacker.jpg',
     title      : '404',
     subtitle   : `Sorry but the page you're in search of, doesn't seem to exist.`,
     titlePrefix: generateCategoryTitlePrefixes()
@@ -14,8 +15,9 @@ class NotFound extends Component {
 
   render() {
     return (
-      <div className="categories-view">
+      <div className="not-found-view">
         <PageTitle {...this.getPageTitleProps()} />
+        <CategoriesList />
       </div>
     );
   }

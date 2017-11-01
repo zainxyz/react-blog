@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
-import { Button, Container, Jumbotron } from 'reactstrap';
+import { Background, Parallax } from 'react-parallax';
+import { Button, Jumbotron } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-import { VoteScore } from 'components/common';
-import { actions as postsActions } from 'modules/posts';
-import { formatDate, getCommentsCount } from 'utils';
+import { formatDate, getCommentsCount, importAll } from 'utils';
+
+const postTitleImages = importAll(
+  require.context('static/page-title', false, /\.(png|jpe?g|svg)$/)
+);
+
+export const buildPostTitleImgURL = imageId => postTitleImages[imageId];
 
 /**
  * Class for building the post title
@@ -40,43 +44,47 @@ class PostTitle extends Component {
     ) : null;
 
   render() {
-    const { id, voteScore, voteOnPost } = this.props;
+    const { category, title } = this.props;
 
     return (
-      <Jumbotron className="post-title">
-        <h1 className="display-3 text-center pb-4">{this.getTitle()}</h1>
-        <p className="text-center pb-2">
-          {this.getAuthor()}
-          {this.getDate()}
-          {this.getCommentsCount()}
-        </p>
-        <div className="category-btns text-center">{this.renderCategoryButtons()}</div>
-        <Container className="vote-on-post pb-0 pt-2">
-          <VoteScore id={id} score={voteScore} onClick={voteOnPost} className="col-md-2" />
-        </Container>
-      </Jumbotron>
+      <Parallax strength={750} className="post-title">
+        <Background className="post-title__background">
+          <img src={buildPostTitleImgURL(`${category}.jpg`)} alt={`${category} post: ${title}`} />
+        </Background>
+        <Jumbotron className="post-title__jumbotron">
+          <div className="post-title__jumbotron__overlay" />
+          <div className="post-title__jumbotron__content text-light">
+            <h1 className="display-3 text-center pb-4">{this.getTitle()}</h1>
+            <p className="text-center pb-2">
+              {this.getAuthor()}
+              {this.getDate()}
+              {this.getCommentsCount()}
+            </p>
+            <div className="category-btns text-center">{this.renderCategoryButtons()}</div>
+          </div>
+        </Jumbotron>
+      </Parallax>
     );
   }
 }
 
 PostTitle.propTypes = {
-  author      : PropTypes.string,
-  category    : PropTypes.string,
+  author      : PropTypes.string.isRequired,
+  category    : PropTypes.string.isRequired,
   commentCount: PropTypes.number,
   timestamp   : PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  title       : PropTypes.string,
-  voteScore   : PropTypes.number
+  title       : PropTypes.string.isRequired
 };
 
 PostTitle.defaultProps = {
   author      : '',
-  category    : '',
   commentCount: 0,
+  id          : '',
+  imgURL      : 'post-title.jpg',
   timestamp   : Date.now(),
   title       : '',
+  voteOnPost  : () => {},
   voteScore   : 0
 };
 
-export default connect(null, {
-  voteOnPost: postsActions.voteOnPost
-})(PostTitle);
+export default PostTitle;

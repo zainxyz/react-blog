@@ -49,7 +49,7 @@ class AppNav extends Component {
     const { brand } = this.props;
 
     return (
-      <div>
+      <div className="app-nav">
         <Navbar color="dark" dark expand="md">
           <NavbarBrand to="/" tag={RouterNavLink}>
             {brand}

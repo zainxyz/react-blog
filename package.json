@@ -11,7 +11,9 @@
     "postinstall": "run-p install-server install-app",
     "run-app": "cd frontend && npm start",
     "run-server": "cd api-server && npm start",
-    "start": "run-p run-server run-app"
+    "start": "run-p run-server run-app",
+    "test": "run-p test-app",
+    "test-app": "cd frontend && npm test"
   },
   "repository": {
     "type": "git",
