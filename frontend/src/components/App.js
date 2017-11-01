@@ -7,7 +7,7 @@ import WebFontLoader from '@dr-kobros/react-webfont-loader';
 import { connect, Provider } from 'react-redux';
 
 import 'components/App.css';
-import { MODAL_NAMES, WEB_FONT_LOADER_CONFIG } from 'utils';
+import { generateLoadingPageTitle, MODAL_NAMES, WEB_FONT_LOADER_CONFIG } from 'utils';
 import { actions as modalsActions } from 'modules/modals';
 import { actions as webfontsActions, selectors as webfontsSelectors } from 'modules/webfonts';
 
@@ -22,6 +22,8 @@ import {
   ScrollToTop
 } from './common';
 import { Categories, Home, NotFound, PostDetails } from './views';
+
+const loadingText = generateLoadingPageTitle();
 
 class App extends Component {
   componentDidMount() {
@@ -45,7 +47,7 @@ class App extends Component {
           <BrowserRouter>
             <ScrollToTop>
               <div className={`app-container ${webfontStatus}`}>
-                <Loading color="#007bff" name="pacman" className={webfontStatus} />
+                <Loading text={loadingText} className={webfontStatus} />
                 <AppNav brand={brand} />
                 <Switch>
                   <Route exact path="/" component={Home} />

@@ -90,6 +90,27 @@ export const WEB_FONT_LOADER_CONFIG = {
 };
 
 /**
+ * Bunch o' loading texts...
+ *
+ * @type {Array}
+ */
+export const LOADING_TEXTS = [
+  'Kicking off the rockets',
+  'Herding llamas (secret)',
+  'Setting deadlines',
+  'Forming a React team',
+  'Starting from scratch',
+  'Giving the green light',
+  'Teaming up with HTML5 & CSS3',
+  'Planning ahead',
+  'Reviewing plans',
+  'Outsourcing loading tasks',
+  'Creating a budget',
+  'Wrapping it up (with a bow!)',
+  'uhh...the loading screen'
+];
+
+/**
  * Bunch o' taglines...
  *
  * @type {Array}

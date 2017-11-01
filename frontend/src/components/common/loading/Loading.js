@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Loading = ({ color, className }) => (
+const Loading = ({ className, text }) => (
   <div className={`loading-content ${className}`}>
-    <div className="pane-spinner" style={{ backgroundColor: color }} />
+    <div className="pane-spinner" />
+    <p className="pane-text display-5 text-white">{text}</p>
   </div>
 );
 
 Loading.propTypes = {
   className: PropTypes.string,
-  color    : PropTypes.string.isRequired
+  text     : PropTypes.string
 };
 
 Loading.defaultProps = {
-  className: ''
+  className: '',
+  text     : 'Loading'
 };
 
 export default Loading;

@@ -1,7 +1,7 @@
 import uuidV4 from 'uuid/v4';
 import sample from 'lodash/sample';
 
-import { TAGLINES, CATEGORY_TITLE_PREFIXES } from './constants';
+import { TAGLINES, CATEGORY_TITLE_PREFIXES, LOADING_TEXTS } from './constants';
 
 /**
  * Generate a unique ID
@@ -38,3 +38,11 @@ export const generateTagline = () => sample(TAGLINES);
  * @return {string}                      The randomly generated prefix for a category title
  */
 export const generateCategoryTitlePrefixes = () => sample(CATEGORY_TITLE_PREFIXES);
+
+/**
+ * Generate a random loading page title
+ *
+ * @method generateLoadingPageTitle
+ * @return {string}                 The randomly generated loading page title
+ */
+export const generateLoadingPageTitle = () => sample(LOADING_TEXTS);
