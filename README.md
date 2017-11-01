@@ -50,6 +50,37 @@ $ npm run build
 
 To better understand the backend-server, please visit the backend server's documentation at [api-server](./api-server/README.md).
 
+## Technologies Used
+
+* Axios
+* Bootstrap
+* DOMPurify
+* Date-FNS
+* Lodash
+* Namespace-Constants
+* Node-UUID
+* Prop-Types
+* React
+* React-Parallax
+* React-Redux
+* React-Router
+* React-Truncate
+* Reactstrap
+* Redux
+* Redux-Axios-Middleware
+* Reselect
+* Webfontloader
+* Webpack
+
+## Image Credits
+
+* [Travel Image](https://unsplash.com/photos/J1gxTXy-p2U)
+* [Technology Image](https://www.pexels.com/photo/action-android-device-electronics-595804/)
+* [Food Image](https://unsplash.com/photos/hTR1XPtTo_k)
+* [Nature Image](https://www.pexels.com/photo/view-of-elephant-in-water-247431/)
+* [Notfound Image](https://www.pexels.com/photo/hacker-screen-193349/)
+* [Home Image](https://www.pexels.com/photo/business-computer-connection-contemporary-450035/)
+
 ## License and Use
 
 Please read [LICENSE](LICENSE)
