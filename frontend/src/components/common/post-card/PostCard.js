@@ -87,10 +87,11 @@ PostCard.propTypes = {
   author      : PropTypes.string.isRequired,
   category    : PropTypes.string.isRequired,
   commentCount: PropTypes.number.isRequired,
-  toggleModal : PropTypes.func.isRequired,
   excerpt     : PropTypes.string,
   id          : PropTypes.string.isRequired,
+  timestamp   : PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   title       : PropTypes.string.isRequired,
+  toggleModal : PropTypes.func.isRequired,
   voteOnPost  : PropTypes.func.isRequired,
   voteScore   : PropTypes.number.isRequired
 };

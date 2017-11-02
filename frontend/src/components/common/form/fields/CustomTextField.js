@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { FormField } from 'react-form';
 import { FormFeedback } from 'reactstrap';
@@ -55,6 +56,22 @@ const CustomTextField = props => {
       ) : null}
     </div>
   );
+};
+
+CustomTextField.propTypes = {
+  fieldApi   : PropTypes.object,
+  onBlur     : PropTypes.func,
+  onChange   : PropTypes.func,
+  onInput    : PropTypes.func,
+  placeholder: PropTypes.string
+};
+
+CustomTextField.defaultProps = {
+  fieldApi   : {},
+  onBlur     : null,
+  onChange   : null,
+  onInput    : null,
+  placeholder: null
 };
 
 export default FormField(CustomTextField);

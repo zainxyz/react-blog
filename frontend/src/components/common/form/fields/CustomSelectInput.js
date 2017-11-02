@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { FormField } from 'react-form';
 import { FormFeedback } from 'reactstrap';
@@ -76,6 +77,22 @@ const CustomSelectInput = props => {
       ) : null}
     </div>
   );
+};
+
+CustomSelectInput.propTypes = {
+  fieldApi   : PropTypes.object,
+  onBlur     : PropTypes.func,
+  onChange   : PropTypes.func,
+  options    : PropTypes.array,
+  placeholder: PropTypes.string
+};
+
+CustomSelectInput.defaultProps = {
+  fieldApi   : {},
+  onBlur     : null,
+  onChange   : null,
+  options    : [],
+  placeholder: null
 };
 
 export default FormField(CustomSelectInput);

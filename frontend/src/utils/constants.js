@@ -81,11 +81,7 @@ export const COMMENT_URL = 'comments';
  */
 export const WEB_FONT_LOADER_CONFIG = {
   google: {
-    families: [
-      'Roboto:100,300,400,500,700',
-      'Raleway:300,400,500,600,700',
-      'Nunito:300,400,600,700'
-    ]
+    families: ['Raleway:300,400,500,600,700', 'Nunito:300,400,600,700']
   }
 };
 

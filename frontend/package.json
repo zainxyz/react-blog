@@ -1,6 +1,6 @@
 {
   "name": "react-blog",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "author": "Zain Abidi",
   "description": "A small react blog built using react js, react router, and redux.",
@@ -60,5 +60,16 @@
     "type": "git",
     "url": "git+https://github.com/zainxyz/react-blog.git"
   },
-  "keywords": ["react", "redux", "router", "blog"]
+  "keywords": [
+    "axios",
+    "blog",
+    "react blog",
+    "react redux",
+    "react router",
+    "react",
+    "redux",
+    "reselect",
+    "router",
+    "web font loader"
+  ]
 }
