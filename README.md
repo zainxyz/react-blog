@@ -38,6 +38,10 @@ Since this app requires a backend-server to be running concurrently with the fro
 $ npm i && npm start
 ````
 
+### If `npm i` fails to install all ...
+
+If the `npm i` command fails to install all required modules, please run `npm run postinstall` to install the deps for api-server and frontend respectively.
+
 `npm start` will fire up the backend-server on `localhost:3001` as well as start the front-end development server on `localhost:3000`. **without the backend server the frontend app won't function**
 
 ## Bundling it up for Production
