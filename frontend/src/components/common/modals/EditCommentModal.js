@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import { EditCommentForm } from 'components/common';
+import { AddEditCommentForm } from 'components/common';
 import { MODAL_NAMES } from 'utils';
 import { actions as modalsActions, selectors as modalSelectors } from 'modules/modals';
 import { actions as commentActions } from 'modules/comments';
@@ -30,7 +30,7 @@ class EditCommentModal extends Component {
       <Modal autoFocus backdrop="static" isOpen={isOpen} toggle={this.toggle} size="lg">
         <ModalHeader toggle={this.toggle}>{`Edit A Comment`}</ModalHeader>
         <ModalBody>
-          <EditCommentForm onCancel={this.toggle} onSubmit={this.editComment} />
+          <AddEditCommentForm onCancel={this.toggle} onSubmit={this.editComment} />
         </ModalBody>
       </Modal>
     );

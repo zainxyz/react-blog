@@ -39,7 +39,7 @@ class NewPostModal extends Component {
     const isOpen = !isEmpty(modal) && modal.isOpen;
 
     return (
-      <div className="new-post-modal-thingy">
+      <div className="new-post-modal">
         <Modal autoFocus backdrop="static" isOpen={isOpen} toggle={this.toggle} size="lg">
           <ModalHeader toggle={this.toggle}>{`Let's Add A New Post`}</ModalHeader>
           <ModalBody>

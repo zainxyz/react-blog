@@ -1,4 +1,3 @@
-import AddCommentForm from './form/AddCommentForm';
 import AddEditPostForm from './form/AddEditPostForm';
 import AppNav from './navigation/AppNav';
 import CategoriesList from './categories-list/CategoriesList';
@@ -7,7 +6,7 @@ import CommentCard from './comment-card/CommentCard';
 import CommentsList from './comments-list/CommentsList';
 import DeleteCommentModal from './modals/DeleteCommentModal';
 import DeletePostModal from './modals/DeletePostModal';
-import EditCommentForm from './form/EditCommentForm';
+import AddEditCommentForm from './form/AddEditCommentForm';
 import EditCommentModal from './modals/EditCommentModal';
 import EditPostModal from './modals/EditPostModal';
 import Loading from './loading/Loading';
@@ -22,7 +21,6 @@ import SortingOptions from './sorting-options/SortingOptions';
 import VoteScore from './vote-score/VoteScore';
 
 export {
-  AddCommentForm,
   AddEditPostForm,
   AppNav,
   CategoriesList,
@@ -31,7 +29,7 @@ export {
   CommentsList,
   DeleteCommentModal,
   DeletePostModal,
-  EditCommentForm,
+  AddEditCommentForm,
   EditCommentModal,
   EditPostModal,
   Loading,

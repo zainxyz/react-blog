@@ -5,7 +5,7 @@ import { Button, Col, Container } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import { APP_ROUTE_NOT_FOUND, MODAL_NAMES, sanitizeMarkup } from 'utils';
-import { CommentsList, AddCommentForm, PostTitle, VoteScore } from 'components/common';
+import { AddEditCommentForm, CommentsList, PostTitle, VoteScore } from 'components/common';
 import { actions as commentsActions, selectors as commentsSelectors } from 'modules/comments';
 import { actions as modalsActions } from 'modules/modals';
 import { actions as postsActions, selectors as postsSelectors } from 'modules/posts';
@@ -103,7 +103,7 @@ class PostDetails extends Component {
         <Container fluid className="post-leave-a-reply">
           <Col>
             <h3 className="display-5 text-center">Leave A Reply</h3>
-            <AddCommentForm onSubmit={this.onAddCommentSubmit} />
+            <AddEditCommentForm onSubmit={this.onAddCommentSubmit} />
           </Col>
         </Container>
       </div>
